@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gorilla/mux"
 	"fmt"
 	"log"
 	"net/http"
@@ -61,6 +62,20 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 	reader(ws)
 }
 
+func manageRoutes() {
+	router := mux.NewRouter()
+	router.HandleFunc("/users/", GetUsers).Methods("GET")
+
+	router.HandleFunc("/user/{userid}", CreateUser).Methods("POST")
+	router.HandleFunc("/user/{userid}", GetUser).Methods("GET")
+	router.HandleFunc("/user/{userid}", UpdateUser).Methods("UPDATE")
+	router.HandleFunc("/user/{userid}", DeleteUser).Methods("DELETE")
+
+
+	fmt.Println("Server at 8080")
+    log.Fatal(http.ListenAndServe(":8000", router))
+}
+
 func setupRoutes() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Simple Server")
@@ -80,8 +95,8 @@ func main() {
 	db := databaseTools.DbConnect()
 	defer db.Close()
 
-	
+	manageRoutes()
 
-	setupRoutes()
+	//setupRoutes()
 	http.ListenAndServe(":8080", nil)
 }

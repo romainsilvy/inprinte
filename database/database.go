@@ -17,7 +17,7 @@ func DbConnect() (db *sql.DB) {
     dbName := "inprinte"
 	color.Green("Connecting database ...")
 
-    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbProtocol+"("+dbIp+":"+dbPort+")"+ dbName)
+    db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@"+dbProtocol+"("+dbIp+":"+dbPort+")/"+ dbName)
     if err != nil {
         panic(err.Error())
     } else {

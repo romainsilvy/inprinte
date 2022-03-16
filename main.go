@@ -1,13 +1,15 @@
 package main
 
 import (
-	"github.com/gorilla/mux"
 	"fmt"
 	"log"
 	"net/http"
 
-	utils "inprinte/backend/utils"
+	"github.com/gorilla/mux"
+
 	CRUD "inprinte/backend/CRUD"
+	utils "inprinte/backend/utils"
+
 	// databaseTools "inprinte/backend/database"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -72,42 +74,27 @@ func setupRoutes() {
 	http.HandleFunc("/ws", serveWs)
 }
 
+// func manageRoutes() {
+// 	router := mux.NewRouter()
 
+// 	router.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
 
+// 	router.HandleFunc("/user/{userid}", CreateUser).Methods("POST")
+// 	router.HandleFunc("/user/{userid}", CRUD.GetUsers).Methods("GET")
+// 	router.HandleFunc("/user/{userid}", UpdateUser).Methods("UPDATE")
+// 	router.HandleFunc("/user/{userid}", DeleteUser).Methods("DELETE")
 
-
-
-
-
-
-
-
-func manageRoutes() {
-	router := mux.NewRouter()
-
-	router.HandleFunc("/users/", CRUD.GetUsers).Methods("GET")
-
-	// router.HandleFunc("/user/{userid}", CreateUser).Methods("POST")
-	// router.HandleFunc("/user/{userid}", CRUD.GetUsers).Methods("GET")
-	// router.HandleFunc("/user/{userid}", UpdateUser).Methods("UPDATE")
-	// router.HandleFunc("/user/{userid}", DeleteUser).Methods("DELETE")
-
-
-	fmt.Println("Server at 8080")
-    log.Fatal(http.ListenAndServe(":8000", router))
-}
-
-func testFunc(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "ZEUB")
-}
+// 	fmt.Println("Server at 8080")
+// 	log.Fatal(http.ListenAndServe(":8000", router))
+// }
 
 func main() {
 	utils.InprinteAscii()
 
 	r := mux.NewRouter()
 
-    r.HandleFunc("/", CRUD.GetUsers)
+	r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
 
-    http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":8080", r)
 
 }

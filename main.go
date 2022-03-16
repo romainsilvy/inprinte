@@ -6,7 +6,9 @@ import (
 	"log"
 	"net/http"
 
-	databaseTools "inprinte/backend/database"
+	utils "inprinte/backend/utils"
+	CRUD "inprinte/backend/CRUD"
+	// databaseTools "inprinte/backend/database"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/websocket"
@@ -62,20 +64,6 @@ func serveWs(w http.ResponseWriter, r *http.Request) {
 	reader(ws)
 }
 
-func manageRoutes() {
-	router := mux.NewRouter()
-	router.HandleFunc("/users/", GetUsers).Methods("GET")
-
-	router.HandleFunc("/user/{userid}", CreateUser).Methods("POST")
-	router.HandleFunc("/user/{userid}", GetUser).Methods("GET")
-	router.HandleFunc("/user/{userid}", UpdateUser).Methods("UPDATE")
-	router.HandleFunc("/user/{userid}", DeleteUser).Methods("DELETE")
-
-
-	fmt.Println("Server at 8080")
-    log.Fatal(http.ListenAndServe(":8000", router))
-}
-
 func setupRoutes() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Simple Server")
@@ -86,17 +74,40 @@ func setupRoutes() {
 
 
 
+
+
+
+
+
+
+
+
+func manageRoutes() {
+	router := mux.NewRouter()
+
+	router.HandleFunc("/users/", CRUD.GetUsers).Methods("GET")
+
+	// router.HandleFunc("/user/{userid}", CreateUser).Methods("POST")
+	// router.HandleFunc("/user/{userid}", CRUD.GetUsers).Methods("GET")
+	// router.HandleFunc("/user/{userid}", UpdateUser).Methods("UPDATE")
+	// router.HandleFunc("/user/{userid}", DeleteUser).Methods("DELETE")
+
+
+	fmt.Println("Server at 8080")
+    log.Fatal(http.ListenAndServe(":8000", router))
+}
+
+func testFunc(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "ZEUB")
+}
+
 func main() {
-	fmt.Println("  ___ _  _ ___ ___ ___ _  _ _____ ___")
-	fmt.Println(" |_ _| \\| | _ \\ _ \\_ _| \\| |_   _| __|")
-	fmt.Println("  | || .` |  _/   /| || .` | | | | _|")
-	fmt.Println(" |___|_|\\_|_| |_|_\\___|_|\\_| |_| |___|\n\n	")
+	utils.InprinteAscii()
 
-	db := databaseTools.DbConnect()
-	defer db.Close()
+	r := mux.NewRouter()
 
-	manageRoutes()
+    r.HandleFunc("/", CRUD.GetUsers)
 
-	//setupRoutes()
-	http.ListenAndServe(":8080", nil)
+    http.ListenAndServe(":8080", r)
+
 }

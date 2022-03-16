@@ -1,3 +1,5 @@
+package models
+
 type User struct {
 	id_user		 string   `json:"id_user"`
 	photo        string   `json:"photo"`

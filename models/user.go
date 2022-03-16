@@ -1,7 +1,7 @@
 package models
 
 type User struct {
-	id_user		string		`json:"id_user"`
+	id_user		int		`json:"id_user"`
 	photo		string		`json:"photo"`
 	email		string		`json:"email"`
 	password	string		`json:"password "`
@@ -12,5 +12,5 @@ type User struct {
 }
 
 type AllUsers struct {
-	allUsers	[]User		`json:"allUsers"`
+	allUsers	[]User	`json:"allUsers"`
 }

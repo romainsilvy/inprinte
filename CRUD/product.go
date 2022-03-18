@@ -17,5 +17,5 @@ func DeletePrCreateProduct() {
 }
 
 func GetAllProducts() {
-
+	
 }

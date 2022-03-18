@@ -1,4 +1,4 @@
-package models
+package structures
 
 type Queue struct {
 	Product_name string `json:"product_name"`

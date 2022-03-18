@@ -1,4 +1,4 @@
-package models
+package structures
 
 type Adress struct {
 	Id_adress int    `json:"id_adress"`

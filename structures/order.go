@@ -1,4 +1,4 @@
-package models
+package structures
 
 type OrderLine struct {
 	Name     string `json:"name"`

@@ -29,6 +29,8 @@ func main() {
 	r := mux.NewRouter()
 
 	r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
+	r.HandleFunc("/accueil", CRUD.GetAccueil).Methods("GET")
+
 
 	http.ListenAndServe(":8080", r)
 

@@ -4,7 +4,6 @@ import (
 	databaseTools "inprinte/backend/database"
 	structures "inprinte/backend/structures"
 	utils "inprinte/backend/utils"
-	"fmt"
 	
 	"encoding/json"
 	"net/http"
@@ -13,7 +12,6 @@ import (
 )
 
 func GetAccueil(w http.ResponseWriter, r *http.Request) { 
-	fmt.Println("Getting users ...")
 	db := databaseTools.DbConnect()
 
 	//get accueil infos\\

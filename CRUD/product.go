@@ -23,6 +23,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 
 	// check errors
 	utils.CheckErr(err)
+
 	// var response []JsonResponse
 	var products []structures.Product
 

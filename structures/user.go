@@ -11,6 +11,8 @@ type User struct {
 	Adress    Adress `json:"adress"`
 }
 
-type AllUsers struct {
-	AllUsers []User `json:"allUsers"`
+type JsonResponseUsers struct {
+	Type    string `json:"type"`
+	Data    []User `json:"data"`
+	Message string `json:"message"`
 }

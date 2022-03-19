@@ -9,20 +9,23 @@ import (
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
+	"github.com/gorilla/mux"
 )
 
 func GetProducts(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Getting products ...")
 	db := databaseTools.DbConnect()
+	fmt.Println("Getting products ...")
+	vars := mux.Vars(r)
+	id_product := vars["id_product"]
 
 	//Get products infos
-	rows, err := db.Query("SELECT name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id_product FROM product INNER JOIN rate ON rate.id_product = product.id_product INNER JOIN product_picture ON product_picture.id_picture = product.id_product INNER JOIN picture ON picture.id_picture = product_picture.id_picture INNER JOIN product_file ON product_file.id_product = product.id_product GROUP BY product.id_product;")
+	rows, err := db.Query("SELECT name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id_product FROM product INNER JOIN rate ON rate.id_product = product.id_product INNER JOIN product_picture ON product_picture.id_picture = product.id_product INNER JOIN picture ON picture.id_picture = product_picture.id_picture INNER JOIN product_file ON product_file.id_product = product.id_product WHERE product.id_product = " + id_product + " GROUP BY product.id_product;")
 
 	// check errors
 	utils.CheckErr(err)
 	// var response []JsonResponse
 	var products []structures.Product
-	//test
+
 	// Foreach product
 	for rows.Next() {
 		var name string
@@ -53,5 +56,9 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 		Data: products,
 	}
 
-	json.NewEncoder(w).Encode(response)
+	if response.Data == nil {
+		w.WriteHeader(404)
+	} else {
+		json.NewEncoder(w).Encode(response)
+	}
 }

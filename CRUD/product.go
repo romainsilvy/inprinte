@@ -20,10 +20,11 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 
 	// check errors
 	utils.CheckErr(err)
-
+	test := "tezst"
+	fmt.Println(test)
 	// var response []JsonResponse
 	var products []structures.Product
-
+	//test
 	// Foreach product
 	for rows.Next() {
 		var name string

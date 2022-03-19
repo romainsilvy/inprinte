@@ -4,6 +4,7 @@ import (
 	databaseTools "inprinte/backend/database"
 	structures "inprinte/backend/structures"
 	utils "inprinte/backend/utils"
+	"log"
 
 	"encoding/json"
 	"net/http"
@@ -12,6 +13,15 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+	//manage keys values here
+	keys, ok := r.URL.Query()["key"]
+	if !ok || len(keys[0]) < 1 {
+		log.Println("Url Param 'key' is missing")
+		return
+	}
+	key := keys[0]
+	log.Println("Url Param 'key' is: " + string(key))
+
 	db := databaseTools.DbConnect()
 
 	//all sql queries for this path

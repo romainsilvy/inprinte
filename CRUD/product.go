@@ -17,9 +17,8 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Getting products ...")
 	vars := mux.Vars(r)
 	id := vars["id"]
-
 	//Get products infos
-	rows, err := db.Query("SELECT name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = " + id + " GROUP BY product.id;")
+	rows, err := db.Query("SELECT product.id, name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = " + id + " GROUP BY product.id;")
 
 	// check errors
 	utils.CheckErr(err)
@@ -29,6 +28,7 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 
 	// Foreach product
 	for rows.Next() {
+		var id_product int
 		var name string
 		var description string
 		var price int
@@ -36,13 +36,15 @@ func GetProducts(w http.ResponseWriter, r *http.Request) {
 		var picture_url string
 		var product_file string
 
+
 		//var picture string
-		err = rows.Scan(&name, &description, &price, &stars_number, &picture_url, &product_file)
+		err = rows.Scan(&id_product, &name, &description, &price, &stars_number, &picture_url, &product_file)
 
 		// check errors
 		utils.CheckErr(err)
 
 		products = append(products, structures.Product{
+			Id_product:		id_product,
 			Name:         name,
 			Description:  description,
 			Price:        price,

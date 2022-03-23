@@ -1,7 +1,7 @@
 package main
 
 import (
-	CRUD "inprinte/backend/CRUD"
+	CRUD "inprinte/backend/CRUD/get"
 	utils "inprinte/backend/utils"
 	"net/http"
 
@@ -34,7 +34,7 @@ func main() {
 	r.HandleFunc("/boutique", CRUD.GetBoutique).Methods("GET")
 
 	// Product Path
-	r.HandleFunc("/produit/{id}", CRUD.GetProducts).Methods("GET")
+	r.HandleFunc("/produit/{id}", CRUD.GetOneProduct).Methods("GET")
 
 	http.ListenAndServe(":8080", r)
 

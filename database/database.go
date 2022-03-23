@@ -2,7 +2,6 @@ package databaseTools
 
 import (
 	"database/sql"
-	"inprinte/backend/utils"
 
 	"github.com/fatih/color"
 
@@ -26,13 +25,4 @@ func DbConnect() (db *sql.DB) {
 		color.Cyan("Database connected !\n")
 	}
 	return db
-}
-
-func GetRequest(db *sql.DB, sqlRequest string) *sql.Rows {
-	rows, err := db.Query(sqlRequest)
-
-	// check errors
-	utils.CheckErr(err)
-	// defer rows.Close()
-	return rows
 }

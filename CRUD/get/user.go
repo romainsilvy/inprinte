@@ -1,16 +1,13 @@
 package CRUD
 
 import (
-	databaseTools "inprinte/backend/database"
-	structures "inprinte/backend/structures"
-	utils "inprinte/backend/utils"
-	"log"
-	"strings"
-
 	"encoding/json"
+	databaseTools "inprinte/backend/database"
+	"inprinte/backend/structures"
+	"inprinte/backend/utils"
+	"log"
 	"net/http"
-
-	_ "github.com/go-sql-driver/mysql"
+	"strings"
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
@@ -54,9 +51,11 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	var email, password, firstname, lastname, phone string
 	var allUsers []structures.User
 
-	rows := databaseTools.GetRequest(db, sqlQuery)
+	rows, err := db.Query(sqlQuery)
+	utils.CheckErr(err)
+
 	for rows.Next() {
-		err := rows.Scan(&id_user, &email, &password, &firstname, &lastname, &phone)
+		err = rows.Scan(&id_user, &email, &password, &firstname, &lastname, &phone)
 
 		// check errors
 		utils.CheckErr(err)

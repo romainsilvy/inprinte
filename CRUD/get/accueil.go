@@ -1,14 +1,11 @@
 package CRUD
 
 import (
-	databaseTools "inprinte/backend/database"
-	structures "inprinte/backend/structures"
-	utils "inprinte/backend/utils"
-
 	"encoding/json"
+	databaseTools "inprinte/backend/database"
+	"inprinte/backend/structures"
+	"inprinte/backend/utils"
 	"net/http"
-
-	_ "github.com/go-sql-driver/mysql"
 )
 
 func GetAccueil(w http.ResponseWriter, r *http.Request) {

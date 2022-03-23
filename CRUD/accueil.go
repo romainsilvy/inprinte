@@ -4,14 +4,14 @@ import (
 	databaseTools "inprinte/backend/database"
 	structures "inprinte/backend/structures"
 	utils "inprinte/backend/utils"
-	
+
 	"encoding/json"
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
 )
 
-func GetAccueil(w http.ResponseWriter, r *http.Request) { 
+func GetAccueil(w http.ResponseWriter, r *http.Request) {
 	db := databaseTools.DbConnect()
 
 	//get accueil infos\\
@@ -36,17 +36,16 @@ func GetAccueil(w http.ResponseWriter, r *http.Request) {
 		utils.CheckErr(err)
 
 		accueil = append(accueil, structures.Accueil{
-			Name: name,
-			Price: price,
+			Name:        name,
+			Price:       price,
 			Description: description,
 		})
 	}
 
 	var response = structures.JsonResponseAccueil{
-		Type: "success", 
+		Type: "success",
 		Data: accueil,
 	}
 
-    json.NewEncoder(w).Encode(response)
+	json.NewEncoder(w).Encode(response)
 }
-

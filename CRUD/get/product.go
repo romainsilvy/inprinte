@@ -28,13 +28,9 @@ func GetOneProduct(w http.ResponseWriter, r *http.Request) {
 
 	// Foreach product
 	for rows.Next() {
-		var id_product int
-		var name string
-		var description string
-		var price int
+		var id_product, price int
 		var stars_number float64
-		var picture_url string
-		var product_file string
+		var name, description, picture_url, product_file string
 
 		//var picture string
 		err = rows.Scan(&id_product, &name, &description, &price, &stars_number, &picture_url, &product_file)

@@ -28,17 +28,7 @@ func GetUserData(w http.ResponseWriter, r *http.Request) {
 	var users []structures.User
 
 	for rows.Next() {
-		var firstname string
-		var lastname string
-		var email string
-		var password string
-		var phone string
-		var street string
-		var city string
-		var state string
-		var country string
-		var zip_code string
-
+		var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
 		err = rows.Scan(&firstname, &lastname, &email, &password, &phone, &street, &city, &state, &country, &zip_code)
 
 		utils.CheckErr(err)

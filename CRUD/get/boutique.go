@@ -11,9 +11,10 @@ func GetBoutique(w http.ResponseWriter, r *http.Request) {
 	db := databaseTools.DbConnect()
 
 	//all sql queries for this path
-	newProductsQuery := "SELECT name, price, description FROM product ORDER BY id_product DESC LIMIT 3;"
-	mostWantedProductQuery := "SELECT COUNT(command_line.id_product) AS nbrOrder, name, price, description FROM product INNER JOIN command_line ON product.id_product = command_line.id_product GROUP BY command_line.id_product ORDER BY nbrOrder DESC LIMIT 3"
-	allProductsQuery := " SELECT name, price, description FROM product;"
+	newProductsQuery := "SELECT product.id, name, price, description, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE picture.default = true AND product.pending_validation = false AND product.is_alive = true ORDER BY product.id DESC LIMIT 3;"
+	mostWantedProductQuery := "SELECT product.id, COUNT(command_line.id) AS nbrOrder, name, price, description, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE picture.default = true AND product.is_alive = true AND product.pending_validation = false GROUP BY command_line.id ORDER BY nbrOrder DESC LIMIT 3"
+	allProductsQuery := " SELECT product.id, name, price, description, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE picture.default = true AND product.pending_validation = false AND product.is_alive = true ;"
+	categoriesQuery := "SELECT name FROM `category`"
 
 	//----- for the new products -----\\
 	newProducts := getNewProducts(db, newProductsQuery)
@@ -24,7 +25,7 @@ func GetBoutique(w http.ResponseWriter, r *http.Request) {
 	//----- for all the products -----\\
 	allProducts := getAllProducts(db, allProductsQuery)
 
-	// categories := getAllCategories(db)
+	categories := getCategories(db, categoriesQuery)
 
 	//----- encode the json response -----\\
 	var response = structures.JsonResponseBoutique{
@@ -32,7 +33,7 @@ func GetBoutique(w http.ResponseWriter, r *http.Request) {
 		BoutiqueNews:       newProducts,
 		BoutiqueMostWanted: mostWantedProducts,
 		AllProducts:        allProducts,
-		// Categories:         categories,
+		Categories:         categories,
 	}
 	json.NewEncoder(w).Encode(response)
 }

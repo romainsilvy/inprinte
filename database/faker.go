@@ -29,8 +29,11 @@ func Faker() {
 		CRUD.InsertIntoUser(db, gofakeit.FirstName(), gofakeit.LastName(), gofakeit.Email(), gofakeit.Word(), gofakeit.Phone(), gofakeit.Bool(), utils.Random(1, 100), utils.Random(1, 3))
 	}
 
+	CRUD.InsertIntoPicture(db, gofakeit.ImageURL(400, 400), false, true)
+
 	for i := 0; i < 100; i++ {
-		CRUD.InsertIntoPicture(db, gofakeit.ImageURL(400, 400))
+		CRUD.InsertIntoPicture(db, gofakeit.ImageURL(400, 400), true, false)
+		CRUD.InsertIntoPicture(db, gofakeit.ImageURL(400, 400), false, false)
 	}
 
 	for i := 0; i < 100; i++ {
@@ -38,9 +41,10 @@ func Faker() {
 
 	}
 
-	for i := 0; i < 100; i++ {
+	for i := 2; i < 200; i += 2 {
 		CRUD.InsertIntoRate(db, utils.Random(1, 100), utils.Random(1, 100), utils.Random(1, 5))
-		CRUD.InsertIntoProductPicture(db, utils.Random(1, 100), utils.Random(1, 100))
+		CRUD.InsertIntoProductPicture(db, i/2, i)
+		CRUD.InsertIntoProductPicture(db, i/2, i+1)
 		CRUD.InsertIntoProductFile(db, utils.Random(1, 100), "url du modèle 3D")
 	}
 

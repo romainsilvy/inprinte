@@ -3,6 +3,7 @@ package CRUD
 import (
 	"encoding/json"
 	"fmt"
+	"database/sql"
 	databaseTools "inprinte/backend/database"
 	structures "inprinte/backend/structures"
 	"inprinte/backend/utils"
@@ -13,23 +14,27 @@ import (
 	"github.com/gorilla/mux"
 )
 
-// func GetUser(w http.ResponseWriter, r *http.Request) {
-// 	db := databaseTools.DbConnect()
+func GetUser(w http.ResponseWriter, r *http.Request) {
 
-// 	userData := getUserData(db, userDataQuery)
+	db := databaseTools.DbConnect()
 
-// 	userFavorite := getUserFavorite(db, userFavoriteProductQuery)
 
-// 	userOldCommand := getUserOldCommand(db, userOldCommandQuery)
+	userFavoriteProductQuery := ("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
 
-// 	var response = structures.JsonResponseUsers{
-// 		Type:       "success",
-// 		UserData:   userData,
-// 		Favorite:   userFavorite,
-// 		OldCommand: userOldCommand,
-// 	}
-// 	json.NewEncoder(w).Encode(response)
-// }
+	userData := getUserData(db, userDataQuery)
+
+	userFavorite := getUserFavorite(db, userFavoriteProductQuery)
+
+	userOldCommand := getUserOldCommand(db, userOldCommandQuery)
+
+	var response = structures.JsonResponseUsers{
+		Type:       "success",
+		UserData:   userData,
+		Favorite:   userFavorite,
+		OldCommand: userOldCommand,
+	}
+	json.NewEncoder(w).Encode(response)
+}
 
 func GetUserData(w http.ResponseWriter, r *http.Request) {
 	db := databaseTools.DbConnect()
@@ -64,10 +69,11 @@ func GetUserData(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	var favorite := getUserFavorite()
+	favorite := GetUserFavorite(db, r, sqlQuery)
 	var response = structures.JsonResponseUsers{
 		Type:     "success",
 		UserData: users,
+		Favorite: favorite,
 	}
 
 	if response.UserData == nil {
@@ -77,16 +83,16 @@ func GetUserData(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func GetUserFavorite(w http.ResponseWriter, r *http.Request) {
-	db := databaseTools.DbConnect()
+func GetUserFavorite(db *sql.DB, r *http.Request, sqlQuery string) []structures.UserProductData{
+	// get argument 
 	vars := mux.Vars(r)
 	id_user := vars["id_user"]
-
-	rows, err := db.Query("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
+	var userFavoriteProduct []structures.UserProductData
+	// check if error
+	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
-	var userFavoriteProduct []structures.UserProductData
-
+	// scan all data
 	for rows.Next() {
 		var picture, name, price string
 		var id_user, id_product int
@@ -94,16 +100,12 @@ func GetUserFavorite(w http.ResponseWriter, r *http.Request) {
 
 		utils.CheckErr(err)
 
+		// add info on json
 		userFavoriteProduct = append(userFavoriteProduct, structures.UserProductData{
 			Picture: picture,
 			Name:    name,
 			Price:   price,
 		})
-	}
-
-	var response = structures.JsonResponseUsers{
-		Type:     "success",
-		Favorite: userFavoriteProduct,
 	}
 
 	return userFavoriteProduct

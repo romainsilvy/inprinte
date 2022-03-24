@@ -17,6 +17,7 @@ func GetOneProduct(w http.ResponseWriter, r *http.Request) {
 	fmt.Println("Getting products ...")
 	vars := mux.Vars(r)
 	id := vars["id_product"]
+
 	//Get products infos
 	rows, err := db.Query(`SELECT product.id, name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true GROUP BY product.id;`, id)
 

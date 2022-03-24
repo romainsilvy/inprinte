@@ -42,7 +42,7 @@ func main() {
 	r.HandleFunc("/user/{id_user}", CRUDinsert.GetUserData).Methods("GET")
 
 	//delete paths
-	r.HandleFunc("/deletefavorite/{id_product}", CRUDdelete.DeleteFavorite).Methods("DELETE")
+	r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
 
 	http.ListenAndServe(":8080", r)
 

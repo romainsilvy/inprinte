@@ -3,19 +3,26 @@ package CRUD
 import (
 	databaseTools "inprinte/backend/database"
 	"inprinte/backend/utils"
+	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
 func DeleteFavorite(w http.ResponseWriter, r *http.Request) {
-	params := mux.Vars(r)
+	id_user, ok := r.URL.Query()["id_user"]
+	if !ok || len(id_user[0]) < 1 {
+		log.Println("Url Param 'id_user' is missing")
+		return
+	}
 
-	id_product := params["id_product"]
+	id_product, ok := r.URL.Query()["id_product"]
+	if !ok || len(id_product[0]) < 1 {
+		log.Println("Url Param 'id_product' is missing")
+		return
+	}
+
 	db := databaseTools.DbConnect()
-	id_user := "L'ID USER DU COOKIE QUI FAIT LA REQUEST"
 
-	_, err := db.Exec("DELETE FROM favorite WHERE favorite.id_product = $1 AND favorite.id_user = $2", id_product, id_user)
+	_, err := db.Exec(`DELETE FROM favorite WHERE favorite.id_product = ? AND favorite.id_user = ?`, id_product[0], id_user[0])
 
 	utils.CheckErr(err)
 }

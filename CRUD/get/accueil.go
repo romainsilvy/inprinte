@@ -12,8 +12,8 @@ func GetAccueil(w http.ResponseWriter, r *http.Request) {
 	db := databaseTools.DbConnect()
 
 	//get accueil infos\\
-	//photo, nom, prix, description
-	rows, err := db.Query("SELECT name, price, description FROM product LIMIT 3")
+	//photo, nom, prix, descriptions
+	rows, err := db.Query("SELECT COUNT(command_line.id) AS nbrOrder, product.id, name, price, description, picture.url FROM product INNER JOIN command_line ON product.id = command_line.id_product INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id WHERE pending_validation = false AND product.is_alive = true GROUP BY command_line.id_product ORDER BY nbrOrder DESC LIMIT 3")
 
 	// check errors
 	utils.CheckErr(err)
@@ -23,11 +23,10 @@ func GetAccueil(w http.ResponseWriter, r *http.Request) {
 
 	// Foreach product
 	for rows.Next() {
-		var name string
-		var price string
-		var description string
+		var name, description, picture string
+		var nbrOrder, id, price int
 		//var picture string
-		err = rows.Scan(&name, &price, &description)
+		err = rows.Scan(&nbrOrder, &id, &name, &price, &description, &picture)
 
 		// check errors
 		utils.CheckErr(err)
@@ -36,6 +35,8 @@ func GetAccueil(w http.ResponseWriter, r *http.Request) {
 			Name:        name,
 			Price:       price,
 			Description: description,
+			Picture:     picture,
+			Id_product:  id,
 		})
 	}
 

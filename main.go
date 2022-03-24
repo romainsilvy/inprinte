@@ -25,11 +25,10 @@ func main() {
 	r.HandleFunc("/", CRUDget.GetAccueil).Methods("GET")
 	r.HandleFunc("/boutique", CRUDget.GetBoutique).Methods("GET")
 	r.HandleFunc("/produit/{id_product}", CRUDget.GetOneProduct).Methods("GET")
-	r.HandleFunc("/user/{id_user}", CRUDget.GetUserData).Methods("GET")
+	r.HandleFunc("/user/{id_user}", CRUDget.GetUser).Methods("GET")
 	r.HandleFunc("/boutique/{category}", CRUDget.GetBoutiqueByCategory).Methods("GET")
 
 	// DELETE paths
-	r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
 	r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
 
 	// POST paths

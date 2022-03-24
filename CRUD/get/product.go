@@ -39,7 +39,7 @@ func GetOneProduct(w http.ResponseWriter, r *http.Request) {
 		utils.CheckErr(err)
 
 		products = append(products, structures.Product{
-			Id_product:		id_product,
+			Id_product:   id_product,
 			Name:         name,
 			Description:  description,
 			Price:        price,
@@ -62,67 +62,75 @@ func GetOneProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 func getNewProducts(db *sql.DB, sqlQuery string) []structures.BoutiqueProduct {
-	var name, price, description string
+	var id_product int
+	var name, price, description, picture string
 	var newProducts []structures.BoutiqueProduct
 
 	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
 	for rows.Next() {
-		err = rows.Scan(&name, &price, &description)
+		err = rows.Scan(&id_product, &name, &price, &description, &picture)
 
 		// check errors
 		utils.CheckErr(err)
 
 		newProducts = append(newProducts, structures.BoutiqueProduct{
+			Id_product:  id_product,
 			Name:        name,
 			Price:       price,
 			Description: description,
+			Picture:     picture,
 		})
 	}
 	return newProducts
 }
 
 func getMostWantedProducts(db *sql.DB, sqlQuery string) []structures.BoutiqueProduct {
-	var name, price, description string
-	var nbrOrder int
+	var name, price, description, picture string
+	var nbrOrder, id_product int
 	var mostWantedProducts []structures.BoutiqueProduct
 
 	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
 	for rows.Next() {
-		err = rows.Scan(&nbrOrder, &name, &price, &description)
+		err = rows.Scan(&id_product, &nbrOrder, &name, &price, &description, &picture)
 
 		// check errors
 		utils.CheckErr(err)
 
 		mostWantedProducts = append(mostWantedProducts, structures.BoutiqueProduct{
+			Id_product:  id_product,
 			Name:        name,
 			Price:       price,
 			Description: description,
+			Picture:     picture,
 		})
 	}
 	return mostWantedProducts
 }
 
 func getAllProducts(db *sql.DB, sqlQuery string) []structures.BoutiqueProduct {
-	var name, price, description string
+	var id_product int
+	var name, price, description, picture string
 	var allProducts []structures.BoutiqueProduct
 
 	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
 	for rows.Next() {
-		err = rows.Scan(&name, &price, &description)
+		err = rows.Scan(&id_product, &name, &price, &description, &picture)
 
 		// check errors
 		utils.CheckErr(err)
 
 		allProducts = append(allProducts, structures.BoutiqueProduct{
+			Id_product:  id_product,
 			Name:        name,
 			Price:       price,
 			Description: description,
+			Picture:     picture,
 		})
 	}
 	return allProducts

@@ -30,7 +30,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// backoffice paths
-	r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
+	// r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
 
 	// normal paths
 	r.HandleFunc("/", CRUD.GetAccueil).Methods("GET")

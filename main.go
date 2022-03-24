@@ -35,7 +35,7 @@ func main() {
 
 	// normal paths
 	r.HandleFunc("/", CRUD.GetAccueil).Methods("GET")
-	r.HandleFunc("/boutique", CRUD.GetBoutique).Methods("GET")
+	r.HandleFunc("/boutique/{category}", CRUD.GetBoutiqueByCategory).Methods("GET")
 	r.HandleFunc("/produit/{id}", CRUD.GetOneProduct).Methods("GET")
 	r.HandleFunc("/user/{id_user}", CRUD.GetUserData).Methods("GET")
 

@@ -4,7 +4,7 @@ type BoutiqueProduct struct {
 	Name        string `json:"Name"`
 	Price       string `json:"Price"`
 	Description string `json:"Description"`
-	//Picture    	string `json:"Picture"`
+	Picture     string `json:"Picture"`
 }
 
 type BoutiqueCategories struct {

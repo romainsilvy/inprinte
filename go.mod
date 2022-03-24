@@ -3,6 +3,7 @@ module inprinte/backend
 go 1.17
 
 require (
+	github.com/brianvoe/gofakeit/v6 v6.15.0 // indirect
 	github.com/fatih/color v1.13.0 // indirect
 	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.0 // indirect

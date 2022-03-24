@@ -1,5 +1,0 @@
-package CRUD
-
-func GetQueue() {
-
-}

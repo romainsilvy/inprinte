@@ -1,7 +1,7 @@
 package main
 
 import (
-	CRUD "inprinte/backend/CRUD"
+	CRUD "inprinte/backend/CRUD/get"
 	utils "inprinte/backend/utils"
 	"net/http"
 
@@ -24,17 +24,19 @@ import (
 }*/
 
 func main() {
+	//databaseTools.Faker()
 	utils.InprinteAscii()
 
 	r := mux.NewRouter()
 
-	r.HandleFunc("/", CRUD.GetAccueil).Methods("GET")
+	// backoffice paths
 	r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
+
+	// normal paths
+	r.HandleFunc("/", CRUD.GetAccueil).Methods("GET")
 	r.HandleFunc("/boutique", CRUD.GetBoutique).Methods("GET")
-
-
-	// Product Path
-	r.HandleFunc("/produit/{id_product}", CRUD.GetProducts).Methods("GET")
+	r.HandleFunc("/produit/{id}", CRUD.GetOneProduct).Methods("GET")
+	r.HandleFunc("/user/{id_user}", CRUD.GetUserData).Methods("GET")
 
 	http.ListenAndServe(":8080", r)
 

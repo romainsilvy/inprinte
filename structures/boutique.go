@@ -9,10 +9,8 @@ type BoutiqueProduct struct {
 }
 
 type JsonResponseBoutique struct {
-	Type               string            `json:"type"`
 	BoutiqueNews       []BoutiqueProduct `json:"BoutiqueNews"`
 	BoutiqueMostWanted []BoutiqueProduct `json:"BoutiqueMostWanted"`
 	AllProducts        []BoutiqueProduct `json:"AllProducts"`
 	Categories         []string          `json:"Categories"`
-	Message            string            `json:"message"`
 }

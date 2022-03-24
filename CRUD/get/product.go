@@ -18,7 +18,7 @@ func GetOneProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id_product"]
 	//Get products infos
-	rows, err := db.Query("SELECT product.id, name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = " + id + " AND pending_validation = false AND product.is_alive = true GROUP BY product.id;")
+	rows, err := db.Query(`SELECT product.id, name, description, price, AVG(stars_number) AS MOYENNE, picture.url, product_file.id FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true GROUP BY product.id;`, id)
 
 	// check errors
 	utils.CheckErr(err)
@@ -49,16 +49,8 @@ func GetOneProduct(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	var response = structures.JsonResponseProduct{
-		Type: "success",
-		Data: products,
-	}
-
-	if response.Data == nil {
-		w.WriteHeader(404)
-	} else {
-		json.NewEncoder(w).Encode(response)
-	}
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(products)
 }
 
 func getNewProducts(db *sql.DB, sqlQuery string) []structures.BoutiqueProduct {

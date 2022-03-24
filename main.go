@@ -1,11 +1,9 @@
 package main
 
 import (
-
 	CRUDdelete "inprinte/backend/CRUD/delete"
 	CRUDget "inprinte/backend/CRUD/get"
 	CRUDinsert "inprinte/backend/CRUD/insert"
-
 
 	utils "inprinte/backend/utils"
 
@@ -42,10 +40,10 @@ func main() {
 	// normal paths
 	r.HandleFunc("/", CRUDget.GetAccueil).Methods("GET")
 	r.HandleFunc("/boutique", CRUDget.GetBoutique).Methods("GET")
-	r.HandleFunc("/produit/{id}", CRUDget.GetOneProduct).Methods("GET")
+	r.HandleFunc("/produit/{id_product}", CRUDget.GetOneProduct).Methods("GET")
 	r.HandleFunc("/user/{id_user}", CRUDget.GetUserData).Methods("GET")
 
-  r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
+	r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
 	r.HandleFunc("/insert/favorite", CRUDinsert.InsertIntoFavorite).Methods("post")
 
 	http.ListenAndServe(":8080", r)

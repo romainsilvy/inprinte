@@ -40,10 +40,6 @@ func GetAccueil(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
-	var response = structures.JsonResponseAccueil{
-		Type: "success",
-		Data: accueil,
-	}
-
-	json.NewEncoder(w).Encode(response)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(accueil)
 }

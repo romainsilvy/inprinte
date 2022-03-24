@@ -9,7 +9,5 @@ type User struct {
 	Address   Address `json:"address"`
 }
 type JsonResponseUsers struct {
-	Type    string     `json:"type"`
-	Data    []User 	   `json:"data"`
-	Message string     `json:"message"`
+	Data []User `json:"data"`
 }

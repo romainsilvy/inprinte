@@ -9,7 +9,5 @@ type Accueil struct {
 }
 
 type JsonResponseAccueil struct {
-	Type    string    `json:"type"`
-	Data    []Accueil `json:"data"`
-	Message string    `json:"message"`
+	Data []Accueil `json:"data"`
 }

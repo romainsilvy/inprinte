@@ -39,6 +39,8 @@ func main() {
 	r.HandleFunc("/produit/{id}", CRUD.GetOneProduct).Methods("GET")
 	r.HandleFunc("/user/{id_user}", CRUD.GetUserData).Methods("GET")
 
+	r.HandleFunc("/insert/favorite", CRUD.GetBoutique).Methods("post")
+
 	http.ListenAndServe(":8080", r)
 
 }

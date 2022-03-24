@@ -49,7 +49,7 @@ func Faker() {
 	}
 
 	for i := 0; i < 100; i++ {
-		CRUD.InsertIntoFavorite(db, utils.Random(1, 100), utils.Random(1, 100))
+		CRUD.InsertIntoFavoriteRequest(db, utils.Random(1, 100), utils.Random(1, 100))
 		CRUD.InsertIntoCommand(db, utils.Random(1, 100), strconv.Itoa(utils.Random(11111111, 99999999)), stateCommand[utils.Random(1, len(stateCommand))])
 	}
 

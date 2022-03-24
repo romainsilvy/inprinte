@@ -9,16 +9,22 @@ type UserData struct {
 	Address   Address `json:"Address"`
 }
 
-type UserProductData struct {
+type UserFavoriteProduct struct {
 	Picture string `json:"Picture"`
 	Name    string `json:"Name"`
 	Price   string `json:"Price"`
 }
 
+type UserOldCommand struct {
+	Picture  string `json:"Picture"`
+	Name     string `json:"Name"`
+	Price    string `json:"Price"`
+	Quantity int    `json:"Quantity"`
+}
 type JsonResponseUsers struct {
-	Type       string            `json:"type"`
-	UserData   []UserData        `json:"UserData"`
-	Favorite   []UserProductData `json:"Favorite"`
-	OldCommand []UserProductData `json:"Oldcommand"`
-	Message    string            `json:"message"`
+	Type            string                `json:"type"`
+	UserData        []UserData            `json:"UserData"`
+	FavoriteProduct []UserFavoriteProduct `json:"FavoriteProduct"`
+	OldCommand      []UserOldCommand      `json:"UserOldCommand"`
+	Message         string                `json:"message"`
 }

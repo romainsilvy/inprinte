@@ -1,49 +1,53 @@
 package CRUD
 
 import (
+	"database/sql"
 	"encoding/json"
-	"fmt"
 	databaseTools "inprinte/backend/database"
 	structures "inprinte/backend/structures"
 	"inprinte/backend/utils"
-
 	"net/http"
 
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
 )
 
-// func GetUser(w http.ResponseWriter, r *http.Request) {
-// 	db := databaseTools.DbConnect()
-
-// 	userData := getUserData(db, userDataQuery)
-
-// 	userFavorite := getUserFavorite(db, userFavoriteProductQuery)
-
-// 	userOldCommand := getUserOldCommand(db, userOldCommandQuery)
-
-// 	var response = structures.JsonResponseUsers{
-// 		Type:       "success",
-// 		UserData:   userData,
-// 		Favorite:   userFavorite,
-// 		OldCommand: userOldCommand,
-// 	}
-// 	json.NewEncoder(w).Encode(response)
-// }
-
-func GetUserData(w http.ResponseWriter, r *http.Request) {
+func GetUser(w http.ResponseWriter, r *http.Request) {
 	db := databaseTools.DbConnect()
-	fmt.Println("Getting products ...")
 	vars := mux.Vars(r)
 	id_user := vars["id_user"]
 
-	rows, err := db.Query("SELECT  first_name, last_name, email, password, phone, street, city, state, country, zip_code FROM user INNER JOIN address ON user.id = address.id WHERE user.id = " + id_user + " ; ")
-	utils.CheckErr(err)
+	// all request SQL for path user \\
+	userDataQuery := ("SELECT  first_name, last_name, email, password, phone, street, city, state, country, zip_code FROM user INNER JOIN address ON user.id = address.id WHERE user.id = " + id_user + ";")
+	userFavoriteProductQuery := ("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
+	userOldCommandQuery := ("SELECT user.id AS id_user, name, price, picture.url, quantity FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN picture ON command_line.id = picture.id WHERE user.id = " + id_user + ";")
 
+	// data of user \\
+	userData := GetUserData(db, userDataQuery)
+
+	// favorite product for user \\
+	userFavorite := GetUserFavorite(db, userFavoriteProductQuery)
+
+	// old command for user \\
+	userOldCommand := GetUserOldCommand(db, userOldCommandQuery)
+
+	//----- encode the json response -----\\
+	var response = structures.JsonResponseUsers{
+		Type:            "success",
+		UserData:        userData,
+		FavoriteProduct: userFavorite,
+		OldCommand:      userOldCommand,
+	}
+	json.NewEncoder(w).Encode(response)
+}
+
+func GetUserData(db *sql.DB, sqlQuery string) []structures.UserData {
+	var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
 	var users []structures.UserData
 
+	rows, err := db.Query(sqlQuery)
+	utils.CheckErr(err)
+
 	for rows.Next() {
-		var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
 		err = rows.Scan(&firstname, &lastname, &email, &password, &phone, &street, &city, &state, &country, &zip_code)
 
 		utils.CheckErr(err)
@@ -63,29 +67,14 @@ func GetUserData(w http.ResponseWriter, r *http.Request) {
 			},
 		})
 	}
-
-	var favorite := getUserFavorite()
-	var response = structures.JsonResponseUsers{
-		Type:     "success",
-		UserData: users,
-	}
-
-	if response.UserData == nil {
-		w.WriteHeader(404)
-	} else {
-		json.NewEncoder(w).Encode(response)
-	}
+	return users
 }
 
-func GetUserFavorite(w http.ResponseWriter, r *http.Request) {
-	db := databaseTools.DbConnect()
-	vars := mux.Vars(r)
-	id_user := vars["id_user"]
+func GetUserFavorite(db *sql.DB, sqlQuery string) []structures.UserFavoriteProduct {
+	var userFavoriteProduct []structures.UserFavoriteProduct
 
-	rows, err := db.Query("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
+	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
-
-	var userFavoriteProduct []structures.UserProductData
 
 	for rows.Next() {
 		var picture, name, price string
@@ -94,53 +83,34 @@ func GetUserFavorite(w http.ResponseWriter, r *http.Request) {
 
 		utils.CheckErr(err)
 
-		userFavoriteProduct = append(userFavoriteProduct, structures.UserProductData{
+		userFavoriteProduct = append(userFavoriteProduct, structures.UserFavoriteProduct{
 			Picture: picture,
 			Name:    name,
 			Price:   price,
 		})
 	}
-
-	var response = structures.JsonResponseUsers{
-		Type:     "success",
-		Favorite: userFavoriteProduct,
-	}
-
 	return userFavoriteProduct
 }
 
-func GetUserOldCommand(w http.ResponseWriter, r *http.Request) {
-	db := databaseTools.DbConnect()
-	vars := mux.Vars(r)
-	id_user := vars["id_user"]
+func GetUserOldCommand(db *sql.DB, sqlQuery string) []structures.UserOldCommand {
+	var userOldCommand []structures.UserOldCommand
+	var picture, name, price string
+	var id_user, quantity int
 
-	rows, err := db.Query("SELECT url, name, price FROM product INNER JOIN picture ON product.id = picture.id WHERE user.id = " + id_user + " ; ")
+	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
-	var userOldCommand []structures.UserProductData
-
 	for rows.Next() {
-		var picture, name, price string
-		err = rows.Scan(&picture, &name, &price)
+		err = rows.Scan(&id_user, &name, &price, &picture, &quantity)
 
 		utils.CheckErr(err)
 
-		userOldCommand = append(userOldCommand, structures.UserProductData{
-			Picture: picture,
-			Name:    name,
-			Price:   price,
+		userOldCommand = append(userOldCommand, structures.UserOldCommand{
+			Picture:  picture,
+			Name:     name,
+			Price:    price,
+			Quantity: quantity,
 		})
 	}
-
-	var response = structures.JsonResponseUsers{
-		Type:       "success",
-		OldCommand: userOldCommand,
-	}
-
-	if response.UserData == nil {
-		w.WriteHeader(404)
-	} else {
-		json.NewEncoder(w).Encode(response)
-	}
-
+	return userOldCommand
 }

@@ -1,7 +1,9 @@
 package main
 
 import (
-	CRUD "inprinte/backend/CRUD/get"
+	CRUDdelete "inprinte/backend/CRUD/delete"
+	CRUDinsert "inprinte/backend/CRUD/get"
+
 	utils "inprinte/backend/utils"
 
 	"net/http"
@@ -31,13 +33,16 @@ func main() {
 	r := mux.NewRouter()
 
 	// backoffice paths
-	r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
+	r.HandleFunc("/users", CRUDinsert.GetUsers).Methods("GET")
 
-	// normal paths
-	r.HandleFunc("/", CRUD.GetAccueil).Methods("GET")
-	r.HandleFunc("/boutique", CRUD.GetBoutique).Methods("GET")
-	r.HandleFunc("/produit/{id}", CRUD.GetOneProduct).Methods("GET")
-	r.HandleFunc("/user/{id_user}", CRUD.GetUserData).Methods("GET")
+	// create paths
+	r.HandleFunc("/", CRUDinsert.GetAccueil).Methods("GET")
+	r.HandleFunc("/boutique", CRUDinsert.GetBoutique).Methods("GET")
+	r.HandleFunc("/produit/{id_product}", CRUDinsert.GetOneProduct).Methods("GET")
+	r.HandleFunc("/user/{id_user}", CRUDinsert.GetUserData).Methods("GET")
+
+	//delete paths
+	r.HandleFunc("/deletefavorite/{id_product}", CRUDdelete.DeleteFavorite).Methods("DELETE")
 
 	http.ListenAndServe(":8080", r)
 

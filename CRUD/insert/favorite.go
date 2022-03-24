@@ -24,9 +24,9 @@ func InsertIntoFavorite(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id_product, ok := r.URL.Query()["range"]
+	id_product, ok := r.URL.Query()["id_product"]
 	if !ok || len(id_product[0]) < 1 {
-		log.Println("Url Param 'range' is missing")
+		log.Println("Url Param 'id_product' is missing")
 		return
 	}
 	intIdProduct, _ := strconv.Atoi(id_product[0])

@@ -3,6 +3,7 @@ package main
 import (
 	CRUD "inprinte/backend/CRUD/get"
 	utils "inprinte/backend/utils"
+
 	"net/http"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -24,7 +25,7 @@ import (
 }*/
 
 func main() {
-	//databaseTools.Faker()
+	// databaseTools.Faker()
 	utils.InprinteAscii()
 
 	r := mux.NewRouter()

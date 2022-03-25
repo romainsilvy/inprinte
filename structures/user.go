@@ -1,28 +1,29 @@
 package structures
 
 type UserData struct {
-	Email     string  `json:"Email"`
-	Password  string  `json:"Password"`
-	Firstname string  `json:"Firstname"`
-	Lastname  string  `json:"Lastname"`
-	Phone     string  `json:"Phone"`
-	Address   Address `json:"Address"`
+	Id        int     `json:"id"`
+	Email     string  `json:"email"`
+	Password  string  `json:"password"`
+	Firstname string  `json:"firstname"`
+	Lastname  string  `json:"lastname"`
+	Phone     string  `json:"phone"`
+	Address   Address `json:"address"`
 }
 
 type UserFavoriteProduct struct {
-	Picture string `json:"Picture"`
-	Name    string `json:"Name"`
-	Price   string `json:"Price"`
+	Picture string `json:"picture"`
+	Name    string `json:"name"`
+	Price   string `json:"price"`
 }
 
 type UserOldCommand struct {
-	Picture  string `json:"Picture"`
-	Name     string `json:"Name"`
-	Price    string `json:"Price"`
-	Quantity int    `json:"Quantity"`
+	Picture  string `json:"picture"`
+	Name     string `json:"name"`
+	Price    string `json:"price"`
+	Quantity int    `json:"quantity"`
 }
 type JsonResponseUsers struct {
-	UserData        []UserData            `json:"UserData"`
-	FavoriteProduct []UserFavoriteProduct `json:"FavoriteProduct"`
-	OldCommand      []UserOldCommand      `json:"UserOldCommand"`
+	Data            []UserData            `json:"data"`
+	FavoriteProduct []UserFavoriteProduct `json:"favoriteProduct"`
+	OldCommand      []UserOldCommand      `json:"userOldCommand"`
 }

@@ -8,38 +8,36 @@ import (
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
-
-	"github.com/gorilla/mux"
 )
 
-func GetUser(w http.ResponseWriter, r *http.Request) {
-	db := databaseTools.DbConnect()
-	vars := mux.Vars(r)
-	id_user := vars["id_user"]
+// func GetUser(w http.ResponseWriter, r *http.Request) {
+// 	db := databaseTools.DbConnect()
+// 	vars := mux.Vars(r)
+// 	id_user := vars["id_user"]
 
-	// all request SQL for path user \\
-	userDataQuery := ("SELECT  first_name, last_name, email, password, phone, street, city, state, country, zip_code FROM user INNER JOIN address ON user.id = address.id WHERE user.id = " + id_user + ";")
-	userFavoriteProductQuery := ("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
-	userOldCommandQuery := ("SELECT user.id AS id_user, name, price, picture.url, quantity FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN picture ON command_line.id = picture.id WHERE user.id = " + id_user + ";")
+// 	// all request SQL for path user \\
+// 	userDataQuery := ("SELECT  first_name, last_name, email, password, phone, street, city, state, country, zip_code FROM user INNER JOIN address ON user.id = address.id WHERE user.id = " + id_user + ";")
+// 	userFavoriteProductQuery := ("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
+// 	userOldCommandQuery := ("SELECT user.id AS id_user, name, price, picture.url, quantity FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN picture ON command_line.id = picture.id WHERE user.id = " + id_user + ";")
 
-	// data of user \\
-	userData := GetUserData(db, userDataQuery)
+// 	// data of user \\
+// 	userData := GetUserData(db, userDataQuery)
 
-	// favorite product for user \\
-	userFavorite := GetUserFavorite(db, userFavoriteProductQuery)
+// 	// favorite product for user \\
+// 	userFavorite := GetUserFavorite(db, userFavoriteProductQuery)
 
-	// old command for user \\
-	userOldCommand := GetUserOldCommand(db, userOldCommandQuery)
+// 	// old command for user \\
+// 	userOldCommand := GetUserOldCommand(db, userOldCommandQuery)
 
-	//----- encode the json response -----\\
-	var response = structures.JsonResponseUsers{
-		UserData:        userData,
-		FavoriteProduct: userFavorite,
-		OldCommand:      userOldCommand,
-	}
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(response)
-}
+// 	//----- encode the json response -----\\
+// 	var response = structures.JsonResponseUsers{
+// 		UserData:        userData,
+// 		FavoriteProduct: userFavorite,
+// 		OldCommand:      userOldCommand,
+// 	}
+// 	w.Header().Set("Content-Type", "application/json")
+// 	json.NewEncoder(w).Encode(response)
+// }
 
 func GetUserData(db *sql.DB, sqlQuery string) []structures.UserData {
 	var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
@@ -179,6 +177,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		utils.CheckErr(err)
 
 		allUsers = append(allUsers, structures.UserData{
+			Id:        id,
 			Firstname: firstname,
 			Lastname:  lastname,
 			Email:     email,
@@ -194,11 +193,18 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 
+	// res := structures.JsonResponseUsers{
+	// 	Data:  allUsers,
+	// 	Total: 100,
+	// 	Date:  time.Now().Format("2006-01-02 15:04:05"),
+	// }
+
 	//----- encode the json response
 	w.Header().Set("Content-Type", "application/json")
 	w.Header().Set("Access-Control-Allow-Origin", "*")
 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-
+	w.Header().Set("Access-Control-Expose-Headers", "X-Total-Count")
+	w.Header().Set("X-Total-Count", "234")
 	json.NewEncoder(w).Encode(allUsers)
 
 	// w.Header().Set("Access-Control-Allow-Origin", "*")

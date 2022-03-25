@@ -7,7 +7,6 @@ import {List, Datagrid, TextField, EmailField, UrlField, Edit, SimpleForm, TextI
         <TextField source="firstname" />
         <TextField source="lastname" />
         <TextField source="role" />
-        <TextField source="password" />
         <EmailField source="email" />
         <TextField source="phone" />
         <TextField source="is_alive" />
@@ -29,7 +28,7 @@ import {List, Datagrid, TextField, EmailField, UrlField, Edit, SimpleForm, TextI
         <TextInput source="email" />
         <TextInput source="phone" />
         <TextInput source="is_alive" />
-        <TextInput source="role.name" label="role"/>
+        <TextInput source="role"/>
         <TextInput source="address.street" label="Street" />
         <TextInput source="address.city" label="City" />
         <TextInput source="address.state" label="State" />

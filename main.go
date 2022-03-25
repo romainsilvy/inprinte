@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	CRUDdelete "inprinte/backend/CRUD/delete"
 	CRUDget "inprinte/backend/CRUD/get"
 	CRUDinsert "inprinte/backend/CRUD/insert"
@@ -19,7 +20,7 @@ func main() {
 	r := mux.NewRouter()
 
 	// backoffice paths
-	r.HandleFunc("/users", CRUDget.GetUsers).Methods("GET")
+	r.HandleFunc("/users", CRUDget.GetUsers).Methods("GET", "OPTIONS")
 
 	// READ paths
 	r.HandleFunc("/", CRUDget.GetAccueil).Methods("GET")
@@ -34,5 +35,17 @@ func main() {
 	// POST paths
 	r.HandleFunc("/insert/favorite", CRUDinsert.InsertIntoFavorite).Methods("post")
 
+	r.HandleFunc("/people", GetPeopleAPI).Methods("GET", "OPTIONS")
+
 	http.ListenAndServe(":8080", r)
+}
+
+func GetPeopleAPI(w http.ResponseWriter, r *http.Request) {
+
+	//Allow CORS here By * or specific origin
+	w.Header().Set("Access-Control-Allow-Origin", "*")
+
+	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	// return "OKOK"
+	json.NewEncoder(w).Encode("OKOK")
 }

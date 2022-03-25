@@ -1,12 +1,14 @@
 package main
 
 import (
+	users "inprinteBackoffice/crud/users"
+
 	"github.com/gorilla/mux"
 )
 
 func handleUsers(router *mux.Router) {
 	router.HandleFunc("/users", users.insert).Methods("POST")
-	router.HandleFunc("/users", users.getAll).Methods("GET")
+	router.HandleFunc("/users", users.GetAll).Methods("GET")
 	router.HandleFunc("/users/{id_user}", users.getOne).Methods("GET")
 	router.HandleFunc("/users/{id_user}", users.update).Methods("UPDATE")
 	router.HandleFunc("/users/{id_user}", users.delete).Methods("DELETE")

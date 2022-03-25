@@ -8,12 +8,24 @@ type Address struct {
 	ZipCode string `json:"zipCode"`
 }
 
-type User struct {
+type AllUsers struct {
 	Id        int     `json:"id"`
 	Email     string  `json:"email"`
-	Password  string  `json:"password"`
 	Firstname string  `json:"firstname"`
 	Lastname  string  `json:"lastname"`
 	Phone     string  `json:"phone"`
+	IsAlive   bool    `json:"is_alive"`
+	Role      string  `json:"role"`
+	Address   Address `json:"address"`
+}
+
+type OneUser struct {
+	Id        int     `json:"id"`
+	Email     string  `json:"email"`
+	Firstname string  `json:"firstname"`
+	Lastname  string  `json:"lastname"`
+	Phone     string  `json:"phone"`
+	IsAlive   bool    `json:"is_alive"`
+	Role      string  `json:"role"`
 	Address   Address `json:"address"`
 }

@@ -9,7 +9,7 @@ import (
 	"net/http"
 )
 
-func GetAllParams(r *http.Request) (string, string) {
+func getAllParams(r *http.Request) (string, string) {
 	containsOrder := true
 	containsSort := true
 	containsStart := true
@@ -54,7 +54,7 @@ func GetAllParams(r *http.Request) (string, string) {
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 	//global vars
-	var allUsers []structures.User
+	var allUsers []structures.AllUsers
 
 	//connect the database
 	db := utils.DbConnect()
@@ -63,31 +63,33 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	//get filters values and update the sqlQuery
-	orderBy, rangeBy := GetAllParams(r)
-	sqlQuery := "SELECT user.id, email, password, first_name AS firstname, last_name AS lastname, phone, street, city, state, country, zip_code  FROM user INNER JOIN address ON user.id_address = address.id" + orderBy + rangeBy
+	orderBy, rangeBy := getAllParams(r)
+	sqlQuery := "SELECT user.id, email, password, first_name AS firstname, last_name AS lastname, phone, is_alive, street, city, state, country, zip_code, role.role  FROM user INNER JOIN address ON user.id_address = address.id INNER JOIN role ON user.id_role = role.id" + orderBy + rangeBy
 
-	//execute the sql request and check errors
+	//execute the sql query and check errors
 	rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
-	//parse the rows
+	//parse the query
 	for rows.Next() {
 		//global vars
-		var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
+		var firstname, lastname, email, password, phone, street, city, state, country, zip_code, role string
+		var is_alive bool
 		var id int
 
 		//retrieve the values and check errors
-		err = rows.Scan(&id, &email, &password, &firstname, &lastname, &phone, &street, &city, &state, &country, &zip_code)
+		err = rows.Scan(&id, &email, &password, &firstname, &lastname, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
 		utils.CheckErr(err)
 
-		//add a new user object to the array with the corresponding values
-		allUsers = append(allUsers, structures.User{
+		//add the values to the response
+		allUsers = append(allUsers, structures.AllUsers{
 			Id:        id,
 			Firstname: firstname,
 			Lastname:  lastname,
 			Email:     email,
-			Password:  password,
 			Phone:     phone,
+			IsAlive:   is_alive,
+			Role:      role,
 			Address: structures.Address{
 				Street:  street,
 				City:    city,

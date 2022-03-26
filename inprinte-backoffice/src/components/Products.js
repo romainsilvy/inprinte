@@ -8,8 +8,8 @@ import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Crea
         <TextField source="description" />
         <TextField source="price" />
         <TextField source="pending_validation" />
-        <EmailField source="is_alive" />
-        <TextField source="category.name" />
+        <TextField source="is_alive" />
+        <TextField source="category" />
         <TextField source="firstname" />
         <TextField source="lastname" />
         <TextField source="role" />
@@ -17,7 +17,7 @@ import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Crea
         <TextField source="product_file" />
         <TextField source="firstname" />
         <TextField source="product_picture" />
-        <TextField source="stars_number" label="starsAVG"/>
+        <TextField source="rate"/>
       </Datagrid>
     </List>
   );

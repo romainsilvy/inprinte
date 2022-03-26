@@ -4,7 +4,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput} from 'react-admi
     <List {...props}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
-        <TextField source="product.name" />
+        <TextField source="product_name" />
         <TextField source="id_product" />
         <TextField source="firstname" />
         <TextField source="lastname" />

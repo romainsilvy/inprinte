@@ -19,7 +19,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	//get filters values and update the sqlQuery
-	orderBy, rangeBy := utils.GetAllParams(r)
+	orderBy, rangeBy := utils.GetAllParams(r, "commandLine")
 	sqlQuery := "SELECT command_line.id, user.first_name, user.last_name, product.id AS id_product, product.name, command.id AS id_command, user.id AS id_user, quantity, (command_line.quantity * product.price) AS price, command.date, command_line.state FROM command_line INNER JOIN command ON command_line.id_command = command.id INNER JOIN user ON user.id = command.id_user INNER JOIN product ON command_line.id_product = product.id " + orderBy + " " + rangeBy
 
 	//execute the sql query and check errors

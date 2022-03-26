@@ -3,6 +3,7 @@ package main
 import (
 	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
+	rates "inprinteBackoffice/crud/rates"
 	users "inprinteBackoffice/crud/users"
 
 	"net/http"
@@ -31,7 +32,7 @@ func handleCommandLine(router *mux.Router) {
 }
 
 func handleRate(router *mux.Router) {
-	// router.HandleFunc("/rate", rate.getAll).Methods("GET")
+	router.HandleFunc("/rates", rates.GetAll).Methods("GET")
 	// router.HandleFunc("/rate/{id_rate}", rate.getOne).Methods("GET")
 	// router.HandleFunc("/rate/{id_rate}", rate.update).Methods("UPDATE")
 }

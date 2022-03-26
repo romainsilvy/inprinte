@@ -3,11 +3,10 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput} from 'react-admi
   export const CommandsList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
-        <TextField source="id" />
+        <TextField source="id" label="id_command"/>
         <TextField source="firstname" />
         <TextField source="lastname" />
         <TextField source="id_user" />
-        <TextField source="id_command" />
         <TextField source="price" />
         <TextField source="quantity" />
         <TextField source="date" />

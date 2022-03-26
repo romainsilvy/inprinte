@@ -9,6 +9,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput} from 'react-admi
         <TextField source="lastname" />
         <TextField source="id_command" />
         <TextField source="id_product" />
+        <TextField source="name" />
         <TextField source="price" />
         <TextField source="quantity" />
         <TextField source="date" />

@@ -11,7 +11,7 @@ import (
 
 func GetOne(w http.ResponseWriter, r *http.Request) {
 	//global vars
-	var firstname, lastname, email, password, phone, street, city, state, country, zip_code, role string
+	var firstname, lastname, email, phone, street, city, state, country, zip_code, role string
 	var is_alive bool
 	var oneUser structures.OneUser
 
@@ -33,7 +33,7 @@ func GetOne(w http.ResponseWriter, r *http.Request) {
 
 	//parse the query
 	//retrieve the values and check errors
-	err := row.Scan(&firstname, &lastname, &email, &password, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
+	err := row.Scan(&firstname, &lastname, &email, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
 	utils.CheckErr(err)
 
 	//add the values to the response

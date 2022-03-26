@@ -1,8 +1,10 @@
 package main
 
 import (
+	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
 	users "inprinteBackoffice/crud/users"
+
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -23,7 +25,7 @@ func handleCommand(router *mux.Router) {
 }
 
 func handleCommandLine(router *mux.Router) {
-	// router.HandleFunc("/command-line", commandLine.getAll).Methods("GET")
+	router.HandleFunc("/commandLines", commandLines.GetAll).Methods("GET")
 	// router.HandleFunc("/command-line/{id_commandLine}", commandLine.getOne).Methods("GET")
 	// router.HandleFunc("/command-line/{id_commandLine}", commandLine.update).Methods("UPDATE")
 }

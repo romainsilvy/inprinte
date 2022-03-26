@@ -20,7 +20,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 
 	//get filters values and update the sqlQuery
 	orderBy, rangeBy := utils.GetAllParams(r)
-	sqlQuery := "SELECT command_line.id, user.first_name, user.last_name, product.id AS id_product, product.name, command.id AS id_command, user.id AS id_user, quantity, command.date, command_line.state FROM command_line INNER JOIN command ON command_line.id_command = command.id INNER JOIN user ON user.id = command.id_user INNER JOIN product ON command_line.id_product = product.id " + orderBy + " " + rangeBy
+	sqlQuery := "SELECT command_line.id, user.first_name, user.last_name, product.id AS id_product, product.name, command.id AS id_command, user.id AS id_user, quantity, (command_line.quantity * product.price) AS price, command.date, command_line.state FROM command_line INNER JOIN command ON command_line.id_command = command.id INNER JOIN user ON user.id = command.id_user INNER JOIN product ON command_line.id_product = product.id " + orderBy + " " + rangeBy
 
 	//execute the sql query and check errors
 	rows, err := db.Query(sqlQuery)
@@ -30,10 +30,10 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	for rows.Next() {
 		//global vars
 		var firstname, lastname, state, name string
-		var id, id_product, id_command, id_user, quantity, date int
+		var id, id_product, id_command, id_user, quantity, price, date int
 
 		//retrieve the values and check errors
-		err = rows.Scan(&id, &firstname, &lastname, &id_product, &name, &id_command, &id_user, &quantity, &date, &state)
+		err = rows.Scan(&id, &firstname, &lastname, &id_product, &name, &id_command, &id_user, &quantity, &price, &date, &state)
 		utils.CheckErr(err)
 
 		//add the values to the response
@@ -45,6 +45,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 			Id_command: id_command,
 			Id_user:    id_user,
 			Quantity:   quantity,
+			Price:      price,
 			Date:       date,
 			State:      state,
 			Name:       name,

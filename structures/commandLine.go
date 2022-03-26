@@ -9,6 +9,7 @@ type AllCommandLines struct {
 	Id_user    int    `json:"id_user"`
 	Quantity   int    `json:"quantity"`
 	Date       int    `json:"date"`
-	State      string `json:"state"`
+	Price      int    `json:"price"`
+	State      string `json:"status"`
 	Name       string `json:"name"`
 }

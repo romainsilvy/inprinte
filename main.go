@@ -3,6 +3,7 @@ package main
 import (
 	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
+	products "inprinteBackoffice/crud/products"
 	rates "inprinteBackoffice/crud/rates"
 	users "inprinteBackoffice/crud/users"
 
@@ -39,7 +40,7 @@ func handleRate(router *mux.Router) {
 
 func handleProducts(router *mux.Router) {
 	// router.HandleFunc("/products", products.insert).Methods("POST")
-	// router.HandleFunc("/products", products.getAll).Methods("GET")
+	router.HandleFunc("/products", products.GetAll).Methods("GET")
 	// router.HandleFunc("/products/{id_product}", products.getOne).Methods("GET")
 	// router.HandleFunc("/products/{id_product}", products.update).Methods("UPDATE")
 	// router.HandleFunc("/products/{id_product}", products.delete).Methods("DELETE")
@@ -70,6 +71,7 @@ func main() {
 	handleCommand(router)
 	handleCommandLine(router)
 	handleRate(router)
+	handleProducts(router)
 
 	http.ListenAndServe(":8080", router)
 }

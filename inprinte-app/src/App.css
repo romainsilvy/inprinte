@@ -1,0 +1,79 @@
+@import url('http://fonts.googleapis.com/css2?family=Sora&display=swap');
+* {
+    font-family: 'Sora', sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.header-ul li {
+    display: inline-block;
+    padding: 10px;
+}
+
+.App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+.header-ul li a {    
+    color: azure;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.header-ul {
+    padding: 5px;
+    margin: 0;
+    background-color:#32313d;
+    text-align: center;
+
+}
+.header-ul li a:hover {
+	color:#a877ed;
+	transition: 200ms ease-in;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    width: 100%;
+    background-color:#34313e;
+}
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #34313e;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App h1 {
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

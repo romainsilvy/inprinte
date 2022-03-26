@@ -1,7 +1,9 @@
 package main
 
 import (
+	commands "inprinteBackoffice/crud/commands"
 	users "inprinteBackoffice/crud/users"
+	"net/http"
 
 	"github.com/gorilla/mux"
 )
@@ -15,7 +17,7 @@ func handleUsers(router *mux.Router) {
 }
 
 func handleCommand(router *mux.Router) {
-	// router.HandleFunc("/command", command.getAll).Methods("GET")
+	router.HandleFunc("/commands", commands.GetAll).Methods("GET")
 	// router.HandleFunc("/command/{id_command}", command.getOne).Methods("GET")
 	// router.HandleFunc("/command/{id_command}", command.update).Methods("UPDATE")
 }
@@ -66,4 +68,5 @@ func main() {
 	handleCommandLine(router)
 	handleRate(router)
 
+	http.ListenAndServe(":8080", router)
 }

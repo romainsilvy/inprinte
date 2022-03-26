@@ -19,7 +19,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 
 	//get filters values and update the sqlQuery
 	orderBy, rangeBy := utils.GetAllParams(r)
-	sqlQuery := "SELECT DISTINCT command.id AS id, user.id AS id_user, user.first_name, user.last_name, command.date, command.state, command_line.quantity , product.price FROM user INNER JOIN command ON command.id_user = user.id INNER JOIN command_line ON command_line.id_command = command.id INNER JOIN product ON product.id = command_line.id_product " + orderBy + rangeBy
+	sqlQuery := "SELECT command.id, user.id AS id_user, first_name, last_name, command.date, command.state, SUM(command_line.quantity)AS quantity, SUM(command_line.quantity * product.price) AS price FROM command INNER JOIN user ON command.id_user = user.id INNER JOIN command_line ON command_line.id_command = command.id INNER JOIN product ON product.id = command_line.id_product GROUP BY command.id " + orderBy + rangeBy
 
 	//execute the sql query and check errors
 	rows, err := db.Query(sqlQuery)

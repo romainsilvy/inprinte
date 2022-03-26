@@ -18,8 +18,8 @@ func handleUsers(router *mux.Router) {
 
 func handleCommand(router *mux.Router) {
 	router.HandleFunc("/commands", commands.GetAll).Methods("GET")
-	// router.HandleFunc("/command/{id_command}", command.getOne).Methods("GET")
-	// router.HandleFunc("/command/{id_command}", command.update).Methods("UPDATE")
+	// router.HandleFunc("/commands/{id_command}", command.getOne).Methods("GET")
+	// router.HandleFunc("/commands/{id_command}", command.update).Methods("UPDATE")
 }
 
 func handleCommandLine(router *mux.Router) {

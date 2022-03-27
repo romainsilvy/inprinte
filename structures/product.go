@@ -1,15 +1,14 @@
 package structures
 
-type Product struct {
+type ProductData struct {
 	Id_product   int     `json:"id_product"`
 	Name         string  `json:"name"`
 	Description  string  `json:"description"`
-	Price        int     `json:"price "`
-	Stars_number float64 `json:"stars_number"`
-	Picture_url  string  `json:"picture_url"`
+	Price        float64 `json:"price "`
+	Picture      string  `json:"picture"`
 	Product_file string  `json:"product_file"`
 }
 
-type JsonResponseProduct struct {
-	Data []Product `json:"data"`
+type Product struct {
+	ProductData ProductData `json:"product_data"`
 }

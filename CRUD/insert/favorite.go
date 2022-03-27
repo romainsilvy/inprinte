@@ -2,7 +2,6 @@ package CRUD
 
 import (
 	"database/sql"
-	databaseTools "inprinte/backend/database"
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
@@ -17,7 +16,7 @@ func InsertIntoFavoriteRequest(db *sql.DB, id_product, id_user int) {
 }
 
 func InsertIntoFavorite(w http.ResponseWriter, r *http.Request) {
-	db := databaseTools.DbConnect()
+	db := utils.DbConnect()
 	id_user, ok := r.URL.Query()["id_user"]
 	if !ok || len(id_user[0]) < 1 {
 		log.Println("Url Param 'id_user' is missing")

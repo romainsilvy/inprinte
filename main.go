@@ -1,11 +1,6 @@
 package main
 
 import (
-	"encoding/json"
-	CRUDdelete "inprinte/backend/CRUD/delete"
-	CRUDget "inprinte/backend/CRUD/get"
-	CRUDinsert "inprinte/backend/CRUD/insert"
-
 	utils "inprinte/backend/utils"
 
 	"net/http"
@@ -14,38 +9,66 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func handleAccueil(router *mux.Router) {
+	router.HandleFunc("/", accueil.Get).Methods("GET")
+}
+
+func handleBoutique(router *mux.Router) {
+	// router.HandleFunc("/boutique", boutique.Get).Methods("GET")
+}
+
+func handleProduit(router *mux.Router) {
+	// router.HandleFunc("/produit", produit.Get).Methods("GET")
+	// router.HandleFunc("/produit", produit.Insert).Methods("INSERT")
+	// router.HandleFunc("/produit", produit.Delete).Methods("DELETE")
+}
+
+func handleProfil(router *mux.Router) {
+	// router.HandleFunc("/profil", profil.Get).Methods("GET")
+	// router.HandleFunc("/profil", profil.Update).Methods("UPDATE")
+	// router.HandleFunc("/profil", profil.Delete).Methods("DELETE")
+}
+
+func handlePanier(router *mux.Router) {
+	// router.HandleFunc("/panier", panier.Get).Methods("GET")
+	// router.HandleFunc("/panier", panier.Insert).Methods("INSERT")
+}
+
+func handleDemandeDesign(router *mux.Router) {
+	// router.HandleFunc("/demande-design", demandeDesign.Get).Methods("GET")
+	// router.HandleFunc("/demande-design", demandeDesign.Insert).Methods("INSERT")
+	// router.HandleFunc("/demande-design", demandeDesign.Delete).Methods("DELETE")
+}
+
 func main() {
-	// databaseTools.Faker()
+	//print the inprinte logo
 	utils.InprinteAscii()
-	r := mux.NewRouter()
 
-	// backoffice paths
-	r.HandleFunc("/users", CRUDget.GetUsers).Methods("GET", "OPTIONS")
+	//create a new mux router
+	router := mux.NewRouter()
 
-	// READ paths
-	r.HandleFunc("/", CRUDget.GetAccueil).Methods("GET")
-	r.HandleFunc("/boutique", CRUDget.GetBoutique).Methods("GET")
-	r.HandleFunc("/produit/{id_product}", CRUDget.GetOneProduct).Methods("GET")
-	r.HandleFunc("/user/{id_user}", CRUDget.GetUser).Methods("GET")
-	r.HandleFunc("/boutique/{category}", CRUDget.GetBoutiqueByCategory).Methods("GET")
+	//handle all the paths
+	handleAccueil(router)
+	handleBoutique(router)
+	handleProduit(router)
+	handleProfil(router)
+	handlePanier(router)
+	handleDemandeDesign(router)
 
-	// DELETE paths
-	r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
-
-	// POST paths
-	r.HandleFunc("/insert/favorite", CRUDinsert.InsertIntoFavorite).Methods("post")
-
-	r.HandleFunc("/people", GetPeopleAPI).Methods("GET", "OPTIONS")
-
-	http.ListenAndServe(":8080", r)
+	http.ListenAndServe(":8080", router)
 }
 
-func GetPeopleAPI(w http.ResponseWriter, r *http.Request) {
+// READ paths
+// r.HandleFunc("/", CRUDget.GetAccueil).Methods("GET")
+// r.HandleFunc("/boutique", CRUDget.GetBoutique).Methods("GET")
+// r.HandleFunc("/produit/{id_product}", CRUDget.GetOneProduct).Methods("GET")
+// r.HandleFunc("/user/{id_user}", CRUDget.GetUser).Methods("GET")
+// r.HandleFunc("/boutique/{category}", CRUDget.GetBoutiqueByCategory).Methods("GET")
 
-	//Allow CORS here By * or specific origin
-	w.Header().Set("Access-Control-Allow-Origin", "*")
+// DELETE paths
+// r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
 
-	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	// return "OKOK"
-	json.NewEncoder(w).Encode("OKOK")
-}
+// POST paths
+// r.HandleFunc("/insert/favorite", CRUDinsert.InsertIntoFavorite).Methods("post")
+// backoffice paths
+// r.HandleFunc("/users", CRUDget.GetUsers).Methods("GET", "OPTIONS")

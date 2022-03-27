@@ -1,6 +1,9 @@
 package main
 
 import (
+	accueil "inprinte/backend/crud/accueil"
+	boutique "inprinte/backend/crud/boutique"
+
 	utils "inprinte/backend/utils"
 
 	"net/http"
@@ -14,7 +17,7 @@ func handleAccueil(router *mux.Router) {
 }
 
 func handleBoutique(router *mux.Router) {
-	// router.HandleFunc("/boutique", boutique.Get).Methods("GET")
+	router.HandleFunc("/boutique", boutique.Get).Methods("GET")
 }
 
 func handleProduit(router *mux.Router) {

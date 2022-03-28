@@ -1,6 +1,7 @@
 package main
 
 import (
+	category "inprinteBackoffice/crud/category"
 	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
 	products "inprinteBackoffice/crud/products"
@@ -48,7 +49,7 @@ func handleProducts(router *mux.Router) {
 
 func handleCategory(router *mux.Router) {
 	// router.HandleFunc("/category", category.insert).Methods("POST")
-	// router.HandleFunc("/category", category.getAll).Methods("GET")
+	router.HandleFunc("/categories", category.GetAll).Methods("GET")
 	// router.HandleFunc("/category/{id_product}", category.getOne).Methods("GET")
 	// router.HandleFunc("/category/{id_product}", category.update).Methods("UPDATE")
 	// router.HandleFunc("/category/{id_product}", category.delete).Methods("DELETE")
@@ -72,6 +73,7 @@ func main() {
 	handleCommandLine(router)
 	handleRate(router)
 	handleProducts(router)
+	handleCategory(router)
 
 	http.ListenAndServe(":8080", router)
 }

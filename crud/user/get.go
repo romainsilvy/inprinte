@@ -1,223 +1,128 @@
 package CRUD
 
-// import (
-// 	"database/sql"
-// 	"encoding/json"
-// 	databaseTools "inprinte/backend/database"
-// 	structures "inprinte/backend/structures"
-// 	"inprinte/backend/utils"
-// 	"log"
-// 	"net/http"
+import (
+	"database/sql"
+	"encoding/json"
+	structures "inprinte/backend/structures"
+	utils "inprinte/backend/utils"
+	"net/http"
 
-// 	"github.com/gorilla/mux"
-// )
+	"github.com/gorilla/mux"
+)
 
-// func GetUser(w http.ResponseWriter, r *http.Request) {
-// 	db := databaseTools.DbConnect()
-// 	vars := mux.Vars(r)
-// 	id_user := vars["id_user"]
+func Get(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id_user := vars["id_user"]
 
-// 	// all request SQL for path user \\
-// 	userDataQuery := ("SELECT  first_name, last_name, email, password, phone, street, city, state, country, zip_code FROM user INNER JOIN address ON user.id = address.id WHERE user.id = " + id_user + ";")
-// 	userFavoriteProductQuery := ("SELECT DISTINCT user.id AS id_user, product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = " + id_user + ";")
-// 	userOldCommandQuery := ("SELECT user.id AS id_user, name, price, picture.url, quantity FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN picture ON command_line.id = picture.id WHERE user.id = " + id_user + ";")
+	db := utils.DbConnect()
 
-// 	// data of user \\
-// 	userData := GetUserData(db, userDataQuery)
+	userData := getUserData(w, db, id_user)
+	userFavorite := getUserFavorite(db, id_user)
+	userCommandHistory := getCommandHistory(db, id_user)
 
-// 	// favorite product for user \\
-// 	userFavorite := GetUserFavorite(db, userFavoriteProductQuery)
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(structures.User{
+		UserData:         userData,
+		FavoriteProducts: userFavorite,
+		CommandHistory:   userCommandHistory,
+	})
+}
 
-// 	// old command for user \\
-// 	userOldCommand := GetUserOldCommand(db, userOldCommandQuery)
+func getUserData(w http.ResponseWriter, db *sql.DB, id_user string) structures.UserData {
+	//global vars
+	var id int
+	var firstname, lastname, email, phone string
+	var street, city, state, country, zipCode string
 
-// 	//----- encode the json response -----\\
-// 	var response = structures.JsonResponseUsers{
-// 		Data:            userData,
-// 		FavoriteProduct: userFavorite,
-// 		OldCommand:      userOldCommand,
-// 	}
-// 	w.Header().Set("Content-Type", "application/json")
-// 	json.NewEncoder(w).Encode(response)
-// }
+	//execute the sql query and check errors
+	row := db.QueryRow(`SELECT user.id, first_name, last_name, email, phone, street, city, state, country, zip_code FROM user INNER JOIN address ON user.id = address.id WHERE user.id = ?`, id_user)
+	err := row.Scan(&id, &firstname, &lastname, &email, &phone, &street, &city, &state, &country, &zipCode)
+	if err == sql.ErrNoRows {
+		w.WriteHeader(404)
+	} else {
+		utils.CheckErr(err)
+	}
 
-// func GetUserData(db *sql.DB, sqlQuery string) []structures.UserData {
-// 	var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
-// 	var users []structures.UserData
+	//create the json response
+	return structures.UserData{
+		Id:        id,
+		Firstname: firstname,
+		Lastname:  lastname,
+		Email:     email,
+		Phone:     phone,
+		Address: structures.Address{
+			Street:  street,
+			City:    city,
+			State:   state,
+			Country: country,
+			ZipCode: zipCode,
+		},
+	}
+}
 
-// 	rows, err := db.Query(sqlQuery)
-// 	utils.CheckErr(err)
+func getUserFavorite(db *sql.DB, id_user string) []structures.UserFavoriteProducts {
+	//global vars
+	var productFavorite []structures.UserFavoriteProducts
 
-// 	for rows.Next() {
-// 		err = rows.Scan(&firstname, &lastname, &email, &password, &phone, &street, &city, &state, &country, &zip_code)
+	//execute the sql query and check errors
+	rows, err := db.Query("SELECT DISTINCT product.id AS id_product, name, price, picture.url FROM product INNER JOIN favorite ON favorite.id_product = product.id INNER JOIN user ON user.id = favorite.id_user INNER JOIN product_picture ON product_picture.id_product = product.id INNER JOIN picture ON picture.id = product_picture.id_picture AND pending_validation = false AND product.is_alive = true WHERE user.id = ?; ", id_user)
+	utils.CheckErr(err)
 
-// 		utils.CheckErr(err)
+	//parse the query
+	for rows.Next() {
+		//global vars
+		var name, picture string
+		var id int
+		var price float64
 
-// 		users = append(users, structures.UserData{
-// 			Firstname: firstname,
-// 			Lastname:  lastname,
-// 			Email:     email,
-// 			Password:  password,
-// 			Phone:     phone,
-// 			Address: structures.Address{
-// 				Street:  street,
-// 				City:    city,
-// 				State:   state,
-// 				Country: country,
-// 				ZipCode: zip_code,
-// 			},
-// 		})
-// 	}
-// 	return users
-// }
+		//retrieve the values and check errors
+		err = rows.Scan(&id, &name, &price, &picture)
+		utils.CheckErr(err)
 
-// func GetUserFavorite(db *sql.DB, sqlQuery string) []structures.UserFavoriteProduct {
-// 	var userFavoriteProduct []structures.UserFavoriteProduct
+		//add the values to the response
+		productFavorite = append(productFavorite, structures.UserFavoriteProducts{
+			Id:      id,
+			Name:    name,
+			Price:   price,
+			Picture: picture,
+		})
+	}
+	//close the rows
 
-// 	rows, err := db.Query(sqlQuery)
-// 	utils.CheckErr(err)
+	//create the json response
+	return productFavorite
+}
 
-// 	for rows.Next() {
-// 		var picture, name, price string
-// 		var id_user, id_product int
-// 		err = rows.Scan(&id_user, &id_product, &name, &price, &picture)
+func getCommandHistory(db *sql.DB, id_user string) []structures.UserCommandHistory {
+	//global vars
+	var productHistory []structures.UserCommandHistory
 
-// 		utils.CheckErr(err)
+	//execute the sql query and check errors
+	rows, err := db.Query("SELECT product.id, name, price, picture.url, quantity FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN picture ON command_line.id = picture.id WHERE user.id = ?", id_user)
+	utils.CheckErr(err)
 
-// 		userFavoriteProduct = append(userFavoriteProduct, structures.UserFavoriteProduct{
-// 			Picture: picture,
-// 			Name:    name,
-// 			Price:   price,
-// 		})
-// 	}
-// 	return userFavoriteProduct
-// }
+	//parse the query
+	for rows.Next() {
+		//global vars
+		var name, picture string
+		var id, quantity int
+		var price float64
 
-// func GetUserOldCommand(db *sql.DB, sqlQuery string) []structures.UserOldCommand {
-// 	var userOldCommand []structures.UserOldCommand
-// 	var picture, name, price string
-// 	var id_user, quantity int
+		//retrieve the values and check errors
+		err = rows.Scan(&id, &name, &price, &picture, &quantity)
+		utils.CheckErr(err)
 
-// 	rows, err := db.Query(sqlQuery)
-// 	utils.CheckErr(err)
+		//add the values to the response
+		productHistory = append(productHistory, structures.UserCommandHistory{
+			Id:       id,
+			Name:     name,
+			Price:    price,
+			Picture:  picture,
+			Quantity: quantity,
+		})
+	}
+	//close the rows
 
-// 	for rows.Next() {
-// 		err = rows.Scan(&id_user, &name, &price, &picture, &quantity)
-
-// 		utils.CheckErr(err)
-
-// 		userOldCommand = append(userOldCommand, structures.UserOldCommand{
-// 			Picture:  picture,
-// 			Name:     name,
-// 			Price:    price,
-// 			Quantity: quantity,
-// 		})
-// 	}
-// 	return userOldCommand
-// }
-
-// func GetUsers(w http.ResponseWriter, r *http.Request) {
-// 	setupResponse(&w, r)
-// 	containsOrder := true
-// 	containsSort := true
-// 	containsStart := true
-// 	containsEnd := true
-
-// 	sqlQuery := "SELECT user.id, email, password, first_name AS firstname, last_name AS lastname, phone, street, city, state, country, zip_code  FROM user INNER JOIN address ON user.id_address = address.id"
-
-// 	//manage url vars here
-// 	urlOrder, ok := r.URL.Query()["_order"]
-// 	if !ok || len(urlOrder[0]) < 1 {
-// 		log.Println("Url Param 'order' is missing")
-// 		containsOrder = false
-// 	}
-
-// 	urlSort, ok := r.URL.Query()["_sort"]
-// 	if !ok || len(urlSort[0]) < 1 {
-// 		log.Println("Url Param 'sort' is missing")
-// 		containsSort = true
-// 	}
-
-// 	urlStart, ok := r.URL.Query()["_start"]
-// 	if !ok || len(urlStart[0]) < 1 {
-// 		log.Println("Url Param 'start' is missing")
-// 		containsStart = false
-// 	}
-
-// 	urlEnd, ok := r.URL.Query()["_end"]
-// 	if !ok || len(urlEnd[0]) < 1 {
-// 		log.Println("Url Param 'End' is missing")
-// 		containsEnd = false
-// 	}
-
-// 	if containsOrder && containsSort {
-// 		sqlQuery += " ORDER BY " + urlSort[0] + " " + urlOrder[0]
-// 	}
-
-// 	if containsStart && containsEnd {
-// 		sqlQuery += " LIMIT " + urlStart[0] + "," + urlEnd[0]
-// 	}
-
-// 	// filters := filter[0]
-// 	// log.Println("Url Params are : " + string(urlFilter[0]) + string(urlRange[0]) + string(urlSort[0]))
-
-// 	db := databaseTools.DbConnect()
-
-// 	//all sql queries for this path
-// 	// sqlQuery := "SELECT user.id, email, password, first_name AS firstname, last_name AS lastname, phone, street, city, state, country, zip_code  FROM user INNER JOIN address ON user.id_address = address.id ORDER BY " + urlSort[0] + " " + urlSort[1] + " LIMIT " + urlRange[0]
-// 	log.Println(sqlQuery)
-// 	var allUsers []structures.UserData
-
-// 	rows, err := db.Query(sqlQuery)
-// 	utils.CheckErr(err)
-
-// 	for rows.Next() {
-// 		var firstname, lastname, email, password, phone, street, city, state, country, zip_code string
-// 		var id int
-// 		err = rows.Scan(&id, &email, &password, &firstname, &lastname, &phone, &street, &city, &state, &country, &zip_code)
-
-// 		utils.CheckErr(err)
-
-// 		allUsers = append(allUsers, structures.UserData{
-// 			Id:        id,
-// 			Firstname: firstname,
-// 			Lastname:  lastname,
-// 			Email:     email,
-// 			Password:  password,
-// 			Phone:     phone,
-// 			Address: structures.Address{
-// 				Street:  street,
-// 				City:    city,
-// 				State:   state,
-// 				Country: country,
-// 				ZipCode: zip_code,
-// 			},
-// 		})
-// 	}
-
-// 	// res := structures.JsonResponseUsers{
-// 	// 	Data:  allUsers,
-// 	// 	Total: 100,
-// 	// 	Date:  time.Now().Format("2006-01-02 15:04:05"),
-// 	// }
-
-// 	//----- encode the json response
-// 	w.Header().Set("Content-Type", "application/json")
-// 	w.Header().Set("Access-Control-Allow-Origin", "*")
-// 	w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-// 	w.Header().Set("Access-Control-Expose-Headers", "X-Total-Count")
-// 	w.Header().Set("X-Total-Count", "234")
-// 	json.NewEncoder(w).Encode(allUsers)
-
-// 	// w.Header().Set("Access-Control-Allow-Origin", "*")
-
-// 	// w.Header().Set("Access-Control-Allow-Headers", "Content-Type")
-// 	// // return "OKOK"
-// 	// json.NewEncoder(w).Encode("OKOK")
-// }
-
-// func setupResponse(w *http.ResponseWriter, req *http.Request) {
-// 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-// 	(*w).Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
-// 	(*w).Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization")
-// }
+	//create the json response
+	return productHistory
+}

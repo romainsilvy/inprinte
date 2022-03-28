@@ -10,11 +10,10 @@ type ProductData struct {
 }
 
 type ProductRelated struct {
-	Id_product  int     `json:"id_product"`
-	Name        string  `json:"name"`
-	Description string  `json:"description"`
-	Price       float64 `json:"price "`
-	Picture     string  `json:"picture"`
+	Id_product int     `json:"id_product"`
+	Name       string  `json:"name"`
+	Price      float64 `json:"price "`
+	Picture    string  `json:"picture"`
 }
 
 type Product struct {

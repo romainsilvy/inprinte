@@ -72,7 +72,7 @@ func getRelatedProduct(db *sql.DB, id_product string) []structures.ProductRelate
 
 func Get(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	id_product := vars["id_product"] // the book title slug
+	id_product := vars["id_product"]
 
 	db := utils.DbConnect()
 

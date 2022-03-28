@@ -6,8 +6,8 @@ import (
 	commands "inprinteBackoffice/crud/commands"
 	products "inprinteBackoffice/crud/products"
 	rates "inprinteBackoffice/crud/rates"
+	roles "inprinteBackoffice/crud/roles"
 	users "inprinteBackoffice/crud/users"
-
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -55,9 +55,9 @@ func handleCategory(router *mux.Router) {
 	// router.HandleFunc("/category/{id_product}", category.delete).Methods("DELETE")
 }
 
-func handleRole(router *mux.Router) {
+func handleRoles(router *mux.Router) {
 	// router.HandleFunc("/role", role.insert).Methods("POST")
-	// router.HandleFunc("/role", role.getAll).Methods("GET")
+	router.HandleFunc("/roles", roles.GetAll).Methods("GET")
 	// router.HandleFunc("/role/{id_product}", role.getOne).Methods("GET")
 	// router.HandleFunc("/role/{id_product}", role.update).Methods("UPDATE")
 	// router.HandleFunc("/role/{id_product}", role.delete).Methods("DELETE")
@@ -74,6 +74,7 @@ func main() {
 	handleRate(router)
 	handleProducts(router)
 	handleCategory(router)
+	handleRoles(router)
 
 	http.ListenAndServe(":8080", router)
 }

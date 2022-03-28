@@ -9,6 +9,15 @@ type ProductData struct {
 	Product_file string  `json:"product_file"`
 }
 
+type ProductRelated struct {
+	Id_product  int     `json:"id_product"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price "`
+	Picture     string  `json:"picture"`
+}
+
 type Product struct {
-	ProductData ProductData `json:"product_data"`
+	ProductData    ProductData      `json:"product_data"`
+	ProductRelated []ProductRelated `json:"related"`
 }

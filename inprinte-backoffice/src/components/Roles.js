@@ -4,7 +4,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create,} from 'r
     <List {...props}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
-        <TextField source="name" />
+        <TextField source="role" />
       </Datagrid>
     </List>
   );
@@ -13,7 +13,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create,} from 'r
     <Edit {...props}>
       <SimpleForm>
         <TextInput source="id" disabled />
-        <TextInput source="name" />
+        <TextInput source="role" />
       </SimpleForm>
     </Edit>
   );
@@ -21,7 +21,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create,} from 'r
   export const RolesCreate = props => (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="name" />
+        <TextInput source="role" />
       </SimpleForm>
     </Create>
   );

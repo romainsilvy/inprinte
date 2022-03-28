@@ -4,6 +4,7 @@ import (
 	accueil "inprinte/backend/crud/accueil"
 	boutique "inprinte/backend/crud/boutique"
 	produit "inprinte/backend/crud/produit"
+	user "inprinte/backend/crud/user"
 
 	utils "inprinte/backend/utils"
 
@@ -27,10 +28,10 @@ func handleProduit(router *mux.Router) {
 	// router.HandleFunc("/produit", produit.Delete).Methods("DELETE")
 }
 
-func handleProfil(router *mux.Router) {
-	// router.HandleFunc("/profil", profil.Get).Methods("GET")
-	// router.HandleFunc("/profil", profil.Update).Methods("UPDATE")
-	// router.HandleFunc("/profil", profil.Delete).Methods("DELETE")
+func handleUser(router *mux.Router) {
+	router.HandleFunc("/user/{id_user}", user.Get).Methods("GET")
+	// router.HandleFunc("/user", user.Update).Methods("UPDATE")
+	// router.HandleFunc("/user", user.Delete).Methods("DELETE")
 }
 
 func handlePanier(router *mux.Router) {
@@ -55,7 +56,7 @@ func main() {
 	handleAccueil(router)
 	handleBoutique(router)
 	handleProduit(router)
-	handleProfil(router)
+	handleUser(router)
 	handlePanier(router)
 	handleDemandeDesign(router)
 

@@ -28,8 +28,8 @@ func handleCommand(router *mux.Router) {
 
 func handleCommandLine(router *mux.Router) {
 	router.HandleFunc("/commandLines", commandLines.GetAll).Methods("GET")
-	// router.HandleFunc("/command-line/{id_commandLine}", commandLine.getOne).Methods("GET")
-	// router.HandleFunc("/command-line/{id_commandLine}", commandLine.update).Methods("UPDATE")
+	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.GetOne).Methods("GET")
+	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.UpdateOne).Methods("OPTIONS", "PUT")
 }
 
 func handleRate(router *mux.Router) {

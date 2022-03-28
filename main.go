@@ -3,6 +3,7 @@ package main
 import (
 	accueil "inprinte/backend/crud/accueil"
 	boutique "inprinte/backend/crud/boutique"
+	panier "inprinte/backend/crud/panier"
 	produit "inprinte/backend/crud/produit"
 	user "inprinte/backend/crud/user"
 
@@ -35,14 +36,8 @@ func handleUser(router *mux.Router) {
 }
 
 func handlePanier(router *mux.Router) {
-	// router.HandleFunc("/panier", panier.Get).Methods("GET")
+	router.HandleFunc("/panier", panier.Get).Methods("GET")
 	// router.HandleFunc("/panier", panier.Insert).Methods("INSERT")
-}
-
-func handleDemandeDesign(router *mux.Router) {
-	// router.HandleFunc("/demande-design", demandeDesign.Get).Methods("GET")
-	// router.HandleFunc("/demande-design", demandeDesign.Insert).Methods("INSERT")
-	// router.HandleFunc("/demande-design", demandeDesign.Delete).Methods("DELETE")
 }
 
 func main() {
@@ -58,22 +53,6 @@ func main() {
 	handleProduit(router)
 	handleUser(router)
 	handlePanier(router)
-	handleDemandeDesign(router)
 
 	http.ListenAndServe(":8080", router)
 }
-
-// READ paths
-// r.HandleFunc("/", CRUDget.GetAccueil).Methods("GET")
-// r.HandleFunc("/boutique", CRUDget.GetBoutique).Methods("GET")
-// r.HandleFunc("/produit/{id_product}", CRUDget.GetOneProduct).Methods("GET")
-// r.HandleFunc("/user/{id_user}", CRUDget.GetUser).Methods("GET")
-// r.HandleFunc("/boutique/{category}", CRUDget.GetBoutiqueByCategory).Methods("GET")
-
-// DELETE paths
-// r.HandleFunc("/delete/favorite", CRUDdelete.DeleteFavorite).Methods("DELETE")
-
-// POST paths
-// r.HandleFunc("/insert/favorite", CRUDinsert.InsertIntoFavorite).Methods("post")
-// backoffice paths
-// r.HandleFunc("/users", CRUDget.GetUsers).Methods("GET", "OPTIONS")

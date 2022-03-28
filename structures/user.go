@@ -18,11 +18,13 @@ type UserData struct {
 }
 
 type UserCommandHistory struct {
-	Id       int     `json:"id"`
-	Picture  string  `json:"picture"`
-	Name     string  `json:"name"`
-	Price    float64 `json:"price"`
-	Quantity int     `json:"quantity"`
+	Id            int     `json:"id"`
+	CommandNumber int     `json:"command_number"`
+	Picture       string  `json:"picture"`
+	Name          string  `json:"name"`
+	Price         float64 `json:"price"`
+	Quantity      int     `json:"quantity"`
+	Status        string  `json:"status"`
 }
 
 type UserFavoriteProducts struct {

@@ -11,15 +11,19 @@ import (
 )
 
 func Get(w http.ResponseWriter, r *http.Request) {
+	//global vars
 	vars := mux.Vars(r)
 	id_user := vars["id_user"]
 
+	//get the db connection
 	db := utils.DbConnect()
 
+	//get all user data
 	userData := getUserData(w, db, id_user)
 	userFavorite := getUserFavorite(db, id_user)
 	userCommandHistory := getCommandHistory(db, id_user)
 
+	//create the json response
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(structures.User{
 		UserData:         userData,
@@ -98,27 +102,29 @@ func getCommandHistory(db *sql.DB, id_user string) []structures.UserCommandHisto
 	var productHistory []structures.UserCommandHistory
 
 	//execute the sql query and check errors
-	rows, err := db.Query("SELECT product.id, name, price, picture.url, quantity FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN picture ON command_line.id = picture.id WHERE user.id = ?", id_user)
+	rows, err := db.Query("SELECT product.id, name, price, picture.url, quantity, command_line.state, command.id FROM product INNER JOIN user ON product.id = user.id INNER JOIN command_line ON product.id = command_line.id INNER JOIN command ON command.id = command_line.id_command INNER JOIN picture ON command_line.id = picture.id WHERE user.id = ?", id_user)
 	utils.CheckErr(err)
 
 	//parse the query
 	for rows.Next() {
 		//global vars
-		var name, picture string
-		var id, quantity int
+		var name, picture, state string
+		var id, quantity, commandNumber int
 		var price float64
 
 		//retrieve the values and check errors
-		err = rows.Scan(&id, &name, &price, &picture, &quantity)
+		err = rows.Scan(&id, &name, &price, &picture, &quantity, &state, &commandNumber)
 		utils.CheckErr(err)
 
 		//add the values to the response
 		productHistory = append(productHistory, structures.UserCommandHistory{
-			Id:       id,
-			Name:     name,
-			Price:    price,
-			Picture:  picture,
-			Quantity: quantity,
+			Id:            id,
+			Name:          name,
+			Price:         price,
+			Picture:       picture,
+			Quantity:      quantity,
+			Status:        state,
+			CommandNumber: commandNumber,
 		})
 	}
 	//close the rows

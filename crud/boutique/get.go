@@ -55,10 +55,10 @@ func getMostSales(db *sql.DB) []structures.MostWantedProduct {
 		//global vars
 		var name, picture string
 		var price float64
-		var id int
+		var id, nbrOrder int
 
 		//retrieve the values and check errors
-		err = rows.Scan(&id, &name, &price, &picture)
+		err = rows.Scan(&id, &nbrOrder, &name, &price, &picture)
 		utils.CheckErr(err)
 
 		//add the values to the response
@@ -114,7 +114,7 @@ func getCategories(db *sql.DB) []string {
 	var allCategories []string
 
 	//execute the sql query and check errors
-	rows, err := db.Query("SELECT name FROM `category")
+	rows, err := db.Query("SELECT name FROM `category`")
 	utils.CheckErr(err)
 
 	//parse the query
@@ -135,7 +135,7 @@ func getCategories(db *sql.DB) []string {
 	return allCategories
 }
 
-func GetBoutique(w http.ResponseWriter, r *http.Request) {
+func Get(w http.ResponseWriter, r *http.Request) {
 	//connect to the database
 	db := utils.DbConnect()
 

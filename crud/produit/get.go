@@ -7,6 +7,8 @@ import (
 	utils "inprinte/backend/utils"
 
 	"net/http"
+
+	"github.com/gorilla/mux"
 )
 
 func getOneProduct(db *sql.DB, id_product string) structures.ProductData {
@@ -31,10 +33,13 @@ func getOneProduct(db *sql.DB, id_product string) structures.ProductData {
 	}
 }
 
-func GetProduct(w http.ResponseWriter, r *http.Request) {
+func Get(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	id_product := vars["id_product"] // the book title slug
+
 	db := utils.DbConnect()
 
-	productData := getOneProduct(db, "1")
+	productData := getOneProduct(db, id_product)
 
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(structures.Product{

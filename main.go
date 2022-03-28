@@ -3,6 +3,7 @@ package main
 import (
 	accueil "inprinte/backend/crud/accueil"
 	boutique "inprinte/backend/crud/boutique"
+	produit "inprinte/backend/crud/produit"
 
 	utils "inprinte/backend/utils"
 
@@ -21,7 +22,7 @@ func handleBoutique(router *mux.Router) {
 }
 
 func handleProduit(router *mux.Router) {
-	// router.HandleFunc("/produit", produit.Get).Methods("GET")
+	router.HandleFunc("/produit/{id_product}", produit.Get).Methods("GET")
 	// router.HandleFunc("/produit", produit.Insert).Methods("INSERT")
 	// router.HandleFunc("/produit", produit.Delete).Methods("DELETE")
 }

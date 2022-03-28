@@ -75,7 +75,7 @@ func getBestRated(db *sql.DB) []structures.BestRatedProduct {
 	return bestRated
 }
 
-func GetAccueil(w http.ResponseWriter, r *http.Request) {
+func Get(w http.ResponseWriter, r *http.Request) {
 	db := utils.DbConnect()
 	mostSales := getMostSales(db)
 	bestRated := getBestRated(db)

@@ -1,15 +1,19 @@
 package main
 
 import (
+	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
+	products "inprinteBackoffice/crud/products"
+	rates "inprinteBackoffice/crud/rates"
 	users "inprinteBackoffice/crud/users"
+
 	"net/http"
 
 	"github.com/gorilla/mux"
 )
 
 func handleUsers(router *mux.Router) {
-	// router.HandleFunc("/users", users.insert).Methods("POST")
+	router.HandleFunc("/users", users.Insert).Methods("POST", "OPTIONS")
 	router.HandleFunc("/users", users.GetAll).Methods("GET")
 	router.HandleFunc("/users/{id_user}", users.GetOne).Methods("GET")
 	// router.HandleFunc("/users/{id_user}", users.update).Methods("UPDATE")
@@ -18,25 +22,25 @@ func handleUsers(router *mux.Router) {
 
 func handleCommand(router *mux.Router) {
 	router.HandleFunc("/commands", commands.GetAll).Methods("GET")
-	// router.HandleFunc("/commands/{id_command}", command.getOne).Methods("GET")
-	// router.HandleFunc("/commands/{id_command}", command.update).Methods("UPDATE")
+	router.HandleFunc("/commands/{id_command}", commands.GetOne).Methods("GET")
+	router.HandleFunc("/commands/{id_command}", commands.UpdateOne).Methods("PUT", "OPTIONS")
 }
 
 func handleCommandLine(router *mux.Router) {
-	// router.HandleFunc("/command-line", commandLine.getAll).Methods("GET")
+	router.HandleFunc("/commandLines", commandLines.GetAll).Methods("GET")
 	// router.HandleFunc("/command-line/{id_commandLine}", commandLine.getOne).Methods("GET")
 	// router.HandleFunc("/command-line/{id_commandLine}", commandLine.update).Methods("UPDATE")
 }
 
 func handleRate(router *mux.Router) {
-	// router.HandleFunc("/rate", rate.getAll).Methods("GET")
+	router.HandleFunc("/rates", rates.GetAll).Methods("GET")
 	// router.HandleFunc("/rate/{id_rate}", rate.getOne).Methods("GET")
 	// router.HandleFunc("/rate/{id_rate}", rate.update).Methods("UPDATE")
 }
 
 func handleProducts(router *mux.Router) {
 	// router.HandleFunc("/products", products.insert).Methods("POST")
-	// router.HandleFunc("/products", products.getAll).Methods("GET")
+	router.HandleFunc("/products", products.GetAll).Methods("GET")
 	// router.HandleFunc("/products/{id_product}", products.getOne).Methods("GET")
 	// router.HandleFunc("/products/{id_product}", products.update).Methods("UPDATE")
 	// router.HandleFunc("/products/{id_product}", products.delete).Methods("DELETE")
@@ -67,6 +71,7 @@ func main() {
 	handleCommand(router)
 	handleCommandLine(router)
 	handleRate(router)
+	handleProducts(router)
 
 	http.ListenAndServe(":8080", router)
 }

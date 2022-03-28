@@ -44,7 +44,7 @@ func DbConnect() (db *sql.DB) {
 	return db
 }
 
-func GetAllParams(r *http.Request) (string, string) {
+func GetAllParams(r *http.Request, table string) (string, string) {
 	containsOrder := true
 	containsSort := true
 	containsStart := true
@@ -77,6 +77,9 @@ func GetAllParams(r *http.Request) (string, string) {
 	}
 
 	if containsOrder && containsSort {
+		if table == "rate" && urlSort[0] == "id" {
+			urlSort[0] = "rate.id"
+		}
 		orderBy = " ORDER BY " + urlSort[0] + " " + urlOrder[0]
 	}
 

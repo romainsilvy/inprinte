@@ -1,49 +1,46 @@
 package crud
 
-// import "net/http"
+import (
+	"encoding/json"
+	"inprinteBackoffice/structures"
+	"inprinteBackoffice/utils"
+	"net/http"
 
-// func GetOne(w http.ResponseWriter, r *http.Request) {
-// 	//global vars
-// 	var status string
+	"github.com/gorilla/mux"
+)
 
-// 	//connect the database
-// 	db := utils.DbConnect()
+func GetOne(w http.ResponseWriter, r *http.Request) {
+	//global vars
+	var id int
+	var status string
 
-// 	//create cors header
-// 	utils.SetCorsHeaders(&w)
+	//connect the database
+	db := utils.DbConnect()
 
-// 	//get url values
-// 	vars := mux.Vars(r)
-// 	id_user := vars["id_user"]
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
-// 	//create the sql query
-// 	sqlQuery := ("SELECT  command.is AS id, command.status FROM command INNER JOIN user ON user.id = command.id_user WHERE user.id = " + id_user + ";")
+	//get url values
+	vars := mux.Vars(r)
+	id_command := vars["id_command"]
 
-// 	//execute the sql query
-// 	row := db.QueryRow(sqlQuery)
+	//create the sql query
+	sqlQuery := ("SELECT  command.id AS id, command.state FROM command WHERE command.id = " + id_command + ";")
 
-// 	//parse the query
-// 	//retrieve the values and check errors
-// 	err := row.Scan(&firstname, &lastname, &email, &password, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
-// 	utils.CheckErr(err)
+	//execute the sql query
+	row := db.QueryRow(sqlQuery)
 
-// 	//add the values to the response
-// 	oneUser = structures.OneUser{
-// 		Firstname: firstname,
-// 		Lastname:  lastname,
-// 		Email:     email,
-// 		Phone:     phone,
-// 		IsAlive:   is_alive,
-// 		Role:      role,
-// 		Address: structures.Address{
-// 			Street:  street,
-// 			City:    city,
-// 			State:   state,
-// 			Country: country,
-// 			ZipCode: zip_code,
-// 		},
-// 	}
+	//parse the query
+	//retrieve the values and check errors
+	err := row.Scan(&id, &status)
+	utils.CheckErr(err)
 
-// 	//create the json response
-// 	json.NewEncoder(w).Encode(oneUser)
-// }
+	//add the values to the response
+	oneCommand := structures.OneCommand{
+		Id:     id,
+		Status: status,
+	}
+
+	//create the json response
+	json.NewEncoder(w).Encode(oneCommand)
+}

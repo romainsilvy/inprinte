@@ -1,12 +1,13 @@
 import React from 'react';
 import { Nav, Bars, NavLink, NavMenu, NavBtn, NavBtnLink } from '../styles/HeaderStyles';
-
+import InprinteLogo from '../images/logo.svg'
+import UserLogo from '../images/user.svg'
 const Header = () => {
     return (
         <>
         <Nav>
             <NavLink to="/">
-                <h1>Logo</h1>
+                <img src={InprinteLogo} alt="Inprinte Logo" />
             </NavLink>
             <Bars />
             <NavMenu> 
@@ -27,7 +28,9 @@ const Header = () => {
                 </NavLink>
             </NavMenu>
             <NavBtn> 
-                <NavBtnLink to="/signup">Sign Up</NavBtnLink>
+                <NavBtnLink to="/login">
+                    <img src={UserLogo} alt="User Logo" />
+                </NavBtnLink>
             </NavBtn>
         </Nav>
         </>

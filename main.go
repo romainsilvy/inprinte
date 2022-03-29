@@ -1,12 +1,13 @@
 package main
 
 import (
+	category "inprinteBackoffice/crud/category"
 	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
 	products "inprinteBackoffice/crud/products"
 	rates "inprinteBackoffice/crud/rates"
+	roles "inprinteBackoffice/crud/roles"
 	users "inprinteBackoffice/crud/users"
-
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -48,17 +49,17 @@ func handleProducts(router *mux.Router) {
 
 func handleCategory(router *mux.Router) {
 	// router.HandleFunc("/category", category.insert).Methods("POST")
-	// router.HandleFunc("/category", category.getAll).Methods("GET")
+	router.HandleFunc("/categories", category.GetAll).Methods("GET")
 	// router.HandleFunc("/category/{id_product}", category.getOne).Methods("GET")
 	// router.HandleFunc("/category/{id_product}", category.update).Methods("UPDATE")
 	// router.HandleFunc("/category/{id_product}", category.delete).Methods("DELETE")
 }
 
-func handleRole(router *mux.Router) {
+func handleRoles(router *mux.Router) {
 	// router.HandleFunc("/role", role.insert).Methods("POST")
-	// router.HandleFunc("/role", role.getAll).Methods("GET")
-	// router.HandleFunc("/role/{id_product}", role.getOne).Methods("GET")
-	// router.HandleFunc("/role/{id_product}", role.update).Methods("UPDATE")
+	router.HandleFunc("/roles", roles.GetAll).Methods("GET")
+	router.HandleFunc("/roles/{id_role}", roles.GetOne).Methods("GET")
+	router.HandleFunc("/roles/{id_role}", roles.UpdateOne).Methods("OPTIONS", "PUT")
 	// router.HandleFunc("/role/{id_product}", role.delete).Methods("DELETE")
 }
 
@@ -72,6 +73,8 @@ func main() {
 	handleCommandLine(router)
 	handleRate(router)
 	handleProducts(router)
+	handleCategory(router)
+	handleRoles(router)
 
 	http.ListenAndServe(":8080", router)
 }

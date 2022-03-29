@@ -2,7 +2,6 @@ package crud
 
 import (
 	"encoding/json"
-	"fmt"
 	"inprinteBackoffice/structures"
 	"inprinteBackoffice/utils"
 	"net/http"
@@ -27,7 +26,7 @@ func GetOne(w http.ResponseWriter, r *http.Request) {
 
 	//create the sql query
 	sqlQuery := ("SELECT id, role FROM role WHERE role.id = " + id_role + " ;")
-	fmt.Println("SELECT id, role FROM role WHERE role.id = " + id_role + " ;")
+
 	//execute the sql query
 	row := db.QueryRow(sqlQuery)
 

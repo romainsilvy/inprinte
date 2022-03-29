@@ -14,10 +14,9 @@ import (
 )
 
 func handleUsers(router *mux.Router) {
-	router.HandleFunc("/users", users.Insert).Methods("POST", "OPTIONS")
 	router.HandleFunc("/users", users.GetAll).Methods("GET")
 	router.HandleFunc("/users/{id_user}", users.GetOne).Methods("GET")
-	// router.HandleFunc("/users/{id_user}", users.update).Methods("UPDATE")
+	router.HandleFunc("/users/{id_user}", users.UpdateOne).Methods("OPTIONS", "PUT")
 	// router.HandleFunc("/users/{id_user}", users.delete).Methods("DELETE")
 }
 

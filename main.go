@@ -35,7 +35,7 @@ func handleCommandLine(router *mux.Router) {
 func handleRate(router *mux.Router) {
 	router.HandleFunc("/rates", rates.GetAll).Methods("GET")
 	router.HandleFunc("/rates/{id_rate}", rates.GetOne).Methods("GET")
-	// router.HandleFunc("/rate/{id_rate}", rate.update).Methods("UPDATE")
+	router.HandleFunc("/rates/{id_rate}", rates.UpdateOne).Methods("OPTIONS", "PUT")
 }
 
 func handleProducts(router *mux.Router) {

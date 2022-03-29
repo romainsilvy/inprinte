@@ -1,17 +1,36 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Nav, Bars, NavLink, NavMenu, NavBtn, NavBtnLink } from '../styles/HeaderStyles';
 
 const Header = () => {
     return (
-        <div>
-            <ul className="header-ul">
-                <li><Link to="/">Logo</Link></li>
-                <li><Link to="/accueil">Accueil</Link></li>
-                <li><Link to="/boutique">Boutique</Link></li>
-                <li><Link to="/propositions">Propositions</Link></li>
-                <li><Link to="/contact">Contact</Link></li>
-            </ul>
-        </div>
+        <>
+        <Nav>
+            <NavLink to="/">
+                <h1>Logo</h1>
+            </NavLink>
+            <Bars />
+            <NavMenu> 
+                <NavLink to="/accueil">
+                    Accueil
+                </NavLink>
+                <NavLink to="/boutique">
+                    Boutique
+                </NavLink>
+                <NavLink to="/propositions">
+                    Propositions
+                </NavLink>
+                <NavLink to="/demande">
+                    Demande
+                </NavLink>
+                <NavLink to="/contact">
+                    Contact
+                </NavLink>
+            </NavMenu>
+            <NavBtn> 
+                <NavBtnLink to="/signup">Sign Up</NavBtnLink>
+            </NavBtn>
+        </Nav>
+        </>
     );
 };
 

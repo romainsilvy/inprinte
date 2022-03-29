@@ -13,3 +13,14 @@ type AllCommandLines struct {
 	State      string `json:"status"`
 	Name       string `json:"name"`
 }
+
+type OneCommandLines struct {
+	Id     int    `json:"id"`
+	Status string `json:"status"`
+}
+
+type JsonReponseCommandLines struct {
+	Data   []OneCommandLines `json:"data"`
+	Id     int               `json:"id"`
+	Status string            `json:"status"`
+}

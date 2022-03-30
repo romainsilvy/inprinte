@@ -18,8 +18,8 @@ func GetOne(w http.ResponseWriter, r *http.Request) {
 	var id, price, id_user int
 	var rate float64
 	var pending_validation, is_alive bool
-	var product_file []structures.FileUrl
-	var product_picture []structures.PictureUrl
+	var product_file []string
+	var product_picture []string
 
 	vars := mux.Vars(r)
 	id_product := vars["id_product"]
@@ -68,9 +68,9 @@ func GetOne(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(oneProduct)
 }
 
-func getProductFile(db *sql.DB, id_product string) []structures.FileUrl {
+func getProductFile(db *sql.DB, id_product string) []string {
 	//global vars
-	var product_file []structures.FileUrl
+	var product_file []string
 	var url string
 	//create the sql query
 	sqlQuery := ("SELECT product_file.url FROM product_file INNER JOIN product ON product_file.id_product = product.id WHERE product.id = " + id_product + ";")
@@ -84,17 +84,15 @@ func getProductFile(db *sql.DB, id_product string) []structures.FileUrl {
 		utils.CheckErr(err)
 
 		//add the values to the response
-		product_file = append(product_file, structures.FileUrl{
-			Url: url,
-		})
+		product_file = append(product_file, url)
 	}
 
 	return product_file
 }
 
-func getProductPicture(db *sql.DB, id_product string) []structures.PictureUrl {
+func getProductPicture(db *sql.DB, id_product string) []string {
 	//global vars
-	var product_picture []structures.PictureUrl
+	var product_picture []string
 	var url string
 	//create the sql query
 	sqlQuery := ("SELECT picture.url FROM picture INNER JOIN product_picture ON product_picture.id_picture = picture.id INNER JOIN product ON product.id = product_picture.id_product WHERE product.id = " + id_product + ";")
@@ -108,9 +106,7 @@ func getProductPicture(db *sql.DB, id_product string) []structures.PictureUrl {
 		utils.CheckErr(err)
 
 		//add the values to the response
-		product_picture = append(product_picture, structures.PictureUrl{
-			Url: url,
-		})
+		product_picture = append(product_picture, url)
 	}
 
 	return product_picture

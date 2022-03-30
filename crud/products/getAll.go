@@ -59,6 +59,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 		})
 	}
 	//close the rows
+	rows.Close()
 
 	//create the json response
 	utils.SetXTotalCountHeader(&w, len(allProducts))

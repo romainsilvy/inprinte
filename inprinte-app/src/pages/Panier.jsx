@@ -1,11 +1,11 @@
 import React from 'react';
 
-const Home = () => {
+const panier = () => {
     return (
         <div style= {{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh'}}>
-            <h1>Accueil</h1>
+           <h1>Panier</h1> 
         </div>
     );
 };
 
-export default Home;
+export default panier;

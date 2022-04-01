@@ -11,20 +11,50 @@ import (
 	"github.com/gorilla/mux"
 )
 
+func getAllPictures(db *sql.DB, id_product string) []string {
+	//global vars
+	var allPictures []string
+
+	//execute the sql query and check errors
+	rows, err := db.Query("SELECT url FROM picture WHERE id IN (SELECT id_picture FROM product_picture WHERE id_product IN (SELECT id FROM product WHERE pending_validation = false AND is_alive = true AND product.id = ? ) ); ", id_product)
+	utils.CheckErr(err)
+
+	//parse the query
+	for rows.Next() {
+		//global vars
+		var picture string
+
+		//retrieve the values and check errors
+		err = rows.Scan(&picture)
+		utils.CheckErr(err)
+
+		//add the values to the response
+		allPictures = append(allPictures, picture)
+	}
+	//close the rows
+
+	//return all the pictures
+	return allPictures
+
+}
+
 func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structures.ProductData {
 	//global vars
 	var id int
-	var name, description, picture, product_file string
+	var name, description, product_file string
 	var price float64
 
 	//execute the sql query and check errors
-	row := db.QueryRow(`SELECT product.id, name, description, price, picture.url, product_file.url FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true GROUP BY product.id`, id_product)
-	err := row.Scan(&id, &name, &description, &price, &picture, &product_file)
+	row := db.QueryRow(`SELECT product.id, name, description, price, product_file.url FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true GROUP BY product.id`, id_product)
+	err := row.Scan(&id, &name, &description, &price, &product_file)
 	if err == sql.ErrNoRows {
 		w.WriteHeader(404)
 	} else {
 		utils.CheckErr(err)
 	}
+
+	//retrieve all the pictures of the product
+	allPictures := getAllPictures(db, id_product)
 
 	//create the json response
 	return structures.ProductData{
@@ -32,7 +62,7 @@ func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structu
 		Name:         name,
 		Description:  description,
 		Price:        price,
-		Picture:      picture,
+		Pictures:     allPictures,
 		Product_file: product_file,
 	}
 }

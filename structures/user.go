@@ -1,15 +1,41 @@
 package structures
 
-type User struct {
+type Address struct {
+	Street  string `json:"street"`
+	City    string `json:"city"`
+	State   string `json:"state"`
+	Country string `json:"country"`
+	ZipCode string `json:"zipCode"`
+}
+
+type UserData struct {
+	Id        int     `json:"id"`
 	Email     string  `json:"email"`
-	Password  string  `json:"password"`
 	Firstname string  `json:"firstname"`
 	Lastname  string  `json:"lastname"`
 	Phone     string  `json:"phone"`
 	Address   Address `json:"address"`
 }
-type JsonResponseUsers struct {
-	Type    string     `json:"type"`
-	Data    []User 	   `json:"data"`
-	Message string     `json:"message"`
+
+type UserCommandHistory struct {
+	Id            int     `json:"id"`
+	CommandNumber int     `json:"command_number"`
+	Picture       string  `json:"picture"`
+	Name          string  `json:"name"`
+	Price         float64 `json:"price"`
+	Quantity      int     `json:"quantity"`
+	Status        string  `json:"status"`
+}
+
+type UserFavoriteProducts struct {
+	Id      int     `json:"idProduct"`
+	Picture string  `json:"picture"`
+	Name    string  `json:"name"`
+	Price   float64 `json:"price"`
+}
+
+type User struct {
+	UserData         UserData               `json:"userData"`
+	FavoriteProducts []UserFavoriteProducts `json:"favoriteProducts"`
+	CommandHistory   []UserCommandHistory   `json:"userCommandHistory"`
 }

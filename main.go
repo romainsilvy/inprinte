@@ -1,7 +1,12 @@
 package main
 
 import (
-	CRUD "inprinte/backend/CRUD/get"
+	accueil "inprinte/backend/crud/accueil"
+	boutique "inprinte/backend/crud/boutique"
+	panier "inprinte/backend/crud/panier"
+	produit "inprinte/backend/crud/produit"
+	user "inprinte/backend/crud/user"
+
 	utils "inprinte/backend/utils"
 
 	"net/http"
@@ -10,35 +15,44 @@ import (
 	"github.com/gorilla/mux"
 )
 
-/* func manageRoutes() {
-// 	router := mux.NewRouter()
+func handleAccueil(router *mux.Router) {
+	router.HandleFunc("/", accueil.Get).Methods("GET")
+}
 
-// 	router.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
+func handleBoutique(router *mux.Router) {
+	router.HandleFunc("/boutique", boutique.Get).Methods("GET")
+}
 
-// 	router.HandleFunc("/user/{userid}", CreateUser).Methods("POST")
-// 	router.HandleFunc("/user/{userid}", CRUD.GetUsers).Methods("GET")
-// 	router.HandleFunc("/user/{userid}", UpdateUser).Methods("UPDATE")
-// 	router.HandleFunc("/user/{userid}", DeleteUser).Methods("DELETE")
+func handleProduit(router *mux.Router) {
+	router.HandleFunc("/produit/{id_product}", produit.Get).Methods("GET")
+	// router.HandleFunc("/produit", produit.Insert).Methods("INSERT")
+	// router.HandleFunc("/produit", produit.Delete).Methods("DELETE")
+}
 
-// 	fmt.Println("Server at 8080")
-// 	log.Fatal(http.ListenAndServe(":8000", router))
-}*/
+func handleUser(router *mux.Router) {
+	router.HandleFunc("/user/{id_user}", user.Get).Methods("GET")
+	// router.HandleFunc("/user", user.Update).Methods("UPDATE")
+	// router.HandleFunc("/user", user.Delete).Methods("DELETE")
+}
+
+func handlePanier(router *mux.Router) {
+	router.HandleFunc("/panier", panier.Get).Methods("GET")
+	// router.HandleFunc("/panier", panier.Insert).Methods("INSERT")
+}
 
 func main() {
-	// databaseTools.Faker()
+	//print the inprinte logo
 	utils.InprinteAscii()
 
-	r := mux.NewRouter()
+	//create a new mux router
+	router := mux.NewRouter()
 
-	// backoffice paths
-	r.HandleFunc("/users", CRUD.GetUsers).Methods("GET")
+	//handle all the paths
+	handleAccueil(router)
+	handleBoutique(router)
+	handleProduit(router)
+	handleUser(router)
+	handlePanier(router)
 
-	// normal paths
-	r.HandleFunc("/", CRUD.GetAccueil).Methods("GET")
-	r.HandleFunc("/boutique", CRUD.GetBoutique).Methods("GET")
-	r.HandleFunc("/produit/{id}", CRUD.GetOneProduct).Methods("GET")
-	r.HandleFunc("/user/{id_user}", CRUD.GetUserData).Methods("GET")
-
-	http.ListenAndServe(":8080", r)
-
+	http.ListenAndServe(":8080", router)
 }

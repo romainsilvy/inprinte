@@ -10,6 +10,9 @@ type OneCategory struct {
 	Name string `json:"name"`
 }
 
-type InsertOneResponse struct {
-	Status string `json:"status"`
+type InsertOne struct {
+	Id      int         `json:"id"`
+	Type    string      `json:"type"`
+	Data    OneCategory `json:"data"`
+	Message string      `json:"message"`
 }

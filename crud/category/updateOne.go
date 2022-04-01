@@ -24,7 +24,6 @@ func UpdateOne(w http.ResponseWriter, r *http.Request) {
 
 	// create the sql query
 	sqlQuery := ("UPDATE category SET name = '" + oneCategory.Name + "' WHERE id = " + strconv.Itoa(oneCategory.Id) + ";")
-	fmt.Println("UPDATE category SET name = '" + oneCategory.Name + "' WHERE id = " + strconv.Itoa(oneCategory.Id) + ";")
 	// execute the sql query
 	_, err = db.Exec(sqlQuery)
 	utils.CheckErr(err)

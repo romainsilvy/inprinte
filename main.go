@@ -33,6 +33,7 @@ func handleCommandLine(router *mux.Router) {
 }
 
 func handleRate(router *mux.Router) {
+	router.HandleFunc("/rates", rates.InsertOne).Methods("OPTIONS", "POST")
 	router.HandleFunc("/rates", rates.GetAll).Methods("GET")
 	router.HandleFunc("/rates/{id_rate}", rates.GetOne).Methods("GET")
 	router.HandleFunc("/rates/{id_rate}", rates.UpdateOne).Methods("OPTIONS", "PUT")

@@ -16,9 +16,8 @@ type OneRate struct {
 }
 
 type CreateOneRate struct {
-	Id           int `json:"id"`
-	Id_user      int `json:"id_user"`
-	Id_product   int `json:"id_product"`
+	Id_user      int `json:"id_user,string"`
+	Id_product   int `json:"id_product,string"`
 	Stars_number int `json:"stars_number,string"`
 }
 

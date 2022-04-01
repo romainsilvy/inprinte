@@ -2,6 +2,7 @@ package crud
 
 import (
 	"encoding/json"
+	"fmt"
 	structures "inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 
 func InsertOne(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
+
 	// global variables
 	var response = structures.InsertOneRate{}
 	var oneRate structures.CreateOneRate
@@ -17,14 +19,15 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 
 	// get body
 	err := json.NewDecoder(r.Body).Decode(&oneRate)
-	utils.CheckErr(err)
+	if err != nil {
+		fmt.Println(err)
+	}
 
 	// connect to database
 	db := utils.DbConnect()
 
 	// create the sql query
 	sqlQuery := ("INSERT INTO rate (id_product, id_user, stars_number) VALUES (" + strconv.Itoa(oneRate.Id_product) + ", " + strconv.Itoa(oneRate.Id_user) + ", " + strconv.Itoa(oneRate.Stars_number) + ");")
-
 	// execute the sql query
 	_, err = db.Exec(sqlQuery)
 	utils.CheckErr(err)
@@ -43,7 +46,6 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 		Id:   lastInsertID,
 		Type: "success",
 		Data: structures.CreateOneRate{
-			Id:           lastInsertID,
 			Id_product:   oneRate.Id_product,
 			Id_user:      oneRate.Id_user,
 			Stars_number: oneRate.Stars_number,

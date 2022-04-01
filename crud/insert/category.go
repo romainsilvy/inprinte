@@ -1,11 +1,10 @@
-package CRUD
+package crud
 
 import (
 	"database/sql"
 	"inprinte/backend/utils"
 	"log"
 )
-
 
 func InsertIntoCategory(db *sql.DB, name string) {
 	sql := "INSERT INTO category (name) VALUES (\"" + name + "\");"

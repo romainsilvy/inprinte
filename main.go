@@ -56,7 +56,7 @@ func handleCategory(router *mux.Router) {
 }
 
 func handleRoles(router *mux.Router) {
-	// router.HandleFunc("/role", role.insert).Methods("POST")
+	router.HandleFunc("/roles", roles.InsertOne).Methods("OPTIONS", "POST")
 	router.HandleFunc("/roles", roles.GetAll).Methods("GET")
 	router.HandleFunc("/roles/{id_role}", roles.GetOne).Methods("GET")
 	router.HandleFunc("/roles/{id_role}", roles.UpdateOne).Methods("OPTIONS", "PUT")

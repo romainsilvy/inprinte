@@ -21,3 +21,10 @@ type CreateOneRate struct {
 	Id_product   int `json:"id_product"`
 	Stars_number int `json:"stars_number,string"`
 }
+
+type InsertOneRate struct {
+	Id      int           `json:"id"`
+	Type    string        `json:"type"`
+	Data    CreateOneRate `json:"data"`
+	Message string        `json:"message"`
+}

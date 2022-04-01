@@ -5,7 +5,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"log"
 	"math/rand"
+	"net/http"
 
 	"github.com/fatih/color"
 )
@@ -53,4 +55,46 @@ func DbConnect() (db *sql.DB) {
 		color.Cyan("Database connected !\n")
 	}
 	return db
+}
+
+func GetAllParams(r *http.Request) (string, string) {
+	containsOrder := true
+	containsSort := true
+	containsStart := true
+	containsEnd := true
+	rangeBy := ""
+	orderBy := ""
+
+	urlOrder, ok := r.URL.Query()["_order"]
+	if !ok || len(urlOrder[0]) < 1 {
+		log.Println("Url Param 'order' is missing")
+		containsOrder = false
+	}
+
+	urlSort, ok := r.URL.Query()["_sort"]
+	if !ok || len(urlSort[0]) < 1 {
+		log.Println("Url Param 'sort' is missing")
+		containsSort = true
+	}
+
+	urlStart, ok := r.URL.Query()["_start"]
+	if !ok || len(urlStart[0]) < 1 {
+		log.Println("Url Param 'start' is missing")
+		containsStart = false
+	}
+
+	urlEnd, ok := r.URL.Query()["_end"]
+	if !ok || len(urlEnd[0]) < 1 {
+		log.Println("Url Param 'End' is missing")
+		containsEnd = false
+	}
+
+	if containsOrder && containsSort {
+		orderBy = " ORDER BY " + urlSort[0] + " " + urlOrder[0]
+	}
+
+	if containsStart && containsEnd {
+		rangeBy = " LIMIT " + urlStart[0] + "," + urlEnd[0]
+	}
+	return orderBy, rangeBy
 }

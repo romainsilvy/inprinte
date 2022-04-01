@@ -75,12 +75,15 @@ func getMostSales(db *sql.DB) []structures.MostWantedProduct {
 	return mostSales
 }
 
-func getAllProducts(db *sql.DB) []structures.BoutiqueProduct {
+func getAllProducts(r *http.Request, db *sql.DB) []structures.BoutiqueProduct {
 	//global vars
 	var allProducts []structures.BoutiqueProduct
 
+	//retrieve the url params
+	orderBy, rangeBy := utils.GetAllParams(r)
+
 	//execute the sql query and check errors
-	rows, err := db.Query("SELECT product.id, name, price, description, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE picture.default = true AND product.pending_validation = false AND product.is_alive = true")
+	rows, err := db.Query("SELECT product.id, name, price, description, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE picture.default = true AND product.pending_validation = false AND product.is_alive = true " + orderBy + " " + rangeBy)
 	utils.CheckErr(err)
 
 	//parse the query
@@ -142,7 +145,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	//get informations
 	newProducts := getNewProducts(db)
 	mostSales := getMostSales(db)
-	allProducts := getAllProducts(db)
+	allProducts := getAllProducts(r, db)
 	categories := getCategories(db)
 
 	w.Header().Set("Content-Type", "application/json")
@@ -153,20 +156,3 @@ func Get(w http.ResponseWriter, r *http.Request) {
 		Categories:  categories,
 	})
 }
-
-// func GetBoutiqueByCategory(w http.ResponseWriter, r *http.Request) {
-// 	db := databaseTools.DbConnect()
-
-// 	vars := mux.Vars(r)
-// 	category := vars["category"]
-
-// 	//all sql queries for this path
-// 	allProductsQuery := "SELECT product.id, product.name, price, description, url FROM product INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id INNER JOIN category ON product.id_category = category.id WHERE picture.default = true AND product.pending_validation = false AND product.is_alive = true AND category.name = \"" + category + "\";"
-// 	log.Println(allProductsQuery)
-// 	//----- for all the products
-// 	allProducts := getAllProducts(db, allProductsQuery)
-
-// 	//----- encode the json response
-// 	w.Header().Set("Content-Type", "application/json")
-// 	json.NewEncoder(w).Encode(allProducts)
-// }

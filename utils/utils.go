@@ -98,3 +98,26 @@ func GetAllParams(r *http.Request) (string, string) {
 	}
 	return orderBy, rangeBy
 }
+
+func GetRangeParam(r *http.Request) string {
+	containsStart := true
+	containsEnd := true
+	rangeBy := ""
+
+	urlStart, ok := r.URL.Query()["_start"]
+	if !ok || len(urlStart[0]) < 1 {
+		log.Println("Url Param 'start' is missing")
+		containsStart = false
+	}
+
+	urlEnd, ok := r.URL.Query()["_end"]
+	if !ok || len(urlEnd[0]) < 1 {
+		log.Println("Url Param 'End' is missing")
+		containsEnd = false
+	}
+
+	if containsStart && containsEnd {
+		rangeBy = " LIMIT " + urlStart[0] + "," + urlEnd[0]
+	}
+	return rangeBy
+}

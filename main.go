@@ -21,6 +21,7 @@ func handleUsers(router *mux.Router) {
 }
 
 func handleCommand(router *mux.Router) {
+	router.HandleFunc("/commands", commands.InsertOne).Methods("OPTIONS", "POST")
 	router.HandleFunc("/commands", commands.GetAll).Methods("GET")
 	router.HandleFunc("/commands/{id_command}", commands.GetOne).Methods("GET")
 	router.HandleFunc("/commands/{id_command}", commands.UpdateOne).Methods("PUT", "OPTIONS")

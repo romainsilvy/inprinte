@@ -2,7 +2,6 @@ package crud
 
 import (
 	"encoding/json"
-	"fmt"
 	structures "inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 	"net/http"
@@ -26,7 +25,6 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 
 		// create the sql query
 		sqlQuery := ("INSERT INTO product (name, price, description, pending_validation, is_alive, id_category, id_user) VALUES ('" + oneProduct.Name + "', " + strconv.Itoa(oneProduct.Price) + " , '" + oneProduct.Description + "' , " + strconv.FormatBool(oneProduct.Pending_validation) + " , " + strconv.FormatBool(oneProduct.Is_alive) + " , (SELECT id FROM category WHERE category.name = '" + oneProduct.Category + "'), " + strconv.Itoa(oneProduct.Id_user) + ");")
-		fmt.Println(sqlQuery)
 
 		// execute the sql query
 		_, err = db.Exec(sqlQuery)

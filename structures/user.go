@@ -29,3 +29,21 @@ type OneUser struct {
 	Role      string  `json:"role"`
 	Address   Address `json:"address"`
 }
+
+type CreateOneUser struct {
+	Email     string  `json:"email"`
+	Firstname string  `json:"firstname"`
+	Lastname  string  `json:"lastname"`
+	Password  string  `json:"password"`
+	Phone     string  `json:"phone"`
+	IsAlive   bool    `json:"is_alive,string"`
+	Role      string  `json:"role"`
+	Address   Address `json:"address"`
+}
+
+type InsertOneUser struct {
+	Id      int           `json:"id"`
+	Type    string        `json:"type"`
+	Data    CreateOneUser `json:"data"`
+	Message string        `json:"message"`
+}

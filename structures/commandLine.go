@@ -24,3 +24,17 @@ type JsonReponseCommandLines struct {
 	Id     int               `json:"id"`
 	Status string            `json:"status"`
 }
+
+type CreateOneCommandLines struct {
+	Id_product int    `json:"id_product,string"`
+	Id_command int    `json:"id_command,string"`
+	Quantity   int    `json:"quantity,string"`
+	State      string `json:"state"`
+}
+
+type InsertOneCommandLines struct {
+	Id      int                   `json:"id"`
+	Type    string                `json:"type"`
+	Data    CreateOneCommandLines `json:"data"`
+	Message string                `json:"message"`
+}

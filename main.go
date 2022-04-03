@@ -28,6 +28,7 @@ func handleCommand(router *mux.Router) {
 }
 
 func handleCommandLine(router *mux.Router) {
+	router.HandleFunc("/commandLines", commandLines.InsertOne).Methods("OPTIONS", "POST")
 	router.HandleFunc("/commandLines", commandLines.GetAll).Methods("GET")
 	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.GetOne).Methods("GET")
 	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.UpdateOne).Methods("OPTIONS", "PUT")

@@ -42,7 +42,7 @@ func handleRate(router *mux.Router) {
 }
 
 func handleProducts(router *mux.Router) {
-	// router.HandleFunc("/products", products.insert).Methods("POST")
+	router.HandleFunc("/products", products.InsertOne).Methods("OPTIONS", "POST")
 	router.HandleFunc("/products", products.GetAll).Methods("GET")
 	router.HandleFunc("/products/{id_product}", products.GetOne).Methods("GET")
 	// router.HandleFunc("/products/{id_product}", products.update).Methods("UPDATE")

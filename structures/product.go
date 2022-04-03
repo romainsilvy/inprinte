@@ -39,3 +39,20 @@ type OneProduct struct {
 	FileUrl            []string `json:"fileUrl"`
 	PictureUrl         []string `json:"pictureUrl"`
 }
+
+type CreateOneProduct struct {
+	Name               string `json:"name"`
+	Price              int    `json:"price,string"`
+	Description        string `json:"description"`
+	Pending_validation bool   `json:"pending_validation,string"`
+	Is_alive           bool   `json:"is_alive,string"`
+	Category           string `json:"category"`
+	Id_user            int    `json:"id_user,string"`
+}
+
+type InsertOneProduct struct {
+	Id      int              `json:"id"`
+	Type    string           `json:"type"`
+	Data    CreateOneProduct `json:"data"`
+	Message string           `json:"message"`
+}

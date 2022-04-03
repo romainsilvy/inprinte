@@ -49,7 +49,7 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 				Quantity:   oneCommandLines.Quantity,
 				State:      oneCommandLines.State,
 			},
-			Message: "New command inserted into DB.",
+			Message: "New command line inserted into DB.",
 		}
 
 		// send the response

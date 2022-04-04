@@ -7,15 +7,15 @@ import (
 	"net/http"
 )
 
-func GetAll(w http.ResponseWriter, r *http.Request) {
+func GetCommands(w http.ResponseWriter, r *http.Request) {
+	//create cors header
+	utils.SetCorsHeaders(&w)
+
 	//global vars
-	var AllCommands []structures.AllCommands
+	var commands []structures.GetCommands
 
 	//connect the database
 	db := utils.DbConnect()
-
-	//create cors header
-	utils.SetCorsHeaders(&w)
 
 	//get filters values and update the sqlQuery
 	orderBy, rangeBy := utils.GetAllParams(r, "command")
@@ -36,7 +36,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 		utils.CheckErr(err)
 
 		//add the values to the response
-		AllCommands = append(AllCommands, structures.AllCommands{
+		commands = append(commands, structures.GetCommands{
 			Id:        id,
 			Firstname: firstname,
 			Lastname:  lastname,
@@ -50,6 +50,6 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	//close the rows
 
 	//create the json response
-	utils.SetXTotalCountHeader(&w, len(AllCommands))
-	json.NewEncoder(w).Encode(AllCommands)
+	utils.SetXTotalCountHeader(&w, len(commands))
+	json.NewEncoder(w).Encode(commands)
 }

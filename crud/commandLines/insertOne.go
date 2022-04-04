@@ -9,11 +9,12 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
+	//create cors header
 	utils.SetCorsHeaders(&w)
 	if r.Method == "POST" {
 		// global variables
 		var response = structures.JsonReponseCommandLines{}
-		var oneCommandLines structures.CreateOneCommandLines
+		var oneCommandLines structures.CreateCommandLine
 		var lastInsertID int
 
 		// get body
@@ -43,7 +44,7 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		response = structures.JsonReponseCommandLines{
 			Id:   lastInsertID,
 			Type: "success",
-			Data: structures.CreateOneCommandLines{
+			Data: structures.CreateCommandLine{
 				Id_product: oneCommandLines.Id_product,
 				Id_command: oneCommandLines.Id_command,
 				Quantity:   oneCommandLines.Quantity,

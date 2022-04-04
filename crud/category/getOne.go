@@ -43,6 +43,9 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 			IsAlive: is_alive,
 		}
 
+		//close the database connection
+		db.Close()
+
 		//create the json response
 		json.NewEncoder(w).Encode(oneCategory)
 	}

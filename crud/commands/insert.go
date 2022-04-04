@@ -8,12 +8,14 @@ import (
 	"strconv"
 )
 
-func InsertOne(w http.ResponseWriter, r *http.Request) {
+func Insert(w http.ResponseWriter, r *http.Request) {
+	//create cors header
 	utils.SetCorsHeaders(&w)
+
 	if r.Method == "POST" {
 		// global variables
-		var response = structures.InsertOneCommand{}
-		var oneCommand structures.CreateOneCommand
+		var response = structures.JsonResponseCommand{}
+		var oneCommand structures.CreateCommand
 		var lastInsertID int
 
 		// get body
@@ -40,10 +42,10 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 		db.Close()
 
 		// set the response
-		response = structures.InsertOneCommand{
+		response = structures.JsonResponseCommand{
 			Id:   lastInsertID,
 			Type: "success",
-			Data: structures.CreateOneCommand{
+			Data: structures.CreateCommand{
 				Id_user: oneCommand.Id_user,
 				Date:    oneCommand.Date,
 				State:   oneCommand.State,
@@ -51,7 +53,7 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 			Message: "New command inserted into DB.",
 		}
 
-		// send the response
+		// create the json response
 		json.NewEncoder(w).Encode(response)
 	}
 }

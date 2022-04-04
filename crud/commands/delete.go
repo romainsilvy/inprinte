@@ -9,11 +9,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func DeleteOne(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "DELETE" {
-		//create cors header
-		utils.SetCorsHeaders(&w)
+func Delete(w http.ResponseWriter, r *http.Request) {
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "DELETE" {
 		//connect the database
 		db := utils.DbConnect()
 
@@ -29,7 +29,6 @@ func DeleteOne(w http.ResponseWriter, r *http.Request) {
 
 		//create the sql query
 		sqlQuery = ("DELETE FROM command WHERE id = " + id_command + ";")
-
 		_, err = db.Exec(sqlQuery)
 		utils.CheckErr(err)
 
@@ -37,8 +36,9 @@ func DeleteOne(w http.ResponseWriter, r *http.Request) {
 		db.Close()
 
 		//create the json response
-		json.NewEncoder(w).Encode(structures.InsertOneCommand{
-			Type: "success",
+		json.NewEncoder(w).Encode(structures.JsonResponseCommand{
+			Type:    "success",
+			Message: "Command deleted",
 		})
 	}
 }

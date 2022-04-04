@@ -15,36 +15,37 @@ func GetCommandLine(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	//global vars
-	var oneCommandLines []structures.GetCommandLine
 	var state string
 	var id int
 
-	//get the id from the url
-	vars := mux.Vars(r)
-	id_commandLine := vars["id_commandLine"]
+	if r.Method == "GET" {
+		//get the id from the url
+		vars := mux.Vars(r)
+		id_commandLine := vars["id_commandLine"]
 
-	//connect the database
-	db := utils.DbConnect()
+		//connect the database
+		db := utils.DbConnect()
 
-	//create the sql query
-	sqlQuery := "SELECT command_line.id, command_line.state FROM command_line WHERE command_line.id = " + id_commandLine + ";"
-	rows, err := db.Query(sqlQuery)
-	utils.CheckErr(err)
+		//create the sql query
+		sqlQuery := ("SELECT command_line.id, command_line.state FROM command_line WHERE command_line.id = " + id_commandLine + ";")
 
-	//parse the query
-	for rows.Next() {
-		//retrieve the values and check errors
-		err = rows.Scan(&id, &state)
+		//execute the sql query
+		row := db.QueryRow(sqlQuery)
+
+		//parse the query
+		err := row.Scan(&id, &state)
 		utils.CheckErr(err)
 
-		//add the values to the response
-		oneCommandLines = append(oneCommandLines, structures.GetCommandLine{
+		commandLine := structures.GetCommandLine{
 			Id:     id,
 			Status: state,
-		})
-	}
+		}
 
-	//create the json response
-	utils.SetXTotalCountHeader(&w, len(oneCommandLines))
-	json.NewEncoder(w).Encode(oneCommandLines)
+		//close the database connection
+		db.Close()
+
+		//create the json response
+		utils.SetXTotalCountHeader(&w, 1)
+		json.NewEncoder(w).Encode(commandLine)
+	}
 }

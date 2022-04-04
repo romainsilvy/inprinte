@@ -9,12 +9,13 @@ import (
 )
 
 func Update(w http.ResponseWriter, r *http.Request) {
-	//set cors header
+	//create cors header
 	utils.SetCorsHeaders(&w)
 
+	// parse json from put Request
+	var oneCommand structures.GetCommand
+
 	if r.Method == "PUT" {
-		// parse json from put Request
-		var oneCommand structures.GetCommandLine
 		err := json.NewDecoder(r.Body).Decode(&oneCommand)
 		utils.CheckErr(err)
 
@@ -22,7 +23,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		db := utils.DbConnect()
 
 		// create the sql query
-		sqlQuery := ("UPDATE command_line SET state = '" + oneCommand.Status + "' WHERE id = " + strconv.Itoa(oneCommand.Id) + ";")
+		sqlQuery := ("UPDATE command SET state = '" + oneCommand.Status + "' WHERE id = " + strconv.Itoa(oneCommand.Id) + ";")
+
+		// execute the sql query
 		_, err = db.Exec(sqlQuery)
 		utils.CheckErr(err)
 

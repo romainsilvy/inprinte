@@ -22,16 +22,16 @@ func handleUsers(router *mux.Router) {
 }
 
 func handleCommand(router *mux.Router) {
-	router.HandleFunc("/commands", commands.InsertOne).Methods("OPTIONS", "POST")
-	router.HandleFunc("/commands", commands.GetAll).Methods("GET")
-	router.HandleFunc("/commands/{id_command}", commands.GetOne).Methods("GET")
-	router.HandleFunc("/commands/{id_command}", commands.UpdateOne).Methods("PUT", "OPTIONS")
-	router.HandleFunc("/commands/{id_command}", commands.DeleteOne).Methods("DELETE", "OPTIONS")
+	router.HandleFunc("/commands", commands.Insert).Methods("OPTIONS", "POST")
+	router.HandleFunc("/commands", commands.GetCommands).Methods("GET")
+	router.HandleFunc("/commands/{id_command}", commands.GetCommand).Methods("GET")
+	router.HandleFunc("/commands/{id_command}", commands.Update).Methods("PUT", "OPTIONS")
+	router.HandleFunc("/commands/{id_command}", commands.Delete).Methods("DELETE", "OPTIONS")
 }
 
 func handleCommandLine(router *mux.Router) {
 	router.HandleFunc("/commandLines", commandLines.Insert).Methods("OPTIONS", "POST")
-	router.HandleFunc("/commandLines", commandLines.GetAll).Methods("GET")
+	router.HandleFunc("/commandLines", commandLines.GetCommandLines).Methods("GET")
 	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.GetCommandLine).Methods("GET")
 	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.Update).Methods("OPTIONS", "PUT")
 	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.Delete).Methods("OPTIONS", "DELETE")

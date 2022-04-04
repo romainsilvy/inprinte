@@ -29,6 +29,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		_, err = db.Exec(sqlQuery)
 		utils.CheckErr(err)
 
+		// close the database connection
+		db.Close()
+
 		// create the json response
 		json.NewEncoder(w).Encode(structures.JsonResponseCategory{
 			Id:      category.Id,

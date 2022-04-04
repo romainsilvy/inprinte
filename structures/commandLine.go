@@ -24,7 +24,7 @@ type UpdateCommandLine struct {
 	Status string `json:"status"`
 }
 
-type CreateOneCommandLines struct {
+type CreateCommandLine struct {
 	Id_product int    `json:"id_product,string"`
 	Id_command int    `json:"id_command,string"`
 	Quantity   int    `json:"quantity,string"`
@@ -32,10 +32,10 @@ type CreateOneCommandLines struct {
 }
 
 type JsonReponseCommandLines struct {
-	Id      int                   `json:"id"`
-	Type    string                `json:"type"`
-	Data    CreateOneCommandLines `json:"data"`
-	Message string                `json:"message"`
+	Id      int               `json:"id"`
+	Type    string            `json:"type"`
+	Data    CreateCommandLine `json:"data"`
+	Message string            `json:"message"`
 }
 
 type JsonList struct {

@@ -10,6 +10,8 @@ require (
 )
 
 require (
+	github.com/brianvoe/gofakeit/v6 v6.15.0 // indirect
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible // indirect
 	github.com/mattn/go-colorable v0.1.9 // indirect
 	github.com/mattn/go-isatty v0.0.14 // indirect
 	golang.org/x/sys v0.0.0-20210630005230-0f9fa26af87c // indirect

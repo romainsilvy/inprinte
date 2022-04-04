@@ -18,6 +18,7 @@ func handleUsers(router *mux.Router) {
 	router.HandleFunc("/users", users.GetAll).Methods("GET")
 	router.HandleFunc("/users/{id_user}", users.GetOne).Methods("GET")
 	router.HandleFunc("/users/{id_user}", users.UpdateOne).Methods("OPTIONS", "PUT")
+	router.HandleFunc("/users/{id_user}", users.DeleteOne).Methods("OPTIONS", "DELETE")
 }
 
 func handleCommand(router *mux.Router) {

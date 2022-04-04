@@ -9,7 +9,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetOne(w http.ResponseWriter, r *http.Request) {
+func GetRole(w http.ResponseWriter, r *http.Request) {
 	//create cors header
 	utils.SetCorsHeaders(&w)
 
@@ -17,30 +17,32 @@ func GetOne(w http.ResponseWriter, r *http.Request) {
 	var id int
 	var role string
 
-	//connect the database
-	db := utils.DbConnect()
+	if r.Method == "GET" {
+		//connect the database
+		db := utils.DbConnect()
 
-	//get url values
-	vars := mux.Vars(r)
-	id_role := vars["id_role"]
+		//get url values
+		vars := mux.Vars(r)
+		id_role := vars["id_role"]
 
-	//create the sql query
-	sqlQuery := ("SELECT id, role FROM role WHERE role.id = " + id_role + " ;")
+		//create the sql query
+		sqlQuery := ("SELECT id, role FROM role WHERE role.id = " + id_role + " ;")
 
-	//execute the sql query
-	row := db.QueryRow(sqlQuery)
+		//execute the sql query
+		row := db.QueryRow(sqlQuery)
 
-	//parse the query
-	//retrieve the values and check errors
-	err := row.Scan(&id, &role)
-	utils.CheckErr(err)
+		//parse the query
+		//retrieve the values and check errors
+		err := row.Scan(&id, &role)
+		utils.CheckErr(err)
 
-	//add the values to the response
-	oneRole := structures.OneRole{
-		Id:   id,
-		Role: role,
+		//add the values to the response
+		oneRole := structures.GetRole{
+			Id:   id,
+			Role: role,
+		}
+
+		//create the json response
+		json.NewEncoder(w).Encode(oneRole)
 	}
-
-	//create the json response
-	json.NewEncoder(w).Encode(oneRole)
 }

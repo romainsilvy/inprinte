@@ -9,12 +9,11 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func DeleteOne(w http.ResponseWriter, r *http.Request) {
+func Delete(w http.ResponseWriter, r *http.Request) {
 	//create cors header
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "DELETE" {
-
 		//connect the database
 		db := utils.DbConnect()
 
@@ -31,8 +30,9 @@ func DeleteOne(w http.ResponseWriter, r *http.Request) {
 		db.Close()
 
 		//create the json response
-		json.NewEncoder(w).Encode(structures.InsertOneUser{
-			Type: "success",
+		json.NewEncoder(w).Encode(structures.JsonResponseUser{
+			Type:    "success",
+			Message: "User is_alive has been set to false",
 		})
 	}
 }

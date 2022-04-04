@@ -14,11 +14,11 @@ import (
 )
 
 func handleUsers(router *mux.Router) {
-	router.HandleFunc("/users", users.InsertOne).Methods("OPTIONS", "POST")
-	router.HandleFunc("/users", users.GetAll).Methods("GET")
-	router.HandleFunc("/users/{id_user}", users.GetOne).Methods("GET")
-	router.HandleFunc("/users/{id_user}", users.UpdateOne).Methods("OPTIONS", "PUT")
-	router.HandleFunc("/users/{id_user}", users.DeleteOne).Methods("OPTIONS", "DELETE")
+	router.HandleFunc("/users", users.Insert).Methods("OPTIONS", "POST")
+	router.HandleFunc("/users", users.GetUsers).Methods("GET")
+	router.HandleFunc("/users/{id_user}", users.GetUser).Methods("GET")
+	router.HandleFunc("/users/{id_user}", users.Update).Methods("OPTIONS", "PUT")
+	router.HandleFunc("/users/{id_user}", users.Delete).Methods("OPTIONS", "DELETE")
 }
 
 func handleCommand(router *mux.Router) {

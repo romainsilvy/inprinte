@@ -8,7 +8,7 @@ type Address struct {
 	ZipCode string `json:"zipCode"`
 }
 
-type AllUsers struct {
+type GetUsers struct {
 	Id        int     `json:"id"`
 	Email     string  `json:"email"`
 	Firstname string  `json:"firstname"`
@@ -19,7 +19,7 @@ type AllUsers struct {
 	Address   Address `json:"address"`
 }
 
-type OneUser struct {
+type GetUser struct {
 	Id        int     `json:"id"`
 	Email     string  `json:"email"`
 	Firstname string  `json:"firstname"`
@@ -30,7 +30,7 @@ type OneUser struct {
 	Address   Address `json:"address"`
 }
 
-type CreateOneUser struct {
+type CreateUser struct {
 	Email     string  `json:"email"`
 	Firstname string  `json:"firstname"`
 	Lastname  string  `json:"lastname"`
@@ -41,9 +41,20 @@ type CreateOneUser struct {
 	Address   Address `json:"address"`
 }
 
-type InsertOneUser struct {
-	Id      int           `json:"id"`
-	Type    string        `json:"type"`
-	Data    CreateOneUser `json:"data"`
-	Message string        `json:"message"`
+type UpdateUser struct {
+	Email     string  `json:"email"`
+	Firstname string  `json:"firstname"`
+	Lastname  string  `json:"lastname"`
+	Password  string  `json:"password"`
+	Phone     string  `json:"phone"`
+	IsAlive   bool    `json:"is_alive,string"`
+	Role      string  `json:"role"`
+	Address   Address `json:"address"`
+}
+
+type JsonResponseUser struct {
+	Id      int        `json:"id"`
+	Type    string     `json:"type"`
+	Data    CreateUser `json:"data"`
+	Message string     `json:"message"`
 }

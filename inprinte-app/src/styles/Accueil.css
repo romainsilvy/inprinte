@@ -1,13 +1,10 @@
-.losange {
-    position: absolute;
-}
 .donut{
     position: absolute;
-    padding-top: 280px;
+    top: 60%;
+    left: 5%;
 }
 
 .contentOne {
-	/* background: url("https://www.sdlv.fr/uploads/posts/90/glassmorphism1.png"); */
     display: grid;
     grid-template-rows: 2;
     grid-template-columns: repeat(10, 1fr);
@@ -56,6 +53,16 @@
 
 /*------- PART2 ------*/
 
+.losange {
+    position: absolute;
+    top: 80rem;
+    left: 20%;
+}
+.boule{
+    position: absolute;
+    left: 85%;
+    top: 115%;
+}
 .contentTwo {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -121,7 +128,11 @@
 }
 
 /*------- PART3 ------*/
-
+.serp {
+    position: absolute;
+    left : 5%;
+    top: 255%;
+}
 .contentTree{
     display: grid;
     grid-template-columns: repeat(5, 1fr);

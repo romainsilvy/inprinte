@@ -9,13 +9,16 @@ import btnBoutique from '../images/btnBoutique.svg'
 import bar2 from '../images/bar2.svg'
 import losange from '../icon/losange.svg'
 import donut from '../icon/donut.svg'
+import boule from '../icon/boule.svg'
+import serp from '../icon/serp.svg'
+
+
 const Accueil = () => {
     return (
         <div className="">
             <Navbar />
             <div className="contentOne">
-            <img className="losange" src={losange} alt="icon" />
-            <img className="donut" src={donut} alt="icon" />
+                <img className="donut" src={donut} alt="icon" />
                 <div className="blur"></div>
                 <div className="glass-panel">
                     <h1>Title</h1>
@@ -28,6 +31,9 @@ const Accueil = () => {
                 <img className="imageIso" src={imageIso} alt="img" />
             </div>
             <div className="contentTwo">
+                <img className="losange" src={losange} alt="icon" />
+                <img className="boule" src={boule} alt="icon" />
+                <img className="serp" src={serp} alt="icon" />
                 <div className="cardTop2">
                     <h1>Top<span class="purple">#2</span></h1>
                 </div>

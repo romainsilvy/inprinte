@@ -10,10 +10,10 @@ import (
 )
 
 func Update(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
 	if r.Method == "PUT" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
 		// parse json from put Request
 		var user structures.GetUser
 		err := json.NewDecoder(r.Body).Decode(&user)
@@ -30,6 +30,9 @@ func Update(w http.ResponseWriter, r *http.Request) {
 		// execute the sql query
 		_, err = db.Exec(sqlQuery)
 		utils.CheckErr(err)
+
+		// close the database connection
+		db.Close()
 
 		// create the json response
 		json.NewEncoder(w).Encode(user)

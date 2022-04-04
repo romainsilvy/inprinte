@@ -10,10 +10,9 @@ import (
 )
 
 func Delete(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
 	if r.Method == "DELETE" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
 
 		//connect the database
 		db := utils.DbConnect()
@@ -24,6 +23,8 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 
 		//create the sql query
 		sqlQuery := ("UPDATE product SET is_alive = false WHERE id = " + id_product + ";")
+
+		//execute the sql query
 		_, err := db.Exec(sqlQuery)
 		utils.CheckErr(err)
 

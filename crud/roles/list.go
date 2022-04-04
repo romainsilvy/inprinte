@@ -9,13 +9,13 @@ import (
 )
 
 func GetRoles(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var Roles []structures.GetRoles
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var Roles []structures.GetRoles
+
 		//connect the database
 		db := utils.DbConnect()
 

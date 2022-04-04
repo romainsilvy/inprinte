@@ -9,9 +9,10 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
 	if r.Method == "POST" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
 		// global variables
 		var response = structures.JsonReponseCommandLines{}
 		var oneCommandLines structures.CreateCommandLine
@@ -31,8 +32,10 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		_, err = db.Exec(sqlQuery)
 		utils.CheckErr(err)
 
-		// get the last inserted id
+		//create the query
 		sqlQuery = ("SELECT id FROM command_line ORDER BY id DESC LIMIT 1;")
+
+		//execute the query
 		row := db.QueryRow(sqlQuery)
 		err = row.Scan(&lastInsertID)
 		utils.CheckErr(err)
@@ -53,7 +56,7 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 			Message: "New command line inserted into DB.",
 		}
 
-		// send the response
+		//set the response
 		json.NewEncoder(w).Encode(response)
 	}
 }

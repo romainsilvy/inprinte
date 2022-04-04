@@ -9,13 +9,13 @@ import (
 )
 
 func GetCommandLines(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var commandLines []structures.GetCommandLines
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var commandLines []structures.GetCommandLines
+
 		//connect the database
 		db := utils.DbConnect()
 

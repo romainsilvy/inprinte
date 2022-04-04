@@ -9,13 +9,13 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var users []structures.GetUsers
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var users []structures.GetUsers
+
 		//connect the database
 		db := utils.DbConnect()
 
@@ -57,6 +57,10 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 			})
 		}
 		//close the rows
+		rows.Close()
+
+		//close the database connection
+		db.Close()
 
 		//create the json response
 		utils.SetXTotalCountHeader(&w, len(users))

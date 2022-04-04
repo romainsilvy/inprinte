@@ -10,15 +10,15 @@ import (
 )
 
 func GetCategory(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var id int
-	var name string
-	var is_alive bool
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var id int
+		var name string
+		var is_alive bool
+
 		//connect the database
 		db := utils.DbConnect()
 
@@ -46,7 +46,7 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 		//close the database connection
 		db.Close()
 
-		//create the json response
+		//set the json response
 		json.NewEncoder(w).Encode(oneCategory)
 	}
 }

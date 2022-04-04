@@ -9,14 +9,14 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	// global variables
-	var category structures.CreateCategory
-	var lastInsertID int
-
 	if r.Method == "POST" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		// global variables
+		var category structures.CreateCategory
+		var lastInsertID int
+
 		// get body
 		err := json.NewDecoder(r.Body).Decode(&category)
 		utils.CheckErr(err)
@@ -51,7 +51,7 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 			Message: "Category created",
 		}
 
-		// send the response
+		//set the response
 		json.NewEncoder(w).Encode(response)
 	}
 }

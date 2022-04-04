@@ -9,9 +9,10 @@ import (
 )
 
 func Update(w http.ResponseWriter, r *http.Request) {
-	utils.SetCorsHeaders(&w)
-
 	if r.Method == "PUT" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
 		// parse json from put Request
 		var oneRole structures.GetRole
 		err := json.NewDecoder(r.Body).Decode(&oneRole)

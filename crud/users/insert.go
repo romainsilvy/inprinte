@@ -9,10 +9,10 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
 	if r.Method == "POST" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
 		// global variables
 		var response = structures.JsonResponseUser{}
 		var user = structures.CreateUser{}
@@ -26,12 +26,17 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		// connect the database
 		db := utils.DbConnect()
 
+		// create the sql query
 		sql := ("INSERT INTO address (street,city,state,country,zip_code) VALUES (\"" + user.Address.Street + "\", \"" + user.Address.City + "\", \"" + user.Address.State + "\", \"" + user.Address.Country + "\", \"" + user.Address.ZipCode + "\");")
+
+		// execute the sql query
 		_, er := db.Exec(sql)
 		utils.CheckErr(er)
 
 		// get the last inserted id
 		sqlQuer := ("SELECT id FROM address ORDER BY id DESC LIMIT 1;")
+
+		// execute the query
 		row := db.QueryRow(sqlQuer)
 		err = row.Scan(&lastInsertIDAddress)
 		utils.CheckErr(err)
@@ -45,6 +50,8 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 
 		// get the last inserted id
 		sqlQuery = ("SELECT id FROM user ORDER BY id DESC LIMIT 1;")
+
+		// execute the query
 		row = db.QueryRow(sqlQuery)
 		err = row.Scan(&lastInsertID)
 		utils.CheckErr(err)

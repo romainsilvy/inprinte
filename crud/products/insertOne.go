@@ -9,14 +9,14 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	// global variables
-	var oneProduct = structures.CreateProduct{}
-	var lastInsertID int
-
 	if r.Method == "POST" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		// global variables
+		var oneProduct = structures.CreateProduct{}
+		var lastInsertID int
+
 		// get body
 		err := json.NewDecoder(r.Body).Decode(&oneProduct)
 		utils.CheckErr(err)

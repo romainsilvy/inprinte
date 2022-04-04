@@ -10,14 +10,14 @@ import (
 )
 
 func GetRole(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var id int
-	var role string
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var id int
+		var role string
+
 		//connect the database
 		db := utils.DbConnect()
 
@@ -41,6 +41,9 @@ func GetRole(w http.ResponseWriter, r *http.Request) {
 			Id:   id,
 			Role: role,
 		}
+
+		//close the database connection
+		db.Close()
 
 		//create the json response
 		json.NewEncoder(w).Encode(oneRole)

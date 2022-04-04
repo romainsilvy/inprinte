@@ -12,60 +12,67 @@ import (
 )
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
-	//global vars
-	var oneProduct structures.GetProduct
-	var name, description, category, firstname, lastname, role string
-	var id, price, id_user int
-	var rate float64
-	var pending_validation, is_alive bool
-	var product_file []string
-	var product_picture []string
 
-	vars := mux.Vars(r)
-	id_product := vars["id_product"]
+	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
 
-	//connect the database
-	db := utils.DbConnect()
+		//global vars
+		var oneProduct structures.GetProduct
+		var name, description, category, firstname, lastname, role string
+		var id, price, id_user int
+		var rate float64
+		var pending_validation, is_alive bool
+		var product_file []string
+		var product_picture []string
 
-	//create cors header
-	utils.SetCorsHeaders(&w)
+		vars := mux.Vars(r)
+		id_product := vars["id_product"]
 
-	product_file = getProductFile(db, id_product)
-	product_picture = getProductPicture(db, id_product)
+		//connect the database
+		db := utils.DbConnect()
 
-	sqlQuery := "SELECT product.id, product.name, product.price, product.description, product.pending_validation, product.is_alive, category.name, user.first_name, user.last_name, role.role, user.id AS id_user, AVG(rate.stars_number) AS rate FROM product INNER JOIN category ON category.id = product.id_category INNER JOIN user ON product.id_user = user.id INNER JOIN role ON role.id = user.id_role INNER JOIN rate ON rate.id_product = product.id WHERE product.id = " + id_product + ";"
+		//create the sql query
+		product_file = getProductFile(db, id_product)
+		product_picture = getProductPicture(db, id_product)
+		sqlQuery := "SELECT product.id, product.name, product.price, product.description, product.pending_validation, product.is_alive, category.name, user.first_name, user.last_name, role.role, user.id AS id_user, AVG(rate.stars_number) AS rate FROM product INNER JOIN category ON category.id = product.id_category INNER JOIN user ON product.id_user = user.id INNER JOIN role ON role.id = user.id_role INNER JOIN rate ON rate.id_product = product.id WHERE product.id = " + id_product + ";"
 
-	row := db.QueryRow(sqlQuery)
+		//execute the sql query
+		row := db.QueryRow(sqlQuery)
 
-	//parse the query
-	//retrieve the values and check errors
-	err := row.Scan(&id, &name, &price, &description, &pending_validation, &is_alive, &category, &firstname, &lastname, &role, &id_user, &rate)
-	utils.CheckErr(err)
+		//parse the query
+		//retrieve the values and check errors
+		err := row.Scan(&id, &name, &price, &description, &pending_validation, &is_alive, &category, &firstname, &lastname, &role, &id_user, &rate)
+		utils.CheckErr(err)
 
-	//round the rate
-	rate = math.Round(rate*10) / 10
+		//round the rate
+		rate = math.Round(rate*10) / 10
 
-	//add the values to the response
-	oneProduct = structures.GetProduct{
-		Id:                 id,
-		Name:               name,
-		Price:              price,
-		Description:        description,
-		Pending_validation: pending_validation,
-		Is_alive:           is_alive,
-		Category:           category,
-		Firstname:          firstname,
-		Lastname:           lastname,
-		Role:               role,
-		Id_user:            id_user,
-		Rate:               rate,
-		FileUrl:            product_file,
-		PictureUrl:         product_picture,
+		//add the values to the response
+		oneProduct = structures.GetProduct{
+			Id:                 id,
+			Name:               name,
+			Price:              price,
+			Description:        description,
+			Pending_validation: pending_validation,
+			Is_alive:           is_alive,
+			Category:           category,
+			Firstname:          firstname,
+			Lastname:           lastname,
+			Role:               role,
+			Id_user:            id_user,
+			Rate:               rate,
+			FileUrl:            product_file,
+			PictureUrl:         product_picture,
+		}
+
+		//close the database connection
+		db.Close()
+
+		//create the json response
+		utils.SetXTotalCountHeader(&w, 1)
+		json.NewEncoder(w).Encode(oneProduct)
 	}
-
-	//create the json response
-	utils.SetXTotalCountHeader(&w, 1)
-	json.NewEncoder(w).Encode(oneProduct)
 }
 
 func getProductFile(db *sql.DB, id_product string) []string {

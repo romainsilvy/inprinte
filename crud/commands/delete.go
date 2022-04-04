@@ -10,10 +10,10 @@ import (
 )
 
 func Delete(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
 	if r.Method == "DELETE" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
 		//connect the database
 		db := utils.DbConnect()
 
@@ -24,11 +24,14 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 		//delete command lines with id_command linked
 		sqlQuery := ("DELETE FROM command_line WHERE id_command = " + id_command + ";")
 
+		//execute the sql query
 		_, err := db.Exec(sqlQuery)
 		utils.CheckErr(err)
 
 		//create the sql query
 		sqlQuery = ("DELETE FROM command WHERE id = " + id_command + ";")
+
+		//execute the sql query
 		_, err = db.Exec(sqlQuery)
 		utils.CheckErr(err)
 

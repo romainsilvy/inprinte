@@ -10,14 +10,14 @@ import (
 )
 
 func GetCommand(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var id int
-	var status string
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var id int
+		var status string
+
 		//connect the database
 		db := utils.DbConnect()
 
@@ -32,9 +32,11 @@ func GetCommand(w http.ResponseWriter, r *http.Request) {
 		row := db.QueryRow(sqlQuery)
 
 		//parse the query
-		//retrieve the values and check errors
 		err := row.Scan(&id, &status)
 		utils.CheckErr(err)
+
+		//close the database connection
+		db.Close()
 
 		//add the values to the response
 		oneCommand := structures.GetCommand{

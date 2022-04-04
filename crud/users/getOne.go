@@ -10,16 +10,16 @@ import (
 )
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var firstname, lastname, email, phone, street, city, state, country, zip_code, role string
-	var is_alive bool
-	var user structures.GetUser
-	var id int
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var firstname, lastname, email, phone, street, city, state, country, zip_code, role string
+		var is_alive bool
+		var user structures.GetUser
+		var id int
+
 		//connect the database
 		db := utils.DbConnect()
 
@@ -55,6 +55,9 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 				ZipCode: zip_code,
 			},
 		}
+
+		//close the database connection
+		db.Close()
 
 		//create the json response
 		json.NewEncoder(w).Encode(user)

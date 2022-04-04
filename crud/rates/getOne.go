@@ -10,15 +10,15 @@ import (
 )
 
 func GetRate(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var rate structures.GetRates
-	var firstname, lastname, name string
-	var id, id_product, id_user, stars_number int
-
 	if r.Method == "GET" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var rate structures.GetRates
+		var firstname, lastname, name string
+		var id, id_product, id_user, stars_number int
+
 		vars := mux.Vars(r)
 		id_rate := vars["id_rate"]
 
@@ -29,9 +29,11 @@ func GetRate(w http.ResponseWriter, r *http.Request) {
 		//execute the sql query and check errors
 		row := db.QueryRow(sqlQuery)
 
+		//parse the query
 		err := row.Scan(&id, &id_product, &name, &id_user, &firstname, &lastname, &stars_number)
 		utils.CheckErr(err)
 
+		//add the values to the response
 		rate = structures.GetRates{
 			Id:           id,
 			Id_product:   id_product,

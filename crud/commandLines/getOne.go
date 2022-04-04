@@ -11,14 +11,14 @@ import (
 )
 
 func GetCommandLine(w http.ResponseWriter, r *http.Request) {
-	//set cors header
-	utils.SetCorsHeaders(&w)
-
-	//global vars
-	var state string
-	var id int
-
 	if r.Method == "GET" {
+		//set cors header
+		utils.SetCorsHeaders(&w)
+
+		//global vars
+		var state string
+		var id int
+
 		//get the id from the url
 		vars := mux.Vars(r)
 		id_commandLine := vars["id_commandLine"]

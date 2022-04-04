@@ -10,15 +10,15 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
-	//create cors header
-	utils.SetCorsHeaders(&w)
-
-	// global variables
-	var response = structures.JsonResponseRate{}
-	var oneRate structures.CreateRate
-	var lastInsertID int
-
 	if r.Method == "POST" {
+		//create cors header
+		utils.SetCorsHeaders(&w)
+
+		// global variables
+		var response = structures.JsonResponseRate{}
+		var oneRate structures.CreateRate
+		var lastInsertID int
+
 		// get body
 		err := json.NewDecoder(r.Body).Decode(&oneRate)
 		if err != nil {
@@ -36,6 +36,8 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 
 		// get the last inserted id
 		sqlQuery = ("SELECT id FROM rate ORDER BY id DESC LIMIT 1;")
+
+		// execute the query
 		row := db.QueryRow(sqlQuery)
 		err = row.Scan(&lastInsertID)
 		utils.CheckErr(err)

@@ -11,4 +11,7 @@ body {
     background: #1D1C27 0% 0% no-repeat padding-box;
     opacity: 1;
     color: #FFFFFF;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }

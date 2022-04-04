@@ -1,0 +1,182 @@
+.losange {
+    position: absolute;
+}
+.donut{
+    position: absolute;
+    padding-top: 280px;
+}
+
+.contentOne {
+	/* background: url("https://www.sdlv.fr/uploads/posts/90/glassmorphism1.png"); */
+    display: grid;
+    grid-template-rows: 2;
+    grid-template-columns: repeat(10, 1fr);
+}
+.blur{
+    margin-top: 50px;
+    margin-left: 50px;
+	width: 900px;
+	height: 435px;
+    background: rgba( 255, 255, 255, 0.35 );
+    border: 1px solid rgba( 255, 255, 255, 0.18 );
+    filter: blur(1.5rem);
+	position: relative;
+	z-index: 1;
+    display: grid;
+    grid-row: 1;
+    grid-column: 2/8;
+    padding: 20px 40px;
+}
+
+.glass-panel {
+	margin-top: 50px;
+    margin-left: 50px;
+	width: 900px;
+	height: 435px;
+	position: relative;
+	z-index: -1;
+    display: grid;
+    grid-row: 1;
+    grid-column: 2/8;
+    padding: 20px 40px;
+    content: "";
+}
+
+.button {
+    display: grid;
+    grid-row: 2;
+    grid-column: 9/12;
+}
+.imageIso{
+    display: grid;
+    grid-row: 1;
+    grid-column: 11;
+    width: 500px;
+}
+
+/*------- PART2 ------*/
+
+.contentTwo {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-top:50px;
+    padding-bottom:50px;
+}
+
+.cardTop2 {
+	width: 381px;
+    height: 500px;
+	position: relative;
+    padding: 20px;
+    background: rgba( 255, 255, 255, 0.10 );
+    display: grid;
+    grid-column: 2;
+    margin-top: 50px;
+    text-align: center;
+}
+.cardTop1{
+    width: 481px;
+    height: 602px;
+    background: rgba( 255, 255, 255, 0.10 );
+	position: relative;
+    padding: 20px;
+    display: grid;
+    grid-column: 3;
+    text-align: center;
+    padding-bottom: 50px;
+    margin-left: -50px;
+    margin-right: -50px;
+}
+
+.cardTop3{
+    width: 381px;
+    height: 500px;
+    background: rgba( 255, 255, 255, 0.10 );
+	position: relative;
+    padding: 20px;
+    margin-top: 50px;
+    display: grid;
+    grid-column:4;
+    text-align: center;
+}
+
+.btnBoutique {
+    display: grid;
+    grid-column: 4;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+}
+.pink {
+    color: #ff50d6;
+    font-weight: bolder;
+}
+
+.purple {
+    color: #b289ff;
+}
+
+.green {
+    color: #00d1d1;
+}
+
+/*------- PART3 ------*/
+
+.contentTree{
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-bottom: 150px;
+}
+
+
+.titleCat{
+    display: grid;
+    grid-column: 3;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.cart1{
+    width: 381px;
+    height: 500px;
+    background: rgba( 255, 255, 255, 0.10 );
+	position: relative;
+    padding: 20px;
+    display: grid;
+    grid-row: 2;
+    grid-column: 2;
+    text-align: center;
+}
+.cart2{
+    width: 381px;
+    height: 500px;
+    background: rgba( 255, 255, 255, 0.10 );
+	position: relative;
+    padding: 20px;
+    display: grid;
+    grid-row: 2;
+    grid-column: 3;
+    text-align: center;
+    margin: 20px;
+    margin-top: 100px;
+}
+.cart3{
+    width: 381px;
+    height: 500px;
+    background: rgba( 255, 255, 255, 0.10 );
+	position: relative;
+    padding: 20px;
+    display: grid;
+    grid-row: 2;
+    grid-column: 4;
+    text-align: center;
+}
+
+.btnBoutique {
+    display: grid;
+    grid-row: 3;
+    grid-column: 4;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="240" height="79" viewBox="0 0 308 79">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1.059" y1="-0.475" x2="-0.157" y2="1.143" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d54dc5"/>
+      <stop offset="0.526" stop-color="#662d8b"/>
+      <stop offset="1" stop-color="#3035a0"/>
+    </linearGradient>
+  </defs>
+  <rect id="Rectangle_13" data-name="Rectangle 13" width="308" height="79" rx="39.5" fill="url(#linear-gradient)"/>
+  <text id="La_boutique" data-name="La boutique" transform="translate(74.939 25.244)" fill="#def5ff" font-size="20" font-family="Poppins-Medium, Poppins" font-weight="500"><tspan x="0" y="21">La boutique</tspan></text>
+  <path id="Icon_ionic-md-arrow-dropright-circle" data-name="Icon ionic-md-arrow-dropright-circle" d="M17.631,31.887A14.256,14.256,0,1,0,3.375,17.631,14.256,14.256,0,0,0,17.631,31.887ZM15.438,24.21V11.051l6.58,6.58Z" transform="translate(222.625 21.869)" fill="#def5ff"/>
+</svg>

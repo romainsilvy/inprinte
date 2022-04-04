@@ -2,15 +2,15 @@ package crud
 
 import (
 	"encoding/json"
-	structures "inprinteBackoffice/structures"
+	"inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 
 	"net/http"
 )
 
-func GetAll(w http.ResponseWriter, r *http.Request) {
+func GetRates(w http.ResponseWriter, r *http.Request) {
 	//global vars
-	var allRates []structures.AllRates
+	var rates []structures.GetRates
 
 	//connect the database
 	db := utils.DbConnect()
@@ -38,7 +38,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 		utils.CheckErr(err)
 
 		//add the values to the response
-		allRates = append(allRates, structures.AllRates{
+		rates = append(rates, structures.GetRates{
 			Id:           id,
 			Id_product:   id_product,
 			Name:         name,
@@ -51,6 +51,6 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	//close the rows
 
 	//create the json response
-	utils.SetXTotalCountHeader(&w, len(allRates))
-	json.NewEncoder(w).Encode(allRates)
+	utils.SetXTotalCountHeader(&w, len(rates))
+	json.NewEncoder(w).Encode(rates)
 }

@@ -1,6 +1,6 @@
 package structures
 
-type AllRates struct {
+type GetRates struct {
 	Id           int    `json:"id"`
 	Firstname    string `json:"firstname"`
 	Lastname     string `json:"lastname"`
@@ -10,20 +10,20 @@ type AllRates struct {
 	Name         string `json:"product_name"`
 }
 
-type OneRate struct {
+type GetRate struct {
 	Id           int `json:"id"`
 	Stars_number int `json:"stars_number,string"`
 }
 
-type CreateOneRate struct {
+type CreateRate struct {
 	Id_user      int `json:"id_user,string"`
 	Id_product   int `json:"id_product,string"`
 	Stars_number int `json:"stars_number,string"`
 }
 
-type InsertOneRate struct {
-	Id      int           `json:"id"`
-	Type    string        `json:"type"`
-	Data    CreateOneRate `json:"data"`
-	Message string        `json:"message"`
+type JsonResponseRate struct {
+	Id      int        `json:"id"`
+	Type    string     `json:"type"`
+	Data    CreateRate `json:"data"`
+	Message string     `json:"message"`
 }

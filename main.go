@@ -48,7 +48,7 @@ func handleProducts(router *mux.Router) {
 	router.HandleFunc("/products", products.GetAll).Methods("GET")
 	router.HandleFunc("/products/{id_product}", products.GetOne).Methods("GET")
 	// router.HandleFunc("/products/{id_product}", products.update).Methods("UPDATE")
-	// router.HandleFunc("/products/{id_product}", products.delete).Methods("DELETE")
+	router.HandleFunc("/products/{id_product}", products.DeleteOne).Methods("OPTIONS", "DELETE")
 }
 
 func handleCategory(router *mux.Router) {

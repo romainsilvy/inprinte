@@ -9,38 +9,41 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetOne(w http.ResponseWriter, r *http.Request) {
+func GetCategory(w http.ResponseWriter, r *http.Request) {
 	//create cors header
 	utils.SetCorsHeaders(&w)
 
 	//global vars
 	var id int
 	var name string
+	var is_alive bool
 
-	//connect the database
-	db := utils.DbConnect()
+	if r.Method == "GET" {
+		//connect the database
+		db := utils.DbConnect()
 
-	//get url values
-	vars := mux.Vars(r)
-	id_category := vars["id_category"]
+		//get url values
+		vars := mux.Vars(r)
+		id_category := vars["id_category"]
 
-	//create the sql query
-	sqlQuery := ("SELECT id, name FROM category WHERE category.id = " + id_category + " ;")
+		//create the sql query
+		sqlQuery := ("SELECT id, name, is_alive FROM category WHERE category.id = " + id_category + " ;")
 
-	//execute the sql query
-	row := db.QueryRow(sqlQuery)
+		//execute the sql query
+		row := db.QueryRow(sqlQuery)
 
-	//parse the query
-	//retrieve the values and check errors
-	err := row.Scan(&id, &name)
-	utils.CheckErr(err)
+		//parse the query
+		err := row.Scan(&id, &name, &is_alive)
+		utils.CheckErr(err)
 
-	//add the values to the response
-	oneCategory := structures.OneCategory{
-		Id:   id,
-		Name: name,
+		//add the values to the response
+		oneCategory := structures.GetCategory{
+			Id:      id,
+			Name:    name,
+			IsAlive: is_alive,
+		}
+
+		//create the json response
+		json.NewEncoder(w).Encode(oneCategory)
 	}
-
-	//create the json response
-	json.NewEncoder(w).Encode(oneCategory)
 }

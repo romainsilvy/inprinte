@@ -1,6 +1,6 @@
 package structures
 
-type AllCommandLines struct {
+type GetCommandLines struct {
 	Id         int    `json:"id"`
 	Firstname  string `json:"firstname"`
 	Lastname   string `json:"lastname"`
@@ -14,15 +14,14 @@ type AllCommandLines struct {
 	Name       string `json:"name"`
 }
 
-type OneCommandLines struct {
+type GetCommandLine struct {
 	Id     int    `json:"id"`
 	Status string `json:"status"`
 }
 
-type JsonReponseCommandLines struct {
-	Data   []OneCommandLines `json:"data"`
-	Id     int               `json:"id"`
-	Status string            `json:"status"`
+type UpdateCommandLine struct {
+	Id     int    `json:"id"`
+	Status string `json:"status"`
 }
 
 type CreateOneCommandLines struct {
@@ -32,9 +31,16 @@ type CreateOneCommandLines struct {
 	State      string `json:"state"`
 }
 
-type InsertOneCommandLines struct {
+type JsonReponseCommandLines struct {
 	Id      int                   `json:"id"`
 	Type    string                `json:"type"`
 	Data    CreateOneCommandLines `json:"data"`
 	Message string                `json:"message"`
+}
+
+type JsonList struct {
+	Id      int               `json:"id"`
+	Type    string            `json:"type"`
+	Data    []GetCommandLines `json:"data"`
+	Message string            `json:"message"`
 }

@@ -2,33 +2,31 @@ package crud
 
 import (
 	"encoding/json"
-	"fmt"
 	"inprinteBackoffice/structures"
 	"inprinteBackoffice/utils"
 	"net/http"
 	"strconv"
 )
 
-func UpdateOne(w http.ResponseWriter, r *http.Request) {
+func Update(w http.ResponseWriter, r *http.Request) {
+	//set cors header
 	utils.SetCorsHeaders(&w)
 
-	// parse json from put Request
-	var oneCommand structures.OneCommand
-	err := json.NewDecoder(r.Body).Decode(&oneCommand)
-	if err != nil {
-		fmt.Println(err)
+	if r.Method == "PUT" {
+		// parse json from put Request
+		var oneCommand structures.OneCommand
+		err := json.NewDecoder(r.Body).Decode(&oneCommand)
+		utils.CheckErr(err)
+
+		// connect the database
+		db := utils.DbConnect()
+
+		// create the sql query
+		sqlQuery := ("UPDATE command_line SET state = '" + oneCommand.Status + "' WHERE id = " + strconv.Itoa(oneCommand.Id) + ";")
+		_, err = db.Exec(sqlQuery)
+		utils.CheckErr(err)
+
+		// create the json response
+		json.NewEncoder(w).Encode(oneCommand)
 	}
-
-	// connect the database
-	db := utils.DbConnect()
-
-	// create the sql query
-	sqlQuery := ("UPDATE command_line SET state = '" + oneCommand.Status + "' WHERE id = " + strconv.Itoa(oneCommand.Id) + ";")
-
-	// execute the sql query
-	_, err = db.Exec(sqlQuery)
-	utils.CheckErr(err)
-
-	// create the json response
-	json.NewEncoder(w).Encode(oneCommand)
 }

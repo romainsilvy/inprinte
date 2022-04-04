@@ -30,11 +30,11 @@ func handleCommand(router *mux.Router) {
 }
 
 func handleCommandLine(router *mux.Router) {
-	router.HandleFunc("/commandLines", commandLines.InsertOne).Methods("OPTIONS", "POST")
+	router.HandleFunc("/commandLines", commandLines.Insert).Methods("OPTIONS", "POST")
 	router.HandleFunc("/commandLines", commandLines.GetAll).Methods("GET")
-	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.GetOne).Methods("GET")
-	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.UpdateOne).Methods("OPTIONS", "PUT")
-	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.DeleteOne).Methods("OPTIONS", "DELETE")
+	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.GetCommandLine).Methods("GET")
+	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.Update).Methods("OPTIONS", "PUT")
+	router.HandleFunc("/commandLines/{id_commandLine}", commandLines.Delete).Methods("OPTIONS", "DELETE")
 }
 
 func handleRate(router *mux.Router) {
@@ -54,11 +54,11 @@ func handleProducts(router *mux.Router) {
 }
 
 func handleCategory(router *mux.Router) {
-	router.HandleFunc("/categories", category.InsertOne).Methods("OPTIONS", "POST")
-	router.HandleFunc("/categories", category.GetAll).Methods("GET")
-	router.HandleFunc("/categories/{id_category}", category.GetOne).Methods("GET")
-	router.HandleFunc("/categories/{id_category}", category.UpdateOne).Methods("OPTIONS", "PUT")
-	router.HandleFunc("/categories/{id_category}", category.DeleteOne).Methods("OPTIONS", "DELETE")
+	router.HandleFunc("/categories", category.Insert).Methods("OPTIONS", "POST")
+	router.HandleFunc("/categories", category.GetCategories).Methods("GET")
+	router.HandleFunc("/categories/{id_category}", category.GetCategory).Methods("GET")
+	router.HandleFunc("/categories/{id_category}", category.Update).Methods("OPTIONS", "PUT")
+	router.HandleFunc("/categories/{id_category}", category.Delete).Methods("OPTIONS", "DELETE")
 }
 
 func handleRoles(router *mux.Router) {

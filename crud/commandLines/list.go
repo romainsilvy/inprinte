@@ -10,7 +10,7 @@ import (
 
 func GetAll(w http.ResponseWriter, r *http.Request) {
 	//global vars
-	var allCommandLines []structures.AllCommandLines
+	var allCommandLines []structures.GetCommandLines
 
 	//connect the database
 	db := utils.DbConnect()
@@ -37,7 +37,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 		utils.CheckErr(err)
 
 		//add the values to the response
-		allCommandLines = append(allCommandLines, structures.AllCommandLines{
+		allCommandLines = append(allCommandLines, structures.GetCommandLines{
 			Id:         id,
 			Firstname:  firstname,
 			Lastname:   lastname,

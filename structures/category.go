@@ -1,23 +1,32 @@
 package structures
 
-type Category struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+type GetCategories struct {
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	IsAlive bool   `json:"is_alive,string"`
 }
 
-type OneCategory struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+type GetCategory struct {
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	IsAlive bool   `json:"is_alive,string"`
 }
 
-type CreateOneCategory struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+type UpdateCategory struct {
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	IsAlive bool   `json:"is_alive,string"`
 }
 
-type InsertOneCategory struct {
-	Id      int               `json:"id"`
-	Type    string            `json:"type"`
-	Data    CreateOneCategory `json:"data"`
-	Message string            `json:"message"`
+type CreateCategory struct {
+	Id      int    `json:"id"`
+	Name    string `json:"name"`
+	IsAlive bool   `json:"is_alive,string"`
+}
+
+type JsonResponseCategory struct {
+	Id      int            `json:"id"`
+	Type    string         `json:"type"`
+	Data    CreateCategory `json:"data"`
+	Message string         `json:"message"`
 }

@@ -9,9 +9,9 @@ import (
 	"net/http"
 )
 
-func GetAll(w http.ResponseWriter, r *http.Request) {
+func GetProducts(w http.ResponseWriter, r *http.Request) {
 	//global vars
-	var allProducts []structures.AllProducts
+	var products []structures.GetProducts
 
 	//connect the database
 	db := utils.DbConnect()
@@ -43,7 +43,7 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 		rate = math.Round(rate*10) / 10
 
 		//add the values to the response
-		allProducts = append(allProducts, structures.AllProducts{
+		products = append(products, structures.GetProducts{
 			Id:                 id,
 			Name:               name,
 			Price:              price,
@@ -62,6 +62,6 @@ func GetAll(w http.ResponseWriter, r *http.Request) {
 	rows.Close()
 
 	//create the json response
-	utils.SetXTotalCountHeader(&w, len(allProducts))
-	json.NewEncoder(w).Encode(allProducts)
+	utils.SetXTotalCountHeader(&w, len(products))
+	json.NewEncoder(w).Encode(products)
 }

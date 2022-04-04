@@ -8,14 +8,15 @@ import (
 	"strconv"
 )
 
-func InsertOne(w http.ResponseWriter, r *http.Request) {
+func Insert(w http.ResponseWriter, r *http.Request) {
+	//create cors header
 	utils.SetCorsHeaders(&w)
-	if r.Method == "POST" {
-		// global variables
-		var response = structures.InsertOneProduct{}
-		var oneProduct = structures.CreateOneProduct{}
-		var lastInsertID int
 
+	// global variables
+	var oneProduct = structures.CreateProduct{}
+	var lastInsertID int
+
+	if r.Method == "POST" {
 		// get body
 		err := json.NewDecoder(r.Body).Decode(&oneProduct)
 		utils.CheckErr(err)
@@ -40,10 +41,10 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 		db.Close()
 
 		// set the response
-		response = structures.InsertOneProduct{
+		response := structures.JsonResponseProduct{
 			Id:   lastInsertID,
 			Type: "success",
-			Data: structures.CreateOneProduct{
+			Data: structures.CreateProduct{
 				Name:               oneProduct.Name,
 				Price:              oneProduct.Price,
 				Description:        oneProduct.Description,
@@ -55,7 +56,7 @@ func InsertOne(w http.ResponseWriter, r *http.Request) {
 			Message: "New product inserted into DB.",
 		}
 
-		// send the response
+		// set the response
 		json.NewEncoder(w).Encode(response)
 	}
 }

@@ -11,9 +11,9 @@ import (
 	"github.com/gorilla/mux"
 )
 
-func GetOne(w http.ResponseWriter, r *http.Request) {
+func GetProduct(w http.ResponseWriter, r *http.Request) {
 	//global vars
-	var oneProduct structures.OneProduct
+	var oneProduct structures.GetProduct
 	var name, description, category, firstname, lastname, role string
 	var id, price, id_user int
 	var rate float64
@@ -46,7 +46,7 @@ func GetOne(w http.ResponseWriter, r *http.Request) {
 	rate = math.Round(rate*10) / 10
 
 	//add the values to the response
-	oneProduct = structures.OneProduct{
+	oneProduct = structures.GetProduct{
 		Id:                 id,
 		Name:               name,
 		Price:              price,

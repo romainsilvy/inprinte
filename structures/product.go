@@ -8,7 +8,7 @@ type PictureUrl struct {
 	Url string `json:"url"`
 }
 
-type AllProducts struct {
+type GetProducts struct {
 	Id                 int     `json:"id"`
 	Name               string  `json:"name"`
 	Price              int     `json:"price"`
@@ -23,7 +23,7 @@ type AllProducts struct {
 	Rate               float64 `json:"rate"`
 }
 
-type OneProduct struct {
+type GetProduct struct {
 	Id                 int      `json:"id"`
 	Name               string   `json:"name"`
 	Price              int      `json:"price"`
@@ -40,7 +40,7 @@ type OneProduct struct {
 	PictureUrl         []string `json:"pictureUrl"`
 }
 
-type CreateOneProduct struct {
+type CreateProduct struct {
 	Name               string `json:"name"`
 	Price              int    `json:"price,string"`
 	Description        string `json:"description"`
@@ -50,9 +50,9 @@ type CreateOneProduct struct {
 	Id_user            int    `json:"id_user,string"`
 }
 
-type InsertOneProduct struct {
-	Id      int              `json:"id"`
-	Type    string           `json:"type"`
-	Data    CreateOneProduct `json:"data"`
-	Message string           `json:"message"`
+type JsonResponseProduct struct {
+	Id      int           `json:"id"`
+	Type    string        `json:"type"`
+	Data    CreateProduct `json:"data"`
+	Message string        `json:"message"`
 }

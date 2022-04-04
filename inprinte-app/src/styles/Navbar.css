@@ -15,15 +15,6 @@
     grid-template-columns: repeat(10, 1fr);
 }
 
-
-/* .left{
-    padding: 3rem;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
-
-
 .left {
     display: flex;
     align-items: center;
@@ -38,7 +29,7 @@
     justify-content: space-around;
     align-items: center;
     grid-row: 1;
-    grid-column: 3/8;
+    grid-column: 3/9;
 }
 
 .right{

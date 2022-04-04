@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="52" height="53" viewBox="0 0 52 53">
+  <defs>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d54dc5"/>
+      <stop offset="0.526" stop-color="#662d8b"/>
+      <stop offset="1" stop-color="#3035a0"/>
+    </linearGradient>
+  </defs>
+  <ellipse id="Ellipse_6" data-name="Ellipse 6" cx="26" cy="26.5" rx="26" ry="26.5" fill="url(#linear-gradient)"/>
+  <path id="Icon_awesome-facebook-f" data-name="Icon awesome-facebook-f" d="M14.872,14.906l.736-4.8h-4.6V7a2.4,2.4,0,0,1,2.7-2.591H15.8V.324A25.512,25.512,0,0,0,12.089,0C8.3,0,5.822,2.3,5.822,6.455V10.11H1.609v4.8H5.822V26.5h5.185V14.906Z" transform="translate(17.163 13.341)" fill="#def5ff"/>
+</svg>

@@ -58,9 +58,6 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 		//send the token to the client
 		w.Write([]byte(tokenString))
-
-		//redirect to the homepage
-		http.Redirect(w, r, "/", http.StatusFound)
 	} else {
 		//redirect to the login page with an error message
 		http.Redirect(w, r, "/login?error=true", http.StatusFound)

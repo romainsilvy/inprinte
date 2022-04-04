@@ -41,6 +41,7 @@ func handleRate(router *mux.Router) {
 	router.HandleFunc("/rates", rates.GetAll).Methods("GET")
 	router.HandleFunc("/rates/{id_rate}", rates.GetOne).Methods("GET")
 	router.HandleFunc("/rates/{id_rate}", rates.UpdateOne).Methods("OPTIONS", "PUT")
+	router.HandleFunc("/rates/{id_rate}", rates.DeleteOne).Methods("OPTIONS", "DELETE")
 }
 
 func handleProducts(router *mux.Router) {

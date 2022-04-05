@@ -10,10 +10,10 @@ import (
 )
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		//create cors header
-		utils.SetCorsHeaders(&w)
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "GET" {
 		//global vars
 		var firstname, lastname, email, phone, street, city, state, country, zip_code, role string
 		var is_alive bool
@@ -28,14 +28,14 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 		id_user := vars["id_user"]
 
 		//create the sql query
-		sqlQuery := ("SELECT user.id, first_name, last_name, email, phone, is_alive, street, city, state, country, zip_code, role.role FROM user INNER JOIN address ON user.id = address.id INNER JOIN role ON user.id_role = role.id WHERE user.id = " + id_user + ";")
+		sqlQuery := ("SELECT first_name, last_name, email, phone, is_alive, street, city, state, country, zip_code, role.role FROM user INNER JOIN address ON user.id = address.id INNER JOIN role ON user.id_role = role.id WHERE user.id = " + id_user + ";")
 
 		//execute the sql query
 		row := db.QueryRow(sqlQuery)
 
 		//parse the query
 		//retrieve the values and check errors
-		err := row.Scan(&id, &firstname, &lastname, &email, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
+		err := row.Scan(&firstname, &lastname, &email, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
 		utils.CheckErr(err)
 
 		//add the values to the response

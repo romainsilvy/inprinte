@@ -10,10 +10,10 @@ import (
 )
 
 func Insert(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "POST" {
-		//create cors header
-		utils.SetCorsHeaders(&w)
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "POST" {
 		// global variables
 		var response = structures.JsonResponseRate{}
 		var oneRate structures.CreateRate

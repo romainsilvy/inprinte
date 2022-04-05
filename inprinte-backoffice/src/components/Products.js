@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Create,} from 'react-admin';
+import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
   
   export const ProductsList = props => (
     <List {...props}>
@@ -8,16 +8,15 @@ import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Crea
         <TextField source="description" />
         <TextField source="price" />
         <TextField source="pending_validation" />
-        <EmailField source="is_alive" />
-        <TextField source="category.name" />
+        <TextField source="is_alive" />
+        <TextField source="category" />
         <TextField source="firstname" />
         <TextField source="lastname" />
         <TextField source="role" />
         <TextField source="id_user" />
-        <TextField source="product_file" />
-        <TextField source="firstname" />
-        <TextField source="product_picture" />
-        <TextField source="stars_number" label="starsAVG"/>
+        <TextField source="rate" label="starsAVG"/>
+        <EditButton />
+        <DeleteButton />
       </Datagrid>
     </List>
   );
@@ -25,7 +24,6 @@ import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Crea
   export const ProductsEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="id" disabled />
         <TextInput source="name" />
         <TextInput source="description" />
         <TextInput source="price" />
@@ -33,6 +31,7 @@ import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Crea
         <TextInput source="product_files" />
         <TextInput source="product_picture" />
         <TextInput source="pending_validation" />
+        <TextInput source="is_alive" />
       </SimpleForm>
     </Edit>
   );
@@ -43,7 +42,7 @@ import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Crea
         <TextInput source="name" />
         <TextInput source="description" />
         <TextInput source="price" />
-        <TextInput source="category.name" />
+        <TextInput source="category" />
         <TextInput source="product_files" />
         <TextInput source="product_picture" />
       </SimpleForm>

@@ -1,10 +1,12 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create,} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
   
   export const RolesList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
         <TextField source="id" />
-        <TextField source="name" />
+        <TextField source="role" />
+        <EditButton />
+        <DeleteButton />
       </Datagrid>
     </List>
   );
@@ -12,8 +14,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create,} from 'r
   export const RolesEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="id" disabled />
-        <TextInput source="name" />
+        <TextInput source="role" />
       </SimpleForm>
     </Edit>
   );
@@ -21,7 +22,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create,} from 'r
   export const RolesCreate = props => (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="name" />
+        <TextInput source="role" />
       </SimpleForm>
     </Create>
   );

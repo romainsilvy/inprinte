@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, DeleteButton, Create} from 'react-admin';
   
   export const CommandLinesList = props => (
     <List {...props}>
@@ -13,6 +13,8 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput} from 'react-admi
         <TextField source="quantity" />
         <TextField source="date" />
         <TextField source="status" />
+        <EditButton />
+        <DeleteButton />
       </Datagrid>
     </List>
   );
@@ -20,8 +22,18 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput} from 'react-admi
   export const CommandLinesEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="id" disabled />
-        <TextField source="status" />
+        <TextInput source="status" />
       </SimpleForm>
     </Edit>
+  );
+
+  export const CommandLinesCreate = props => (
+    <Create {...props}>
+      <SimpleForm>
+        <TextInput source="id_product" />
+        <TextInput source="id_command" />
+        <TextInput source="quantity" />
+        <TextInput source="status" />
+      </SimpleForm>
+    </Create>
   );

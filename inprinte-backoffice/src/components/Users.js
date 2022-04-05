@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, EmailField, UrlField, Edit, SimpleForm, TextInput, Create,} from 'react-admin';
+import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
   
   export const UserList = props => (
     <List {...props}>
@@ -16,6 +16,8 @@ import {List, Datagrid, TextField, EmailField, UrlField, Edit, SimpleForm, TextI
         <TextField source="address.state" label="State" />
         <TextField source="address.country" label="Country" />
         <TextField source="address.zipCode" label="ZipCode" />
+        <EditButton />
+        <DeleteButton />
       </Datagrid>
     </List>
   );
@@ -23,7 +25,6 @@ import {List, Datagrid, TextField, EmailField, UrlField, Edit, SimpleForm, TextI
   export const UserEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="id" disabled />
         <TextInput source="firstname" />
         <TextInput source="lastname" />
         <TextInput source="email" />
@@ -48,7 +49,12 @@ import {List, Datagrid, TextField, EmailField, UrlField, Edit, SimpleForm, TextI
         <TextInput source="phone" />
         <TextInput source="password" />
         <TextInput source="is_alive" />
-        <TextInput source="role.name" label="role"/>
+        <TextInput source="role" label="role"/>
+        <TextInput source="address.street" label="Street" />
+        <TextInput source="address.city" label="City" />
+        <TextInput source="address.state" label="State" />
+        <TextInput source="address.country" label="Country" />
+        <TextInput source="address.zipCode" label="ZipCode" />
       </SimpleForm>
     </Create>
   );

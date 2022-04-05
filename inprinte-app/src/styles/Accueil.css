@@ -12,17 +12,18 @@
 .blur{
     margin-top: 50px;
     margin-left: 50px;
-	width: 900px;
-	height: 435px;
-    background: rgba( 255, 255, 255, 0.35 );
-    border: 1px solid rgba( 255, 255, 255, 0.18 );
-    filter: blur(1.5rem);
-	position: relative;
+	width: 150%;
+	height: auto;
 	z-index: 1;
     display: grid;
     grid-row: 1;
     grid-column: 2/8;
-    padding: 20px 40px;
+    border: solid rgba(255, 255, 255, 0.4);
+    border-width: 2px 1px 1px 2px;
+    box-shadow: 3px 3px 5px 1px rgba(0, 0, 0, 0.4);
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
 }
 
 .glass-panel {
@@ -49,6 +50,10 @@
     grid-row: 1;
     grid-column: 11;
     width: 500px;
+}
+
+.btnPropositions {
+    padding-top: 3%;
 }
 
 /*------- PART2 ------*/

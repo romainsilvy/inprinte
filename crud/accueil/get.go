@@ -76,6 +76,7 @@ func getBestRated(db *sql.DB) []structures.BestRatedProduct {
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
+	utils.SetCorsHeaders(&w)
 	db := utils.DbConnect()
 	mostSales := getMostSales(db)
 	bestRated := getBestRated(db)

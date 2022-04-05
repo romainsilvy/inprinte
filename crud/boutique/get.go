@@ -139,6 +139,7 @@ func getCategories(db *sql.DB) []string {
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
+	utils.SetCorsHeaders(&w)
 	//connect to the database
 	db := utils.DbConnect()
 

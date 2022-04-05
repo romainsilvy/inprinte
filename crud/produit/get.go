@@ -12,6 +12,7 @@ import (
 )
 
 func getAllPictures(db *sql.DB, id_product string) []string {
+
 	//global vars
 	var allPictures []string
 
@@ -104,6 +105,7 @@ func getRelatedProduct(r *http.Request, db *sql.DB, id_product string) []structu
 }
 
 func Get(w http.ResponseWriter, r *http.Request) {
+	utils.SetCorsHeaders(&w)
 	vars := mux.Vars(r)
 	id_product := vars["id_product"]
 

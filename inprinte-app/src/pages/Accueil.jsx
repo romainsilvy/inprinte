@@ -19,11 +19,12 @@ const Accueil = () => {
             <Navbar />
             <div className="contentOne">
                 <img className="donut" src={donut} alt="icon" />
-                <div className="blur"></div>
+                <div className="blur">
                 <div className="glass-panel">
                     <h1>Title</h1>
                     <h2>SubTitle</h2>
                     <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, dolores.</p>
+                </div>
                 </div>
                 <div className="button">
                     <Link to="/propositions"><img className="btnPropositions" src={buttonPropositions} alt="btn" /></Link>

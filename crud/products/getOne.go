@@ -12,11 +12,10 @@ import (
 )
 
 func GetProduct(w http.ResponseWriter, r *http.Request) {
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		//create cors header
-		utils.SetCorsHeaders(&w)
-
 		//global vars
 		var oneProduct structures.GetProduct
 		var name, description, category, firstname, lastname, role string

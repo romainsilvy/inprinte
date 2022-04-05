@@ -9,10 +9,10 @@ import (
 )
 
 func Update(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "PUT" {
-		//create cors header
-		utils.SetCorsHeaders(&w)
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "PUT" {
 		//global variables
 		var category structures.UpdateCategory
 

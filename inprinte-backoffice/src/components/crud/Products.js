@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
   
   export const ProductsList = props => (
     <List {...props}>

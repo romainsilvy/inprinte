@@ -9,6 +9,7 @@ import (
 )
 
 func Get(w http.ResponseWriter, r *http.Request) {
+	utils.SetCorsHeaders(&w)
 	db := utils.DbConnect()
 
 	//execute the sql query and check errors

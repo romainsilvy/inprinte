@@ -11,6 +11,7 @@ import (
 )
 
 func Get(w http.ResponseWriter, r *http.Request) {
+	utils.SetCorsHeaders(&w)
 	//global vars
 	vars := mux.Vars(r)
 	id_user := vars["id_user"]

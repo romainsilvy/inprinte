@@ -1,6 +1,7 @@
 package main
 
 import (
+	auth "inprinteBackoffice/authenticate"
 	category "inprinteBackoffice/crud/category"
 	commandLines "inprinteBackoffice/crud/commandLines"
 	commands "inprinteBackoffice/crud/commands"
@@ -69,6 +70,10 @@ func handleRoles(router *mux.Router) {
 	router.HandleFunc("/roles/{id_role}", roles.Delete).Methods("OPTIONS", "DELETE")
 }
 
+func handleAuth(router *mux.Router) {
+	router.HandleFunc("/login", auth.Authenticate).Methods("OPTIONS", "POST")
+}
+
 func main() {
 	//create a new mux router
 	router := mux.NewRouter()
@@ -81,6 +86,7 @@ func main() {
 	handleProducts(router)
 	handleCategory(router)
 	handleRoles(router)
+	handleAuth(router)
 
 	http.ListenAndServe(":8080", router)
 }

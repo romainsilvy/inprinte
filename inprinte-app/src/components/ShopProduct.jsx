@@ -1,8 +1,5 @@
-import loading from '../images/loading.svg'
-
-
 export const ShopProduct = (props) => {
-    console.log(props.product)
+    console.log(props)
     let url = "/produit/" + props.product.Id_product
     return (
         <>

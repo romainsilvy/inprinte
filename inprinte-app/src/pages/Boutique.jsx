@@ -60,10 +60,13 @@ class Boutique extends React.Component {
                     Shoppez par catégories
                 </h1>
                 <div className="allCategories">
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
+                {
+                    items.Categories.map((item) => (
+                        <p className="category" onClick={() => {
+                            console.log(item)
+                        }}>{item}</p>
+                    ))
+                }
                 </div>
                 <div className="allShopProducts">
                 {

@@ -41,7 +41,7 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 	// close the database connection
 	db.Close()
 
-	if password == auth.Password {
+	if password == auth.Password && is_alive && id_role == 1 {
 		fmt.Println("Password is correct")
 		token := jwt.New(jwt.SigningMethodHS256)
 		claims := token.Claims.(jwt.MapClaims)

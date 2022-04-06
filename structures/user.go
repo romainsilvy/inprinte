@@ -58,3 +58,15 @@ type JsonResponseUser struct {
 	Data    CreateUser `json:"data"`
 	Message string     `json:"message"`
 }
+
+type GetUserRoles struct {
+	Id        int      `json:"id"`
+	Email     string   `json:"email"`
+	Firstname string   `json:"firstname"`
+	Lastname  string   `json:"lastname"`
+	Phone     string   `json:"phone"`
+	IsAlive   bool     `json:"is_alive"`
+	Role      string   `json:"role"`
+	Address   Address  `json:"address"`
+	RoleList  []string `json:"roleList"`
+}

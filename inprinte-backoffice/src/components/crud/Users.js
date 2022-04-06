@@ -1,5 +1,6 @@
-import {List, Datagrid, TextField, EmailField, Edit, ArrayInput, SimpleForm, TextInput, Create, EditButton, DeleteButton, BooleanInput, SelectInput } from 'react-admin';
+import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton, BooleanInput, SelectInput } from 'react-admin';
 import React from 'react';
+
   export const UserList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
@@ -21,12 +22,7 @@ import React from 'react';
     </List>
   );
 
-
-
-
-
   export class UserEdit extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -35,7 +31,6 @@ import React from 'react';
             DataisLoaded: false
         };
     }
-
     componentDidMount() {
         fetch("http://localhost:8080/users/"+this.props.id)
             .then((res) => res.json())
@@ -51,7 +46,6 @@ import React from 'react';
               });
             })
     }
-
     render() {
         const { Choices } = this.state;
         return (
@@ -72,69 +66,9 @@ import React from 'react';
     </Edit>
         )
     }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-//  export class UserEdit extends React.Component {
-
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       items: [],
-//       }
-//     }
-
-//   componentDidMount() {
-//     console.log(this.props);
-//     fetch("http://localhost:8080/users/"+this.props.id)
-//             .then((res) => res.json())
-//             .then((json) => {
-//               let newArr = [{id: json.role, name: json.role}];
-//               this.setState({
-//                     items: json,
-//                 });
-
-//             })
-//   }
-
-//   render() {
-//     const { DataisLoaded, items } = this.state;
-//     return (
-//       <Edit  {...this.props}>
-//       {alert(items)}
-//       <SimpleForm>
-//       <BooleanInput source="is_alive" label="Actif"/>
-//         <TextInput source="firstname" label="Prénom"/>
-//         <TextInput source="lastname" label="Nom"/>
-//         <TextInput source="email" label="Mail"/>
-//         <TextInput source="phone" label="Téléphone"/>
-//         <SelectInput source="role" label="Role" choices={
-//           items
-//         }/>
-//         <TextInput source="address.street" label="Rue" />
-//         <TextInput source="address.city" label="Ville" />
-//         <TextInput source="address.state" label="Région" />
-//         <TextInput source="address.country" label="Pays" />
-//         <TextInput source="address.zipCode" label="Code Postal" />
-//       </SimpleForm>
-//     </Edit>
-//   );
-//  }
-// }    
+  }
 
   export const UserCreate = props => (
-    
     <Create {...props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
@@ -152,7 +86,3 @@ import React from 'react';
       </SimpleForm>
     </Create>
   );
-
-  // {role_list.forEach(element => {
-  //   choices.push({id: element, name: element})
-  // })}

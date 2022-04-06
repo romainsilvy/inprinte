@@ -20,14 +20,15 @@ type GetUsers struct {
 }
 
 type GetUser struct {
-	Id        int     `json:"id"`
-	Email     string  `json:"email"`
-	Firstname string  `json:"firstname"`
-	Lastname  string  `json:"lastname"`
-	Phone     string  `json:"phone"`
-	IsAlive   bool    `json:"is_alive"`
-	Role      string  `json:"role"`
-	Address   Address `json:"address"`
+	Id        int      `json:"id"`
+	Email     string   `json:"email"`
+	Firstname string   `json:"firstname"`
+	Lastname  string   `json:"lastname"`
+	Phone     string   `json:"phone"`
+	IsAlive   bool     `json:"is_alive"`
+	Role      string   `json:"role"`
+	Address   Address  `json:"address"`
+	RoleList  []string `json:"roleList"`
 }
 
 type CreateUser struct {
@@ -57,16 +58,4 @@ type JsonResponseUser struct {
 	Type    string     `json:"type"`
 	Data    CreateUser `json:"data"`
 	Message string     `json:"message"`
-}
-
-type GetUserRoles struct {
-	Id        int      `json:"id"`
-	Email     string   `json:"email"`
-	Firstname string   `json:"firstname"`
-	Lastname  string   `json:"lastname"`
-	Phone     string   `json:"phone"`
-	IsAlive   bool     `json:"is_alive"`
-	Role      string   `json:"role"`
-	Address   Address  `json:"address"`
-	RoleList  []string `json:"roleList"`
 }

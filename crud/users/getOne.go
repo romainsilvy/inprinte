@@ -13,7 +13,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	//global vars
 	var firstname, lastname, email, phone, street, city, state, country, zip_code, role string
 	var is_alive bool
-	var oneUser structures.GetUserRoles
+	var oneUser structures.GetUser
 	var id int
 
 	//connect the database
@@ -53,7 +53,7 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	//add the values to the response
-	oneUser = structures.GetUserRoles{
+	oneUser = structures.GetUser{
 		Id:        id,
 		Firstname: firstname,
 		Lastname:  lastname,

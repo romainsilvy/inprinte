@@ -16,18 +16,18 @@ export const Footer = () => {
                     <div className="propos">
                         <h2>A propos de nous</h2>
                         <ul>
-                            <li><Link to="/">FAQ</Link></li>
-                            <li><Link to="/">Mentions Légales</Link></li>
+                            <li><Link to="/faq">FAQ</Link></li>
+                            <li><Link to="/mentions-legales">Mentions Légales</Link></li>
                         </ul>
                     </div>
                     <div className="services">
                         <h2>Nos Services</h2>
                         <ul>
-                            <li><Link to="/">Accueil</Link></li>
-                            <li><Link to="/">Boutique</Link></li>
-                            <li><Link to="/">Propositions</Link></li>
-                            <li><Link to="/">Profil</Link></li>
-                            <li><Link to="/">Panier</Link></li>
+                            <li><Link to="/accueil">Accueil</Link></li>
+                            <li><Link to="/boutique">Boutique</Link></li>
+                            <li><Link to="/propositions">Propositions</Link></li>
+                            <li><Link to="/profil">Profil</Link></li>
+                            <li><Link to="/panier">Panier</Link></li>
                         </ul>
                     </div>
                     <div className="contact">

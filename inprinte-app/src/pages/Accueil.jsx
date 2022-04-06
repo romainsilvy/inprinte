@@ -13,6 +13,8 @@ import boule from '../icon/boule.svg'
 import serp from '../icon/serp.svg'
 import loading from '../images/loading.svg'
 
+
+// fix les boutons boutiques 
 class Accueil extends React.Component {
 
     // Constructor 
@@ -54,7 +56,7 @@ class Accueil extends React.Component {
                             <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, dolores.</p>
                         </div>
                     </div>
-                    <div className="button">
+                    <div className="btn1">
                         <Link to="/propositions"><img className="btnPropositions" src={buttonPropositions} alt="btn" /></Link>
                     </div>
                     <img className="imageIso" src={imageIso} alt="img" />
@@ -65,7 +67,7 @@ class Accueil extends React.Component {
                     <img className="serp" src={serp} alt="icon" />
                     <div className="cardTop2">
                         <h1>Top<span class="purple">#2</span></h1>
-                        <img className="picture" src={items.mostSales[1].Picture} alt="image" />
+                        <img className="pictureCardTop2" src={items.mostSales[1].Picture} alt="image" />
                         <div className="infos">
                             <p className="name">{items.mostSales[1].Name}</p>
                             <p clasName="price">{items.mostSales[1].Price}€</p>
@@ -73,7 +75,7 @@ class Accueil extends React.Component {
                     </div>
                     <div className="cardTop1">
                         <h1>Top<span class="pink">#1</span> des ventes</h1>
-                        <img className="picture" src={items.mostSales[0].Picture} alt="image" />
+                        <img className="pictureCardTop1" src={items.mostSales[0].Picture} alt="image" />
                         <div className="infos">
                             <p className="name">{items.mostSales[0].Name}</p>
                             <p clasName="price">{items.mostSales[0].Price}€</p>
@@ -81,13 +83,15 @@ class Accueil extends React.Component {
                     </div>
                     <div className="cardTop3">
                         <h1>Top<span class="green">#3</span></h1>
-                        <img className="picture" src={items.mostSales[2].Picture} alt="image" />
+                        <img className="pictureCardTop3" src={items.mostSales[2].Picture} alt="image" />
                         <div className="infos">
                             <p className="name">{items.mostSales[2].Name}</p>
                             <p clasName="price">{items.mostSales[2].Price}€</p>
                         </div>
                     </div>
-                    <Link to="/boutique"></Link><img className="btnBoutique" src={btnBoutique} alt="btn" />
+                    <div className="btn2">
+                        <a href="/boutique"><img className="btnBoutique" src={btnBoutique} alt="btn" /></a>
+                    </div>
                 </div>
                 <div className="contentTree">
                     <div className="titleCat">
@@ -96,26 +100,28 @@ class Accueil extends React.Component {
                     </div>
                     <div className="cart1">
                         <h2>{items.bestRated[0].Name}</h2>
-                        <img className="picture" src={items.bestRated[0].Picture} alt="image" />
+                        <img className="pictureCart" src={items.bestRated[0].Picture} alt="image" />
                         <div className="infos">
                             <p clasName="price">{items.bestRated[0].Price}€</p>
                         </div>
                     </div>
                     <div className="cart2">
                         <h2>{items.bestRated[1].Name}</h2>
-                        <img className="picture" src={items.bestRated[1].Picture} alt="image" />
+                        <img className="pictureCart" src={items.bestRated[1].Picture} alt="image" />
                         <div className="infos">
                             <p clasName="price">{items.bestRated[1].Price}€</p>
                         </div>
                     </div>
                     <div className="cart3">
                         <h2>{items.bestRated[2].Name}</h2>
-                        <img className="picture" src={items.bestRated[2].Picture} alt="image" />
+                        <img className="pictureCart" src={items.bestRated[2].Picture} alt="image" />
                         <div className="infos">
                             <p clasName="price">{items.bestRated[2].Price}€</p>
                         </div>
                     </div>
-                    <img className="btnBoutique" src={btnBoutique} alt="btn" />
+                    <div className="btn3">
+                        <a href="/boutique"><img className="btnBoutique" src={btnBoutique} alt="btn" /></a>
+                    </div>
                 </div>
                 <Footer />
             </div>

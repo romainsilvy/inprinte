@@ -3,18 +3,18 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
   export const ProductsList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="name" />
-        <TextField source="description" />
-        <TextField source="price" />
-        <TextField source="pending_validation" />
-        <TextField source="is_alive" />
-        <TextField source="category" />
-        <TextField source="firstname" />
-        <TextField source="lastname" />
-        <TextField source="role" />
-        <TextField source="id_user" />
-        <TextField source="rate" label="starsAVG"/>
+        <TextField source="id" label="Id"/>
+        <TextField source="name" label="Nom du produit"/>
+        <TextField source="description" label="Description"/>
+        <TextField source="price" label="Prix"/>
+        <TextField source="pending_validation" label="En attente de validation"/>
+        <TextField source="is_alive" label="Actif"/>
+        <TextField source="category" label="Catégorie"/>
+        <TextField source="firstname" label="Prénom"/>
+        <TextField source="lastname" label="Nom"/>
+        <TextField source="role" label="Role"/>
+        <TextField source="id_user" label="Id user"/>
+        <TextField source="rate" label="Moyenne des notes"/>
         <EditButton />
         <DeleteButton />
       </Datagrid>
@@ -24,14 +24,14 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
   export const ProductsEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="description" />
-        <TextInput source="price" />
-        <TextInput source="category" />
-        <TextInput source="product_files" />
-        <TextInput source="product_picture" />
-        <TextInput source="pending_validation" />
-        <TextInput source="is_alive" />
+        <TextInput source="name" label="Nom du produit"/>
+        <TextInput source="description" label="Description"/>
+        <TextInput source="price" label="Prix"/>
+        <TextInput source="category" label="Catégorie"/>
+        <TextInput source="product_files" label="Liens du produit"/>
+        <TextInput source="product_picture" label="Images du produit"/>
+        <TextInput source="pending_validation" label="En attente"/>
+        <TextInput source="is_alive" label="Actif"/>
       </SimpleForm>
     </Edit>
   );
@@ -39,12 +39,12 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
   export const ProductsCreate = props => (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="description" />
-        <TextInput source="price" />
-        <TextInput source="category" />
-        <TextInput source="product_files" />
-        <TextInput source="product_picture" />
+        <TextInput source="name" label="Nom du produit"/>
+        <TextInput source="description" label="Description"/>
+        <TextInput source="price" label="Prix"/>
+        <TextInput source="category" label="Categorie"/>
+        <TextInput source="product_files" label="Liens du produit"/>
+        <TextInput source="product_picture" label="Images du produit"/>
       </SimpleForm>
     </Create>
   );

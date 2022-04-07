@@ -9,10 +9,10 @@ import (
 )
 
 func GetCategories(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		//create cors header
-		utils.SetCorsHeaders(&w)
+	//create cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "GET" {
 		//global vars
 		var categories []structures.GetCategories
 		var name string

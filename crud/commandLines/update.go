@@ -9,10 +9,10 @@ import (
 )
 
 func Update(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "PUT" {
-		//set cors header
-		utils.SetCorsHeaders(&w)
+	//set cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "PUT" {
 		// parse json from put Request
 		var oneCommand structures.GetCommandLine
 		err := json.NewDecoder(r.Body).Decode(&oneCommand)

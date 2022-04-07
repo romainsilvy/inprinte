@@ -8,37 +8,41 @@ import (
 	"net/http"
 )
 
-func GetRoles(w http.ResponseWriter, r *http.Request) {
+func FetchRoles(w http.ResponseWriter, r *http.Request) {
 	//create cors header
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
 		//global vars
-		var Roles []structures.GetRoles
-
+		var list structures.RoleList
 		//connect the database
 		db := utils.DbConnect()
 
-		sqlQuery := "SELECT id, role FROM role"
+		sqlQuery := ("SELECT role FROM role ;")
+
+		//execute the sql query and check errors
 		rows, err := db.Query(sqlQuery)
 		utils.CheckErr(err)
 
+		//global vars
+		var roleOne string
+		var roleList []string
 		//parse the query
 		for rows.Next() {
-			//global vars
-			var role string
-			var id int
 
 			//retrieve the values and check errors
-			err = rows.Scan(&id, &role)
+			err = rows.Scan(&roleOne)
 			utils.CheckErr(err)
 
 			//add the values to the response
-			Roles = append(Roles, structures.GetRoles{
-				Id:   id,
-				Role: role,
-			})
+			roleList = append(roleList, roleOne)
 		}
+
+		//add the values to the response
+		list = structures.RoleList{
+			RoleList: roleList,
+		}
+
 		//close the rows
 		rows.Close()
 
@@ -46,7 +50,6 @@ func GetRoles(w http.ResponseWriter, r *http.Request) {
 		db.Close()
 
 		//create the json response
-		utils.SetXTotalCountHeader(&w, len(Roles))
-		json.NewEncoder(w).Encode(Roles)
+		json.NewEncoder(w).Encode(list)
 	}
 }

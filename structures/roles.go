@@ -26,3 +26,7 @@ type JsonResponseRole struct {
 	Data    CreateRole `json:"data"`
 	Message string     `json:"message"`
 }
+
+type RoleList struct {
+	RoleList []string `json:"roleList"`
+}

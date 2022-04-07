@@ -11,10 +11,10 @@ import (
 )
 
 func GetCommandLine(w http.ResponseWriter, r *http.Request) {
-	if r.Method == "GET" {
-		//set cors header
-		utils.SetCorsHeaders(&w)
+	//set cors header
+	utils.SetCorsHeaders(&w)
 
+	if r.Method == "GET" {
 		//global vars
 		var state string
 		var id int

@@ -32,26 +32,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 	err := db.QueryRow(sqlQuery).Scan(&id, &firstname, &lastname, &email, &phone, &is_alive, &street, &city, &state, &country, &zip_code, &role)
 	utils.CheckErr(err)
 
-	sqlQuery = ("SELECT role FROM role ;")
-
-	//execute the sql query and check errors
-	rows, err := db.Query(sqlQuery)
-	utils.CheckErr(err)
-
-	//global vars
-	var roleOne string
-	var roleList []string
-	//parse the query
-	for rows.Next() {
-
-		//retrieve the values and check errors
-		err = rows.Scan(&roleOne)
-		utils.CheckErr(err)
-
-		//add the values to the response
-		roleList = append(roleList, roleOne)
-	}
-
 	//add the values to the response
 	oneUser = structures.GetUser{
 		Id:        id,
@@ -68,7 +48,6 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 			Country: country,
 			ZipCode: zip_code,
 		},
-		RoleList: roleList,
 	}
 
 	// Close the database connection

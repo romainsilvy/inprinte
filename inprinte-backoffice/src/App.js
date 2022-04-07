@@ -7,7 +7,6 @@ import {RatesList, RatesCreate, RatesEdit} from './components/crud/Rates';
 import {ProductsList, ProductsEdit, ProductsCreate} from './components/crud/Products';
 import {CategoriesList, CategoriesEdit, CategoriesCreate} from './components/crud/Categories';
 import {RolesList, RolesEdit, RolesCreate} from './components/crud/Roles';
-import {AnalyticsList} from './components/Analytics';
 import { myTheme } from './components/theme/Theme';
 import { MyLayout } from './components/theme/Layout';
 import { authProvider } from './Auth';
@@ -38,7 +37,6 @@ function App() {
       {/* Roles */}
       <Resource name="roles" list={RolesList} edit={RolesEdit} create={RolesCreate}/>
 
-      <Resource name="analytics" list={AnalyticsList}/>
     </Admin>
   );
 }

@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, BooleanInput, Create, EditButton, DeleteButton} from 'react-admin';
   
   export const CategoriesList = props => (
     <List {...props}>
@@ -16,7 +16,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
     <Edit {...props}>
       <SimpleForm>
         <TextInput source="name" label="Catégorie"/>
-        <TextInput source="is_alive" label="Actif"/>
+        <BooleanInput source="is_alive" label="Actif"/>
       </SimpleForm>
     </Edit>
   );
@@ -25,7 +25,7 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
     <Create {...props}>
       <SimpleForm>
         <TextInput source="name" label="Catégorie"/>
-        <TextInput source="is_alive" label="Actif"/>
+        <BooleanInput source="is_alive" label="Actif"/>
       </SimpleForm>
     </Create>
   );

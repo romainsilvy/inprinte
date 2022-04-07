@@ -1,5 +1,6 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, SimpleFormIterator, EditButton, ArrayInput, DeleteButton} from 'react-admin';
-  
+import {List, Datagrid, SelectInput, BooleanInput, TextField, Edit, SimpleForm, TextInput, Create, SimpleFormIterator, EditButton, ArrayInput, DeleteButton} from 'react-admin';
+import React from 'react'
+
   export const ProductsList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
@@ -21,13 +22,40 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, SimpleFo
     </List>
   );
   
-  export const ProductsEdit = props => (
-    <Edit {...props}>
+  export class ProductsEdit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: [],
+            Choices: [],
+            DataisLoaded: false
+        };
+    }
+    componentDidMount() {
+        fetch("http://localhost:8080/categoriesFetch")
+            .then((res) => res.json())
+            .then((json) => {
+              const Choices = [];
+              json.CategoriesList.map((item) => (
+                Choices.push({id: item, name: item})
+              ));
+              this.setState({
+                items: json,
+                DataisLoaded: true,
+                Choices: Choices
+              });
+            })
+    }
+    render() {
+        const { Choices } = this.state;
+        return (
+        <Edit  {...this.props}>
       <SimpleForm>
+      <BooleanInput source="is_alive" label="Actif"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
-        <TextInput source="category" label="Catégorie"/>
+        <SelectInput source="category" label="Catégorie" choices={Choices}/>
         <ArrayInput source="pictureUrl" label="Liens du produit">
           <SimpleFormIterator>
           <TextInput />
@@ -39,20 +67,58 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, SimpleFo
           </SimpleFormIterator>
         </ArrayInput>
         <TextInput source="pending_validation" label="En attente"/>
-        <TextInput source="is_alive" label="Actif"/>
       </SimpleForm>
     </Edit>
-  );
+  );      
+  }
+}
 
-  export const ProductsCreate = props => (
-    <Create {...props}>
+export class ProductsCreate extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          items: [],
+          Choices: [],
+          DataisLoaded: false
+      };
+  }
+  componentDidMount() {
+      fetch("http://localhost:8080/categoriesFetch")
+          .then((res) => res.json())
+          .then((json) => {
+            const Choices = [];
+            json.CategoriesList.map((item) => (
+              Choices.push({id: item, name: item})
+            ));
+            this.setState({
+              items: json,
+              DataisLoaded: true,
+              Choices: Choices
+            });
+          })
+  }
+  render() {
+      const { Choices } = this.state;
+      return (
+      <Create  {...this.props}>
       <SimpleForm>
+      <BooleanInput source="is_alive" label="Actif"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
-        <TextInput source="category" label="Categorie"/>
-        <TextInput source="product_files" label="Liens du produit"/>
-        <TextInput source="product_picture" label="Images du produit"/>
+        <SelectInput source="category" label="Catégorie" choices={Choices}/>
+        <ArrayInput source="pictureUrl" label="Liens du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
+        <ArrayInput source="product_files" label="Liens du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
       </SimpleForm>
     </Create>
   );
+  }
+}

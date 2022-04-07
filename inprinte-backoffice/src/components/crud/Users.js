@@ -68,8 +68,34 @@ import React from 'react';
     }
   }
 
-  export const UserCreate = props => (
-    <Create {...props}>
+  export class UserCreate extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+          items: [],
+          Choices: [],
+          DataisLoaded: false
+      };
+  }
+  componentDidMount() {
+    fetch("http://localhost:8080/rolesFetch")
+        .then((res) => res.json())
+        .then((json) => {
+          const Choices = [];
+          json.roleList.map((item) => (
+            Choices.push({id: item, name: item})
+          ));
+          this.setState({
+            items: json,
+            DataisLoaded: true,
+            Choices: Choices
+          });
+        })
+}
+render() {
+  const { Choices } = this.state;
+  return (
+    <Create {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
         <TextInput source="firstname" label="Prénom"/>
@@ -77,7 +103,7 @@ import React from 'react';
         <TextInput source="email" label="Mail"/>
         <TextInput source="phone" label="Téléphone"/>
         <TextInput source="password" label="Mot de passe"/>
-        <TextInput source="role" label="Role"/>
+        <SelectInput source="role" label="Role" choices={Choices}/>
         <TextInput source="address.street" label="Rue" />
         <TextInput source="address.city" label="Ville" />
         <TextInput source="address.state" label="Région" />
@@ -85,4 +111,7 @@ import React from 'react';
         <TextInput source="address.zipCode" label="Code Postal" />
       </SimpleForm>
     </Create>
-  );
+        )
+  }
+}
+

@@ -1,11 +1,11 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, BooleanInput, Create, EditButton, DeleteButton} from 'react-admin';
   
   export const CategoriesList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="name" />
-        <TextField source="is_alive" />
+        <TextField source="id" label="Id"/>
+        <TextField source="name" label="Catégorie"/>
+        <TextField source="is_alive" label="Actif"/>
         <EditButton />
         <DeleteButton />
       </Datagrid>
@@ -15,8 +15,8 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
   export const CategoriesEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="is_alive" />
+        <TextInput source="name" label="Catégorie"/>
+        <BooleanInput source="is_alive" label="Actif"/>
       </SimpleForm>
     </Edit>
   );
@@ -24,8 +24,8 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
   export const CategoriesCreate = props => (
     <Create {...props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="is_alive" />
+        <TextInput source="name" label="Catégorie"/>
+        <BooleanInput source="is_alive" label="Actif"/>
       </SimpleForm>
     </Create>
   );

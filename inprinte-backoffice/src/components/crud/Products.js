@@ -1,50 +1,126 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
-  
+import {List, Datagrid, SelectInput, BooleanInput, TextField, Edit, SimpleForm, TextInput, Create, SimpleFormIterator, EditButton, ArrayInput, DeleteButton} from 'react-admin';
+import React from 'react'
+
   export const ProductsList = props => (
     <List {...props}>
       <Datagrid rowClick="edit">
-        <TextField source="id" />
-        <TextField source="name" />
-        <TextField source="description" />
-        <TextField source="price" />
-        <TextField source="pending_validation" />
-        <TextField source="is_alive" />
-        <TextField source="category" />
-        <TextField source="firstname" />
-        <TextField source="lastname" />
-        <TextField source="role" />
-        <TextField source="id_user" />
-        <TextField source="rate" label="starsAVG"/>
+        <TextField source="id" label="Id"/>
+        <TextField source="name" label="Nom du produit"/>
+        <TextField source="description" label="Description"/>
+        <TextField source="price" label="Prix"/>
+        <TextField source="pending_validation" label="En attente de validation"/>
+        <TextField source="is_alive" label="Actif"/>
+        <TextField source="category" label="Catégorie"/>
+        <TextField source="firstname" label="Prénom"/>
+        <TextField source="lastname" label="Nom"/>
+        <TextField source="role" label="Role"/>
+        <TextField source="id_user" label="Id user"/>
+        <TextField source="rate" label="Moyenne des notes"/>
         <EditButton />
         <DeleteButton />
       </Datagrid>
     </List>
   );
   
-  export const ProductsEdit = props => (
-    <Edit {...props}>
+  export class ProductsEdit extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            items: [],
+            Choices: [],
+            DataisLoaded: false
+        };
+    }
+    componentDidMount() {
+        fetch("http://localhost:8080/categoriesFetch")
+            .then((res) => res.json())
+            .then((json) => {
+              const Choices = [];
+              json.CategoriesList.map((item) => (
+                Choices.push({id: item, name: item})
+              ));
+              this.setState({
+                items: json,
+                DataisLoaded: true,
+                Choices: Choices
+              });
+            })
+    }
+    render() {
+        const { Choices } = this.state;
+        return (
+        <Edit  {...this.props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="description" />
-        <TextInput source="price" />
-        <TextInput source="category" />
-        <TextInput source="product_files" />
-        <TextInput source="product_picture" />
-        <TextInput source="pending_validation" />
-        <TextInput source="is_alive" />
+      <BooleanInput source="is_alive" label="Actif"/>
+      <BooleanInput source="pending_validation" label="En attente"/>
+        <TextInput source="name" label="Nom du produit"/>
+        <TextInput source="description" label="Description"/>
+        <TextInput source="price" label="Prix"/>
+        <SelectInput source="category" label="Catégorie" choices={Choices}/>
+        <ArrayInput source="pictureUrl" label="Image du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
+        <ArrayInput source="product_files" label="Lien du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
       </SimpleForm>
     </Edit>
-  );
+  );      
+  }
+}
 
-  export const ProductsCreate = props => (
-    <Create {...props}>
+export class ProductsCreate extends React.Component {
+  constructor(props) {
+      super(props);
+      this.state = {
+          items: [],
+          Choices: [],
+          DataisLoaded: false
+      };
+  }
+  componentDidMount() {
+      fetch("http://localhost:8080/categoriesFetch")
+          .then((res) => res.json())
+          .then((json) => {
+            const Choices = [];
+            json.CategoriesList.map((item) => (
+              Choices.push({id: item, name: item})
+            ));
+            this.setState({
+              items: json,
+              DataisLoaded: true,
+              Choices: Choices
+            });
+          })
+  }
+  render() {
+      const { Choices } = this.state;
+      return (
+      <Create  {...this.props}>
       <SimpleForm>
-        <TextInput source="name" />
-        <TextInput source="description" />
-        <TextInput source="price" />
-        <TextInput source="category" />
-        <TextInput source="product_files" />
-        <TextInput source="product_picture" />
+      <BooleanInput source="is_alive" label="Actif"/>
+      <BooleanInput source="pending_validation" label="En attente"/>
+      <TextInput source="id_user" label="Id user"/>
+        <TextInput source="name" label="Nom du produit"/>
+        <TextInput source="description" label="Description"/>
+        <TextInput source="price" label="Prix"/>
+        <SelectInput source="category" label="Catégorie" choices={Choices}/>
+        <ArrayInput source="pictureUrl" label="Image du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
+        <ArrayInput source="product_files" label="Lien du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
       </SimpleForm>
     </Create>
   );
+  }
+}

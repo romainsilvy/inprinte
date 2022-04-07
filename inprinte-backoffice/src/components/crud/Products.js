@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, SimpleFormIterator, EditButton, ArrayInput, DeleteButton} from 'react-admin';
   
   export const ProductsList = props => (
     <List {...props}>
@@ -28,8 +28,16 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, Create, EditButt
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
         <TextInput source="category" label="Catégorie"/>
-        <TextInput source="product_files" label="Liens du produit"/>
-        <TextInput source="product_picture" label="Images du produit"/>
+        <ArrayInput source="pictureUrl" label="Liens du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
+        <ArrayInput source="product_files" label="Liens du produit">
+          <SimpleFormIterator>
+          <TextInput />
+          </SimpleFormIterator>
+        </ArrayInput>
         <TextInput source="pending_validation" label="En attente"/>
         <TextInput source="is_alive" label="Actif"/>
       </SimpleForm>

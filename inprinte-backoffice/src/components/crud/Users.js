@@ -32,7 +32,7 @@ import React from 'react';
         };
     }
     componentDidMount() {
-        fetch("http://localhost:8080/users/"+this.props.id)
+        fetch("http://localhost:8080/rolesFetch")
             .then((res) => res.json())
             .then((json) => {
               const Choices = [];

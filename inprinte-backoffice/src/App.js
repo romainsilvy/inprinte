@@ -1,70 +1,42 @@
-import {Admin,Resource,} from "react-admin";
+import {Admin,Resource} from "react-admin";
 import jsonServerProvider from 'ra-data-json-server';
-import {UserList, UserEdit, UserCreate} from './components/Users';
-import {CommandsList, CommandsEdit} from './components/Commands';
-import {CommandLinesList, CommandLinesEdit} from './components/CommandLines';
-import {RatesList} from './components/Rates';
-import {ProductsList, ProductsEdit, ProductsCreate} from './components/Products';
-import {CategoriesList, CategoriesEdit, CategoriesCreate} from './components/Categories';
-import {RolesList, RolesEdit, RolesCreate} from './components/Roles';
+import {UserList, UserEdit, UserCreate} from './components/crud/Users';
+import {CommandsList, CommandsEdit, CommandsCreate} from './components/crud/Commands';
+import {CommandLinesList, CommandLinesEdit, CommandLinesCreate} from './components/crud/CommandLines';
+import {RatesList, RatesCreate, RatesEdit} from './components/crud/Rates';
+import {ProductsList, ProductsEdit, ProductsCreate} from './components/crud/Products';
+import {CategoriesList, CategoriesEdit, CategoriesCreate} from './components/crud/Categories';
+import {RolesList, RolesEdit, RolesCreate} from './components/crud/Roles';
+import { myTheme } from './components/theme/Theme';
+import { MyLayout } from './components/theme/Layout';
+import { authProvider } from './Auth';
 
 const dataProvider = jsonServerProvider('http://localhost:8080');
 
 function App() {
   return (
-    <Admin dataProvider={dataProvider}>
-      <Resource
-        // Users
-        name="users"
-        list={UserList}
-        edit={UserEdit}
-        create={UserCreate}
-      />
+    <Admin authProvider={authProvider} theme={myTheme} layout={MyLayout} dataProvider={dataProvider}>
+        {/* Users */}
+      <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate}/>
 
-      <Resource
-        // Commands
-        name="commands"
-        list={CommandsList}
-        edit={CommandsEdit}
-      />
+      {/* Commands */}
+      <Resource name="commands" list={CommandsList} edit={CommandsEdit} create={CommandsCreate}/>
         
-      <Resource
-        // CommandLines
-        name="commandLines"
-        list={CommandLinesList}
-        edit={CommandLinesEdit}
-      />
+      {/* CommandLines */}
+      <Resource name="commandLines" list={CommandLinesList} edit={CommandLinesEdit} create={CommandLinesCreate}/>
 
-      <Resource
-        // Rates
-        name="rates"
-        list={RatesList}
-      />
-
-      <Resource
-        // Products
-        name="products"
-        list={ProductsList}
-        edit={ProductsEdit}
-        create={ProductsCreate}
-      />
-
-      <Resource
-        // Categories
-        name="categories"
-        list={CategoriesList}
-        edit={CategoriesEdit}
-        create={CategoriesCreate}
-      />
-
-      <Resource
-        // Roles
-        name="roles"
-        list={RolesList}
-        edit={RolesEdit}
-        create={RolesCreate}
-      />
+      {/* Rates */}
+      <Resource name="rates" list={RatesList} edit={RatesEdit} create={RatesCreate}/>
       
+      {/* Products */}
+      <Resource name="products" list={ProductsList} edit={ProductsEdit} create={ProductsCreate}/>
+
+      {/* Categories */}
+      <Resource name="categories" list={CategoriesList} edit={CategoriesEdit} create={CategoriesCreate} />
+
+      {/* Roles */}
+      <Resource name="roles" list={RolesList} edit={RolesEdit} create={RolesCreate}/>
+
     </Admin>
   );
 }

@@ -51,7 +51,7 @@ func handleProducts(router *mux.Router) {
 	router.HandleFunc("/products", products.Insert).Methods("OPTIONS", "POST")
 	router.HandleFunc("/products", products.GetProducts).Methods("GET")
 	router.HandleFunc("/products/{id_product}", products.GetProduct).Methods("GET")
-	// router.HandleFunc("/products/{id_product}", products.update).Methods("UPDATE")
+	router.HandleFunc("/products/{id_product}", products.Update).Methods("OPTIONS", "PUT")
 	router.HandleFunc("/products/{id_product}", products.Delete).Methods("OPTIONS", "DELETE")
 }
 

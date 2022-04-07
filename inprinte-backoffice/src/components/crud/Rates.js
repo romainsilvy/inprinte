@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, Create, DeleteButton} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, Create, DeleteButton, SelectInput} from 'react-admin';
   
   export const RatesList = props => (
     <List {...props}>
@@ -19,7 +19,16 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, Crea
   export const RatesEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="stars_number" label="Note"/>
+      <SelectInput source="stars_number" label="Note" choices={
+          [
+            { id: '0', name: '0' },
+            { id: '1', name: '1' },
+            { id: '2', name: '2' },
+            { id: '3', name: '3' },
+            { id: '4', name: '4' },
+            { id: '5', name: '5' },
+          ]
+        }/>
       </SimpleForm>
     </Edit>
   );
@@ -29,7 +38,16 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, Crea
       <SimpleForm>
         <TextInput source="id_user" label="Id user"/>
         <TextInput source="id_product" label="Id produit"/>
-        <TextInput source="stars_number" label="Note"/>
+        <SelectInput source="stars_number" label="Note" choices={
+          [
+            { id: '0', name: '0' },
+            { id: '1', name: '1' },
+            { id: '2', name: '2' },
+            { id: '3', name: '3' },
+            { id: '4', name: '4' },
+            { id: '5', name: '5' },
+          ]
+        }/>
       </SimpleForm>
     </Create>
   );

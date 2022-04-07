@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, DeleteButton, Create} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, DeleteButton, Create, SelectInput} from 'react-admin';
   
   export const CommandLinesList = props => (
     <List {...props}>
@@ -22,7 +22,14 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, Dele
   export const CommandLinesEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="status" label="Statut"/>
+      <SelectInput source="status" label="Statut" choices={
+          [
+            { id: 'En attente', name: 'En attente' },
+            { id: 'En cours', name: 'En cours' },
+            { id: 'Terminée', name: 'Terminée' },
+            { id: 'Annulée', name: 'Annulée' },
+          ]
+        }/>
       </SimpleForm>
     </Edit>
   );
@@ -33,7 +40,14 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, EditButton, Dele
         <TextInput source="id_product" label="Id produit"/>
         <TextInput source="id_command" label="Id commande"/>
         <TextInput source="quantity" label="Quantité"/>
-        <TextInput source="status" label="Statut"/>
+        <SelectInput source="status" label="Statut" choices={
+          [
+            { id: "En attente d'impression", name: "En attente d'impression" },
+            { id: "En cours d'impression", name: "En cours d'impression" },
+            { id: 'Impression terminée', name: 'Impression terminée' },
+            { id: 'Impression annulée', name: 'Impression annulée' },
+          ]
+        }/>
       </SimpleForm>
     </Create>
   );

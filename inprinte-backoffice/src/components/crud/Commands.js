@@ -1,4 +1,4 @@
-import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, DeleteButton, EditButton, Create, DateInput} from 'react-admin';
+import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, DeleteButton, EditButton, Create, DateInput, SelectInput} from 'react-admin';
   
   export const CommandsList = props => (
     <List {...props}>
@@ -20,7 +20,14 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, DeleteButton, Ed
   export const CommandsEdit = props => (
     <Edit {...props}>
       <SimpleForm>
-        <TextInput source="status" label="Statut"/>
+        <SelectInput source="status" label="Statut" choices={
+          [
+            { id: 'En attente', name: 'En attente' },
+            { id: 'En cours', name: 'En cours' },
+            { id: 'Terminée', name: 'Terminée' },
+            { id: 'Annulée', name: 'Annulée' },
+          ]
+        }/>
       </SimpleForm>
     </Edit>
   );
@@ -30,7 +37,14 @@ import {List, Datagrid, TextField, Edit, SimpleForm, TextInput, DeleteButton, Ed
       <SimpleForm>
         <TextInput source="id_user" label="Id utilisateur"/>
         <DateInput source="date" label="Date"/>
-        <TextInput source="status" label="Statut"/>
+        <SelectInput source="status" label="Statut" choices={
+          [
+            { id: 'En attente', name: 'En attente' },
+            { id: 'En cours', name: 'En cours' },
+            { id: 'Terminée', name: 'Terminée' },
+            { id: 'Annulée', name: 'Annulée' },
+          ]
+        }/>
       </SimpleForm>
     </Create>
   );

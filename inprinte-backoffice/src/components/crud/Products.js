@@ -52,6 +52,7 @@ import React from 'react'
         <Edit  {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
+      <BooleanInput source="pending_validation" label="En attente"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
@@ -66,7 +67,6 @@ import React from 'react'
           <TextInput />
           </SimpleFormIterator>
         </ArrayInput>
-        <TextInput source="pending_validation" label="En attente"/>
       </SimpleForm>
     </Edit>
   );      
@@ -103,6 +103,7 @@ export class ProductsCreate extends React.Component {
       <Create  {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
+      <BooleanInput source="pending_validation" label="En attente"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>

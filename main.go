@@ -77,6 +77,7 @@ func handleAuth(router *mux.Router) {
 
 func handleFetch(router *mux.Router) {
 	router.HandleFunc("/rolesFetch", fetch.FetchRoles).Methods("GET")
+	router.HandleFunc("/categoriesFetch", fetch.FetchCategories).Methods("GET")
 }
 
 func main() {

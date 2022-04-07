@@ -57,12 +57,12 @@ import React from 'react'
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
         <SelectInput source="category" label="Catégorie" choices={Choices}/>
-        <ArrayInput source="pictureUrl" label="Liens du produit">
+        <ArrayInput source="pictureUrl" label="Image du produit">
           <SimpleFormIterator>
           <TextInput />
           </SimpleFormIterator>
         </ArrayInput>
-        <ArrayInput source="product_files" label="Liens du produit">
+        <ArrayInput source="product_files" label="Lien du produit">
           <SimpleFormIterator>
           <TextInput />
           </SimpleFormIterator>
@@ -104,16 +104,17 @@ export class ProductsCreate extends React.Component {
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
       <BooleanInput source="pending_validation" label="En attente"/>
+      <TextInput source="id_user" label="Id user"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
         <SelectInput source="category" label="Catégorie" choices={Choices}/>
-        <ArrayInput source="pictureUrl" label="Liens du produit">
+        <ArrayInput source="pictureUrl" label="Image du produit">
           <SimpleFormIterator>
           <TextInput />
           </SimpleFormIterator>
         </ArrayInput>
-        <ArrayInput source="product_files" label="Liens du produit">
+        <ArrayInput source="product_files" label="Lien du produit">
           <SimpleFormIterator>
           <TextInput />
           </SimpleFormIterator>

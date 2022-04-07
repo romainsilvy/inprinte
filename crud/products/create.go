@@ -37,6 +37,31 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 		err = row.Scan(&lastInsertID)
 		utils.CheckErr(err)
 
+		// create the sql query
+		for i := 0; i < len(oneProduct.FileUrl); i++ {
+			sqlQuery = ("INSERT INTO product_file (id_product, url) VALUES (" + strconv.Itoa(lastInsertID) + ", '" + oneProduct.FileUrl[i] + "');")
+
+			// execute the sql query
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
+		}
+
+		// create the sql query for picture table
+		for i := 0; i < len(oneProduct.PictureUrl); i++ {
+			sqlQuery = ("INSERT INTO picture (url) VALUES ('" + oneProduct.PictureUrl[i] + "');")
+
+			// execute the sql query
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
+
+			// create the sql query
+			sqlQuery = ("INSERT INTO product_picture (id_picture, id_product) VALUES ((SELECT id FROM picture ORDER BY id DESC LIMIT 1), '" + strconv.Itoa(lastInsertID) + "');")
+
+			// execute the sql query
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
+		}
+
 		// close the database connection
 		db.Close()
 

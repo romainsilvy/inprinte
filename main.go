@@ -9,6 +9,7 @@ import (
 	rates "inprinteBackoffice/crud/rates"
 	roles "inprinteBackoffice/crud/roles"
 	users "inprinteBackoffice/crud/users"
+	fetch "inprinteBackoffice/fetch"
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -50,7 +51,7 @@ func handleProducts(router *mux.Router) {
 	router.HandleFunc("/products", products.Insert).Methods("OPTIONS", "POST")
 	router.HandleFunc("/products", products.GetProducts).Methods("GET")
 	router.HandleFunc("/products/{id_product}", products.GetProduct).Methods("GET")
-	// router.HandleFunc("/products/{id_product}", products.update).Methods("UPDATE")
+	router.HandleFunc("/products/{id_product}", products.Update).Methods("OPTIONS", "PUT")
 	router.HandleFunc("/products/{id_product}", products.Delete).Methods("OPTIONS", "DELETE")
 }
 
@@ -74,6 +75,11 @@ func handleAuth(router *mux.Router) {
 	router.HandleFunc("/login", auth.Authenticate).Methods("OPTIONS", "POST")
 }
 
+func handleFetch(router *mux.Router) {
+	router.HandleFunc("/rolesFetch", fetch.FetchRoles).Methods("GET")
+	router.HandleFunc("/categoriesFetch", fetch.FetchCategories).Methods("GET")
+}
+
 func main() {
 	//create a new mux router
 	router := mux.NewRouter()
@@ -87,6 +93,7 @@ func main() {
 	handleCategory(router)
 	handleRoles(router)
 	handleAuth(router)
+	handleFetch(router)
 
 	http.ListenAndServe(":8080", router)
 }

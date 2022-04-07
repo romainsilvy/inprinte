@@ -30,3 +30,7 @@ type JsonResponseCategory struct {
 	Data    CreateCategory `json:"data"`
 	Message string         `json:"message"`
 }
+
+type CategoriesList struct {
+	CategoriesList []string `json:"CategoriesList"`
+}

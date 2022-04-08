@@ -8,7 +8,7 @@ export const httpClient = () => {
     // authentication
     login: ({ username, password }) => {
       const request = new Request(
-        'http://localhost:8080' + '/login',
+        'http://localhost:8080/api/login',
         {
           method: 'POST',
           body: JSON.stringify({ email: username, password }),

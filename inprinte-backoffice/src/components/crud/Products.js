@@ -32,7 +32,7 @@ import React from 'react'
         };
     }
     componentDidMount() {
-        fetch("http://localhost:8080/categoriesFetch")
+        fetch("http://localhost:8080/api/categoriesFetch")
             .then((res) => res.json())
             .then((json) => {
               const Choices = [];
@@ -83,7 +83,7 @@ export class ProductsCreate extends React.Component {
       };
   }
   componentDidMount() {
-      fetch("http://localhost:8080/categoriesFetch")
+      fetch("http://localhost:8080/api/categoriesFetch")
           .then((res) => res.json())
           .then((json) => {
             const Choices = [];

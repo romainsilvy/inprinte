@@ -30,8 +30,8 @@ func GetCommandLines(w http.ResponseWriter, r *http.Request) {
 		//parse the query
 		for rows.Next() {
 			//global vars
-			var firstname, lastname, state, name string
-			var id, id_product, id_command, id_user, quantity, price, date int
+			var firstname, lastname, state, name, date string
+			var id, id_product, id_command, id_user, quantity, price int
 
 			//retrieve the values and check errors
 			err = rows.Scan(&id, &firstname, &lastname, &id_product, &name, &id_command, &id_user, &quantity, &price, &date, &state)

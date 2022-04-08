@@ -1,19 +1,16 @@
-package authenticate
+package cookie
 
 import (
 	"encoding/json"
-	"fmt"
 	"inprinteBackoffice/structures"
 	"inprinteBackoffice/utils"
 	"net/http"
-	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 func Authenticate(w http.ResponseWriter, r *http.Request) {
 	//set cors headers
 	utils.SetCorsHeaders(&w)
+
 	if r.Method == "POST" {
 		var auth structures.GetAuthData
 		var password string
@@ -41,23 +38,8 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 		// close the database connection
 		db.Close()
 
-		if password == auth.Password && is_alive && id_role == 1 {
-			fmt.Println("Password is correct")
-			token := jwt.New(jwt.SigningMethodHS256)
-			claims := token.Claims.(jwt.MapClaims)
-			claims["admin"] = true
-			claims["name"] = "admin"
-			claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-
-			tokenString, _ := token.SignedString([]byte("secret"))
-			tok := structures.Token{
-				Auth: tokenString,
-			}
-			json.NewEncoder(w).Encode(tok)
-		} else {
-			w.WriteHeader(http.StatusForbidden)
-			w.Write([]byte("Invalid credentials"))
-		}
+		// check if the password is correct and if the user is an administrator
+		Login(w, password, auth.Password, is_alive, id_role)
 	}
 
 }

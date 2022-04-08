@@ -1,5 +1,4 @@
 import { MenuItemLink} from 'react-admin'
-import DashboardIcon from '@material-ui/icons/Dashboard'; 
 import GroupIcon from '@material-ui/icons/Group';
 import StarIcon from '@material-ui/icons/Star';
 import BookmarkBorderIcon from '@material-ui/icons/BookmarkBorder';
@@ -7,7 +6,6 @@ import BookmarksIcon from '@material-ui/icons/Bookmarks';
 import CameraIcon from '@material-ui/icons/Camera';
 import CategoryIcon from '@material-ui/icons/Category';
 import AssistantIcon from '@material-ui/icons/Assistant';
-import TimelineIcon from '@material-ui/icons/Timeline';
 
 const MyMenu = () => {
     return (

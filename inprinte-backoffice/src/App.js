@@ -11,7 +11,7 @@ import { myTheme } from './components/theme/Theme';
 import { MyLayout } from './components/theme/Layout';
 import { authProvider } from './Auth';
 
-const dataProvider = jsonServerProvider('http://localhost:8080');
+const dataProvider = jsonServerProvider('http://localhost:8080/api');
 
 function App() {
   return (

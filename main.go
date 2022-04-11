@@ -42,7 +42,7 @@ func handlePanier(router *mux.Router) {
 }
 
 func handleAuthentication(router *mux.Router) {
-	router.HandleFunc("/connexion", authentication.Login)
+	router.HandleFunc("/connexion", authentication.Login).Methods("POST", "OPTIONS")
 	//open the database connection
 
 }

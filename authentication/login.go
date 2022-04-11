@@ -1,8 +1,8 @@
 package authentication
 
 import (
+	"database/sql"
 	"encoding/json"
-	"fmt"
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
@@ -11,7 +11,30 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-func checkUserCredentials(email string, password string) (bool, int) {
+type Credentials struct {
+	Email    string `json:"email"`
+	Password string `json:"password"`
+}
+
+type Claims struct {
+	Id_user int `json:"id_user"`
+	jwt.StandardClaims
+}
+
+var jwtKey = []byte("my_secret_key")
+
+func Login(w http.ResponseWriter, r *http.Request) {
+	utils.SetCorsHeaders(&w)
+
+	var creds Credentials
+	// Get the JSON body and decode into credentials
+	err := json.NewDecoder(r.Body).Decode(&creds)
+	if err != nil {
+		// If the structure of the body is wrong, return an HTTP error
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
 	//open the database connection
 	db := utils.DbConnect()
 
@@ -19,47 +42,42 @@ func checkUserCredentials(email string, password string) (bool, int) {
 	var id int
 
 	//check if the user exists in the database and if the password is correct, if so return true
-	sql := "SELECT id FROM user WHERE email = \"" + email + "\" AND password = \"" + password + "\";"
-	err := db.QueryRow(sql).Scan(&id)
-	utils.CheckErr(err)
-	if err == nil {
-		return true, id
-	} else {
-		return false, id
+	sqlQuerry := "SELECT id FROM user WHERE email = \"" + creds.Email + "\" AND password = \"" + creds.Password + "\";"
+	err = db.QueryRow(sqlQuerry).Scan(&id)
+	if err == sql.ErrNoRows {
+		w.WriteHeader(http.StatusUnauthorized)
+		return
+	} else if err != nil {
+		log.Fatal(err)
 	}
-}
 
-type User struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
-func Login(w http.ResponseWriter, r *http.Request) {
-	//decode the json response
-	var user User
-	json.NewDecoder(r.Body).Decode(&user)
-	fmt.Println(user)
-
-	email := user.Email
-	password := user.Password
-	userExists, userId := checkUserCredentials(email, password)
-	if userExists {
-		//generate a new token based on the email
-		token := jwt.New(jwt.SigningMethodHS256)
-		claims := token.Claims.(jwt.MapClaims)
-		claims["id"] = userId
-		claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
-
-		//sign the token with our secret
-		tokenString, err := token.SignedString([]byte("Zebouloux"))
-		if err != nil {
-			log.Fatal(err)
-		}
-
-		//send the token to the client
-		w.Write([]byte(tokenString))
-	} else {
-		//redirect to the login page with an error message
-		http.Redirect(w, r, "/login?error=true", http.StatusFound)
+	// Declare the expiration time of the token
+	// here, we have kept it as 5 minutes
+	expirationTime := time.Now().Add(5 * time.Minute)
+	// Create the JWT claims, which includes the username and expiry time
+	claims := &Claims{
+		Id_user: id,
+		StandardClaims: jwt.StandardClaims{
+			// In JWT, the expiry time is expressed as unix milliseconds
+			ExpiresAt: expirationTime.Unix(),
+		},
 	}
+
+	// Declare the token with the algorithm used for signing, and the claims
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	// Create the JWT string
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		// If there is an error in creating the JWT return an internal server error
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	// Finally, we set the client cookie for "token" as the JWT we just generated
+	// we also set an expiry time which is the same as the token itself
+	http.SetCookie(w, &http.Cookie{
+		Name:    "token",
+		Value:   tokenString,
+		Expires: expirationTime,
+	})
 }

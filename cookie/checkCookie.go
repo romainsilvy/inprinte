@@ -6,11 +6,10 @@ import (
 )
 
 func CheckCookie(r *http.Request) bool {
-	// get the cookie
-	cookie, err := r.Cookie("session")
-	if err != nil {
-		return false
+	// get the cookie admin
+	fmt.Println(r.Cookies())
+	for _, cookie := range r.Cookies() {
+		fmt.Println("Found a cookie named:", cookie.Name)
 	}
-	fmt.Println(cookie)
 	return true
 }

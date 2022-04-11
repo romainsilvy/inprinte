@@ -2,6 +2,8 @@ package crud
 
 import (
 	"encoding/json"
+	"fmt"
+	"inprinteBackoffice/cookie"
 	"inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 	"net/http"
@@ -10,6 +12,9 @@ import (
 )
 
 func GetUser(w http.ResponseWriter, r *http.Request) {
+
+	t := cookie.CheckCookie(r)
+	fmt.Println(t)
 	//global vars
 	var firstname, lastname, email, phone, street, city, state, country, zip_code, role string
 	var is_alive bool
@@ -21,6 +26,9 @@ func GetUser(w http.ResponseWriter, r *http.Request) {
 
 	//create cors header
 	utils.SetCorsHeaders(&w)
+
+	t = cookie.CheckCookie(r)
+	fmt.Println(t)
 
 	//get url values
 	vars := mux.Vars(r)

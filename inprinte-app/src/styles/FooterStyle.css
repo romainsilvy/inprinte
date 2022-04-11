@@ -1,10 +1,11 @@
-*{
+* {
     list-style-type: none;
     text-decoration: none;
     color: #fff;
     padding: 0;
     margin: 0;
 }
+
 .footer {
     position: relative;
     width: 100%;
@@ -18,63 +19,37 @@
     grid-template-columns: repeat(5, 1fr);
 }
 
-.container .logo{
+.container .logo {
     display: block;
     text-align: center;
     margin-top: 7px;
 }
+
 .container h2 {
-    margin-bottom:15px;
+    margin-bottom: 15px;
 }
+
 .container li {
     display: flex;
     align-items: left;
     justify-content: left;
 }
+
 .bar {
-    margin-top:15px;
-    margin-bottom:10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    width: 110%;
 }
-.communauté li{
+
+.communauté li {
     display: inline-block;
-    justify-content:space-around;
+    justify-content: space-around;
     padding-right: 20px;
 }
-.copyrightText{
+
+.copyrightText {
     padding: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

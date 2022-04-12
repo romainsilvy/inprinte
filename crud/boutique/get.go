@@ -14,7 +14,7 @@ func getNewProducts(db *sql.DB) []structures.NewProduct {
 	var newProducts []structures.NewProduct
 
 	//execute the sql query and check errors
-	rows, err := db.Query("SELECT product.id, name, price, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE picture.default = true AND product.pending_validation = false AND product.is_alive = true ORDER BY product.id DESC LIMIT 3")
+	rows, err := db.Query("SELECT product.id, name, price, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE product.pending_validation = false AND product.is_alive = true ORDER BY product.id DESC LIMIT 3")
 	utils.CheckErr(err)
 
 	//parse the query

@@ -2,7 +2,7 @@ import React from 'react';
 
 const Contact = () => {
     return (
-        <div style= {{display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh'}}>
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '90vh' }}>
             <h1>Contactez-nous</h1>
         </div>
     );

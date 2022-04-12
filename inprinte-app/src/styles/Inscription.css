@@ -1,9 +1,18 @@
-.connexion {
+.inscription {
     height: 100vh;
     display: flex;
+    background: rgba(0, 0, 0, 0.5);
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+.form {
+    background: #34333d;
+    border-radius: 5px;
+    width: 300px;
+    height: 290px;
+    padding: 15px;
 }
 
 .button {
@@ -12,16 +21,12 @@
     justify-content: center;
 }
 
-button.modal-toggle,
 input[type="submit"] {
+    background: #605f65 0% 0% no-repeat padding-box;
     cursor: pointer;
     padding: 1rem 2rem;
     text-transform: uppercase;
     border: none;
-}
-
-button.modal-toggle:not(:first-child) {
-    margin-left: 10px;
 }
 
 .form-group {
@@ -38,11 +43,4 @@ input[type="email"] {
     box-sizing: border-box;
     width: 100%;
     padding: 0.5rem 0.7rem;
-}
-
-.inscription {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 2px
 }

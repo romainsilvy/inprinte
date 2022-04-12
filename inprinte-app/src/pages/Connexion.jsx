@@ -1,37 +1,28 @@
-import React from "react";
-import useModal from "../components/useModal";
-import Modal from "../components/Modal";
+import React from 'react';
 import "../styles/Connexion.css"
-import Inscription from "../pages/Inscription"
-
-export default function Connexion() {
-    const { isShowing: isLoginFormShowed, toggle: toggleLoginForm } = useModal();
-
+import { Link } from "react-router-dom";
+const Connexion = () => {
     return (
-        <>
+        <div className="">
             <div className="connexion">
-                <button className="modal-toggle" onClick={toggleLoginForm}>
-                    Se connecter
-                </button>
-                <Modal
-                    isShowing={isLoginFormShowed}
-                    hide={toggleLoginForm}
-                    title="Connexion"
-                >
-                    <form>
-                        <div className="form-group">
-                            <input type="text" placeholder="Pseudo" />
-                        </div>
-                        <div className="form-group">
-                            <input type="text" placeholder="Mot de passe" />
-                        </div>
-                        <div className="form-group">
-                            <input type="submit" value="Se connecter" />
-                        </div>
-                    </form>
-                    <Inscription />
-                </Modal>
+                <form className="form">
+                    <h2>Connexion</h2>
+                    <div className="form-group">
+                        <input type="text" placeholder="Pseudo" />
+                    </div>
+                    <div className="form-group">
+                        <input type="text" placeholder="Mot de passe" />
+                    </div>
+                    <div className="form-group">
+                        <input type="submit" value="Se connecter" />
+                    </div>
+                    <div className="form-group">
+                        <Link to="/inscription"><input type="submit" value="S'inscrire" /></Link>
+                    </div>
+                </form>
             </div>
-        </>
+        </div>
     );
-}
+};
+
+export default Connexion;

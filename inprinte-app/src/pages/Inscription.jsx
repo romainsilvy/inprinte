@@ -1,39 +1,26 @@
 import React from "react";
-import useModal from "../components/useModal";
-import Modal from "../components/Modal";
 import "../styles/Inscription.css"
+import { Link } from "react-router-dom";
 
-
-export default function Inscription(isShowing) {
-    isShowing = false;
-    const { isShowing: isRegistrationFormShowed, toggle: toggleRegistrationForm } = useModal();
-
+export default function Inscription() {
     return (
         <>
             <div className="inscription">
-                <button className="modal-toggle" onClick={toggleRegistrationForm}>
-                    S'inscrire
-                </button>
-                <Modal
-                    isShowing={isRegistrationFormShowed}
-                    hide={toggleRegistrationForm}
-                    title="Inscription"
-                >
-                    <form>
-                        <div className="form-group">
-                            <input type="text" placeholder="Pseudo" />
-                        </div>
-                        <div className="form-group">
-                            <input type="text" placeholder="Adresse mail" />
-                        </div>
-                        <div className="form-group">
-                            <input type="text" placeholder="Mot de passe" />
-                        </div>
-                        <div className="form-group">
-                            <input type="submit" value="S'inscrire" />
-                        </div>
-                    </form>
-                </Modal>
+                <form className="form">
+                    <h2>Inscription</h2>
+                    <div className="form-group">
+                        <input type="text" placeholder="Pseudo" require/>
+                    </div>
+                    <div className="form-group">
+                        <input type="text" placeholder="Adresse mail" require/>
+                    </div>
+                    <div className="form-group">
+                        <input type="text" placeholder="Mot de passe" require/>
+                    </div>
+                    <div className="form-group">
+                        <Link to="/connexion"><input type="submit" value="S'inscrire" /></Link>
+                    </div>
+                </form>
             </div>
         </>
     );

@@ -1,0 +1,48 @@
+.connexion {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.button {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+button.modal-toggle,
+input[type="submit"] {
+    cursor: pointer;
+    padding: 1rem 2rem;
+    text-transform: uppercase;
+    border: none;
+}
+
+button.modal-toggle:not(:first-child) {
+    margin-left: 10px;
+}
+
+.form-group {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    color: black;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0.5rem 0.7rem;
+}
+
+.inscription {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px
+}

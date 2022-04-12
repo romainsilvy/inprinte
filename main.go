@@ -1,6 +1,7 @@
 package main
 
 import (
+	authentication "inprinte/backend/authentication"
 	accueil "inprinte/backend/crud/accueil"
 	boutique "inprinte/backend/crud/boutique"
 	panier "inprinte/backend/crud/panier"
@@ -40,8 +41,17 @@ func handlePanier(router *mux.Router) {
 	// router.HandleFunc("/panier", panier.Insert).Methods("INSERT")
 }
 
+func handleAuthentication(router *mux.Router) {
+
+	router.HandleFunc("/connexion", authentication.Login)
+	router.HandleFunc("/inscription", authentication.Signup)
+	//open the database connection
+
+}
+
 func main() {
 	//print the inprinte logo
+	// databaseTools.Faker()
 	utils.InprinteAscii()
 
 	//create a new mux router
@@ -53,6 +63,7 @@ func main() {
 	handleProduit(router)
 	handleUser(router)
 	handlePanier(router)
+	handleAuthentication(router)
 
 	http.ListenAndServe(":8080", router)
 }

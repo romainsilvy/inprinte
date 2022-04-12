@@ -2,7 +2,6 @@ package authentication
 
 import (
 	"encoding/json"
-	"fmt"
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
@@ -15,7 +14,7 @@ func checkIfUserExists(email string) bool {
 	//global vars
 	var id int
 
-	//check if the user exists in the database and if the password is correct, if so return true
+	//check if the user exists in the database, if so return true
 	sql := "SELECT id FROM user WHERE email = \"" + email + "\";"
 	err := db.QueryRow(sql).Scan(&id)
 	// utils.CheckErr(err)
@@ -38,7 +37,6 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	//decode the json response
 	var addUser AddUser
 	json.NewDecoder(r.Body).Decode(&addUser)
-	fmt.Println(addUser)
 
 	//user credentials
 	firstname := addUser.Firstname
@@ -51,21 +49,11 @@ func Signup(w http.ResponseWriter, r *http.Request) {
 	if userExists {
 		log.Println("User already exists")
 	} else {
-		//insert the user into the database and get the id corresponding to the user that was just inserted
-		var id int
-
 		//connect the database
 		db := utils.DbConnect()
 
-		sql := "INSERT INTO user (first_name, last_name, email, password, phone, is_alive, id_role) VALUES (\"" + firstname + "\", \"" + lastname + "\", \"" + email + "\", \"" + password + "\", \"" + phone + "\", true, 2);"
+		sql := "INSERT INTO user (first_name, last_name, email, password, phone, is_alive, id_role) VALUES (\"" + firstname + "\", \"" + lastname + "\", \"" + email + "\", \"" + utils.HashPassword(password) + "\", \"" + phone + "\", true, 2);"
 		_, err := db.Exec(sql)
 		utils.CheckErr(err)
-
-		// get the id corresponding to the user that was just inserted
-		sql = "SELECT id FROM user WHERE email = \"" + email + "\";"
-		err = db.QueryRow(sql).Scan(&id)
-		utils.CheckErr(err)
-
-		generateToken(w, 1)
 	}
 }

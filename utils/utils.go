@@ -10,6 +10,7 @@ import (
 	"net/http"
 
 	"github.com/fatih/color"
+	"golang.org/x/crypto/bcrypt"
 )
 
 func SetCorsHeaders(w *http.ResponseWriter) {
@@ -129,4 +130,10 @@ func GetRangeParam(r *http.Request) string {
 		rangeBy = " LIMIT " + urlStart[0] + "," + urlEnd[0]
 	}
 	return rangeBy
+}
+
+func HashPassword(password string) string {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password), 14)
+	CheckErr(err)
+	return string(bytes)
 }

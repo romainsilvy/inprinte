@@ -3,6 +3,7 @@ package authentication
 import (
 	"database/sql"
 	"encoding/json"
+	authentication "inprinte/backend/structures"
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
@@ -11,22 +12,12 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-type Credentials struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
-
-type Claims struct {
-	Id_user int `json:"id_user"`
-	jwt.StandardClaims
-}
-
 var jwtKey = []byte("my_secret_key")
 
 func Login(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
-	var creds Credentials
+	var creds authentication.Credentials
 	// Get the JSON body and decode into credentials
 	err := json.NewDecoder(r.Body).Decode(&creds)
 	if err != nil {
@@ -53,9 +44,9 @@ func Login(w http.ResponseWriter, r *http.Request) {
 
 	// Declare the expiration time of the token
 	// here, we have kept it as 5 minutes
-	expirationTime := time.Now().Add(5 * time.Minute)
+	expirationTime := time.Now().AddDate(0, 1, 0)
 	// Create the JWT claims, which includes the username and expiry time
-	claims := &Claims{
+	claims := &authentication.Claims{
 		Id_user: id,
 		StandardClaims: jwt.StandardClaims{
 			// In JWT, the expiry time is expressed as unix milliseconds

@@ -2,6 +2,7 @@ package cookie
 
 import (
 	"encoding/json"
+	"fmt"
 	"inprinteBackoffice/structures"
 	"inprinteBackoffice/utils"
 	"net/http"
@@ -38,8 +39,9 @@ func Authenticate(w http.ResponseWriter, r *http.Request) {
 		// close the database connection
 		db.Close()
 
-		// check if the password is correct and if the user is an administrator
-		Login(w, password, auth.Password, is_alive, id_role)
+		fmt.Println(password)
+		fmt.Println(auth.Password)
+
 	}
 
 }

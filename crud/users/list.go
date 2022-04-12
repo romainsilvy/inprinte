@@ -2,18 +2,17 @@ package crud
 
 import (
 	"encoding/json"
-	cookie "inprinteBackoffice/cookie"
 	structures "inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 	"net/http"
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
+
 	//create cors header
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		cookie.CheckCookie(r)
 		//global vars
 		var users []structures.GetUsers
 

@@ -71,7 +71,7 @@ func HandleRoles(router *mux.Router) {
 }
 
 func HandleAuth(router *mux.Router) {
-	router.HandleFunc("/api/login", cookie.Authenticate).Methods("OPTIONS", "POST")
+	router.HandleFunc("/api/login", cookie.Signin).Methods("OPTIONS", "POST")
 }
 
 func HandleFetch(router *mux.Router) {

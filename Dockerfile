@@ -21,7 +21,7 @@ WORKDIR /app
 ## executable of our Go program
 RUN go mod download
 RUN go build -o main .
-EXPOSE 80
+# EXPOSE 80
 ## Our start command which kicks off
 ## our newly created binary executable
 CMD ["/app/main"]

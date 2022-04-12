@@ -33,7 +33,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	var id int
 
 	//check if the user exists in the database and if the password is correct, if so return true
-	sqlQuerry := "SELECT id FROM user WHERE email = \"" + creds.Email + "\" AND password = \"" + creds.Password + "\";"
+	sqlQuerry := "SELECT id FROM user WHERE email = \"" + creds.Email + "\" AND password = \"" + utils.HashPassword(creds.Password) + "\";"
 	err = db.QueryRow(sqlQuerry).Scan(&id)
 	if err == sql.ErrNoRows {
 		w.WriteHeader(http.StatusUnauthorized)

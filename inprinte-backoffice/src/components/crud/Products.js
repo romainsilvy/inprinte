@@ -52,7 +52,7 @@ import React from 'react'
         <Edit  {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
-      <BooleanInput source="pending_validation" label="En attente"/>
+      <BooleanInput source="pending_validation" label="En attente de validation"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
@@ -103,7 +103,7 @@ export class ProductsCreate extends React.Component {
       <Create  {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
-      <BooleanInput source="pending_validation" label="En attente"/>
+      <BooleanInput source="pending_validation" label="En attente de validation"/>
       <TextInput source="id_user" label="Id user"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>

@@ -7,12 +7,12 @@ export const httpClient = () => {
   export const authProvider = {
     // authentication
     login: ({ username, password }) => {
+      console.log('token ', localStorage.getItem('auth'));
       const request = new Request(
         'http://localhost:8080/api/login',
         {
           method: 'POST',
-          body: JSON.stringify({ email: username, password }),
-          headers: new Headers({ 'Content-Type': 'application/json' }),
+          body: JSON.stringify({ email: username, password  }),
         }
       );
       return fetch(request)
@@ -47,6 +47,7 @@ export const httpClient = () => {
         : Promise.reject({ message: 'login required' }),
     logout: () => {
       localStorage.removeItem('auth');
+      document.cookie = "role=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/";
       return Promise.resolve();
     },
     getIdentity: () => {

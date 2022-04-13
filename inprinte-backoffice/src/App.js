@@ -1,4 +1,4 @@
-import {Admin,Resource} from "react-admin";
+import { fetchUtils, Admin, Resource } from 'react-admin';
 import jsonServerProvider from 'ra-data-json-server';
 import {UserList, UserEdit, UserCreate} from './components/crud/Users';
 import {CommandsList, CommandsEdit, CommandsCreate} from './components/crud/Commands';
@@ -11,13 +11,22 @@ import { myTheme } from './components/theme/Theme';
 import { MyLayout } from './components/theme/Layout';
 import { authProvider } from './Auth';
 
-const dataProvider = jsonServerProvider('http://localhost:8080/api');
+const httpClient = (url, options = {}) => {
+  if (!options.headers) {
+      options.headers = new Headers({ Accept: 'application/json' });
+  }
+  const token = localStorage.getItem('auth');
+  options.headers.set('Access-Control-Allow-Headers' , '*');
+  options.headers.set('Authorization', `Bearer ${token}`);
+  return fetchUtils.fetchJson(url, options);
+}
+const dataProvider = jsonServerProvider('http://localhost:8080/api', httpClient);
 
 function App() {
   return (
     <Admin authProvider={authProvider} theme={myTheme} layout={MyLayout} dataProvider={dataProvider}>
         {/* Users */}
-      <Resource name="users" list={UserList} edit={UserEdit} create={UserCreate}/>
+      <Resource  name="users" list={UserList} edit={UserEdit} create={UserCreate}/>
 
       {/* Commands */}
       <Resource name="commands" list={CommandsList} edit={CommandsEdit} create={CommandsCreate}/>

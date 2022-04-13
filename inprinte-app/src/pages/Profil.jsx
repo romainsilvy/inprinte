@@ -7,7 +7,17 @@ import bar2 from '../images/bar2.svg'
 import random from '../images/random.jpg'
 
 const Profil = () => {
-    render(); {
+    
+        const auth = localStorage.getItem('auth');
+    if (auth) {
+      const authObj = JSON.parse(auth);
+      console.log(authObj)
+      if (authObj == undefined) {
+        window.location.href = '/connexion';
+      }
+    } else {
+        window.location.href = '/connexion';
+    }
         return (
             <div className="">
                 <Navbar />
@@ -76,7 +86,6 @@ const Profil = () => {
                 <Footer />
             </div>
         );
-    };
 }
 
 export default Profil;

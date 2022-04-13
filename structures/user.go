@@ -36,7 +36,7 @@ type CreateUser struct {
 	Lastname  string  `json:"lastname"`
 	Password  string  `json:"password"`
 	Phone     string  `json:"phone"`
-	IsAlive   bool    `json:"is_alive,string"`
+	IsAlive   bool    `json:"is_alive"`
 	Role      string  `json:"role"`
 	Address   Address `json:"address"`
 }
@@ -47,7 +47,7 @@ type UpdateUser struct {
 	Lastname  string  `json:"lastname"`
 	Password  string  `json:"password"`
 	Phone     string  `json:"phone"`
-	IsAlive   bool    `json:"is_alive,string"`
+	IsAlive   bool    `json:"is_alive"`
 	Role      string  `json:"role"`
 	Address   Address `json:"address"`
 }

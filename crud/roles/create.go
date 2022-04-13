@@ -12,47 +12,52 @@ func Insert(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "POST" {
-		// global variables
-		var oneRole structures.CreateRole
-		var lastInsertID int
 
-		// get body
-		err := json.NewDecoder(r.Body).Decode(&oneRole)
-		if err != nil {
-			panic(err)
-		}
+		if utils.Securized(w, r) {
+			// global variables
+			var oneRole structures.CreateRole
+			var lastInsertID int
 
-		// connect the database
-		db := utils.DbConnect()
+			// get body
+			err := json.NewDecoder(r.Body).Decode(&oneRole)
+			if err != nil {
+				panic(err)
+			}
 
-		// create the sql query
-		sqlQuery := ("INSERT INTO role (role) VALUES ('" + oneRole.Role + "');")
-		_, err = db.Exec(sqlQuery)
-		utils.CheckErr(err)
+			// connect the database
+			db := utils.DbConnect()
 
-		// get the last inserted id
-		sqlQuery = ("SELECT id FROM role ORDER BY id DESC LIMIT 1;")
+			// create the sql query
+			sqlQuery := ("INSERT INTO role (role) VALUES ('" + oneRole.Role + "');")
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
 
-		// execute the query
-		row := db.QueryRow(sqlQuery)
-		err = row.Scan(&lastInsertID)
-		utils.CheckErr(err)
+			// get the last inserted id
+			sqlQuery = ("SELECT id FROM role ORDER BY id DESC LIMIT 1;")
 
-		// close the database connection
-		db.Close()
+			// execute the query
+			row := db.QueryRow(sqlQuery)
+			err = row.Scan(&lastInsertID)
+			utils.CheckErr(err)
 
-		// set the response
-		response := structures.JsonResponseRole{
-			Id:   lastInsertID,
-			Type: "success",
-			Data: structures.CreateRole{
+			// close the database connection
+			db.Close()
+
+			// set the response
+			response := structures.JsonResponseRole{
 				Id:   lastInsertID,
-				Role: oneRole.Role,
-			},
-			Message: "New role inserted into DB.",
-		}
+				Type: "success",
+				Data: structures.CreateRole{
+					Id:   lastInsertID,
+					Role: oneRole.Role,
+				},
+				Message: "New role inserted into DB.",
+			}
 
-		// send the response
-		json.NewEncoder(w).Encode(response)
+			// send the response
+			json.NewEncoder(w).Encode(response)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+		}
 	}
 }

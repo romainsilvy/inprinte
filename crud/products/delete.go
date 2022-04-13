@@ -14,27 +14,32 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "DELETE" {
-		//connect the database
-		db := utils.DbConnect()
 
-		//get url values
-		vars := mux.Vars(r)
-		id_product := vars["id_product"]
+		if utils.Securized(w, r) {
+			//connect the database
+			db := utils.DbConnect()
 
-		//create the sql query
-		sqlQuery := ("UPDATE product SET is_alive = false WHERE id = " + id_product + ";")
+			//get url values
+			vars := mux.Vars(r)
+			id_product := vars["id_product"]
 
-		//execute the sql query
-		_, err := db.Exec(sqlQuery)
-		utils.CheckErr(err)
+			//create the sql query
+			sqlQuery := ("UPDATE product SET is_alive = false WHERE id = " + id_product + ";")
 
-		//close the database connection
-		db.Close()
+			//execute the sql query
+			_, err := db.Exec(sqlQuery)
+			utils.CheckErr(err)
 
-		//create the json response
-		json.NewEncoder(w).Encode(structures.JsonResponseProduct{
-			Type:    "success",
-			Message: "Product deleted",
-		})
+			//close the database connection
+			db.Close()
+
+			//create the json response
+			json.NewEncoder(w).Encode(structures.JsonResponseProduct{
+				Type:    "success",
+				Message: "Product deleted",
+			})
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+		}
 	}
 }

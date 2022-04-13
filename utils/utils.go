@@ -13,16 +13,10 @@ func SetCorsHeaders(w *http.ResponseWriter) {
 	(*w).Header().Set("Content-Type", "application/json")
 	(*w).Header().Set("Access-Control-Allow-Origin", "*")
 	(*w).Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type")
+	(*w).Header().Set("Access-Control-Allow-Headers", "*")
 	(*w).Header().Set("Access-Control-Max-Age", "86400")
-}
+	(*w).Header().Set("Access-Control-Expose-Headers", "*")
 
-func SetCorsHeadersJsonError(w *http.ResponseWriter) {
-	(*w).Header().Set("Content-Type", "application/json2")
-	(*w).Header().Set("Access-Control-Allow-Origin", "*")
-	(*w).Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
-	(*w).Header().Set("Access-Control-Allow-Headers", "Content-Type")
-	(*w).Header().Set("Access-Control-Max-Age", "86400")
 }
 
 func SetXTotalCountHeader(w *http.ResponseWriter, totalCount int) {

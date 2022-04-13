@@ -14,39 +14,44 @@ func GetCategory(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		//global vars
-		var id int
-		var name string
-		var is_alive bool
 
-		//connect the database
-		db := utils.DbConnect()
+		if utils.Securized(w, r) {
+			//global vars
+			var id int
+			var name string
+			var is_alive bool
 
-		//get url values
-		vars := mux.Vars(r)
-		id_category := vars["id_category"]
+			//connect the database
+			db := utils.DbConnect()
 
-		//create the sql query
-		sqlQuery := ("SELECT id, name, is_alive FROM category WHERE category.id = " + id_category + " ;")
+			//get url values
+			vars := mux.Vars(r)
+			id_category := vars["id_category"]
 
-		//execute the sql query
-		row := db.QueryRow(sqlQuery)
+			//create the sql query
+			sqlQuery := ("SELECT id, name, is_alive FROM category WHERE category.id = " + id_category + " ;")
 
-		//parse the query
-		err := row.Scan(&id, &name, &is_alive)
-		utils.CheckErr(err)
+			//execute the sql query
+			row := db.QueryRow(sqlQuery)
 
-		//add the values to the response
-		oneCategory := structures.GetCategory{
-			Id:      id,
-			Name:    name,
-			IsAlive: is_alive,
+			//parse the query
+			err := row.Scan(&id, &name, &is_alive)
+			utils.CheckErr(err)
+
+			//add the values to the response
+			oneCategory := structures.GetCategory{
+				Id:      id,
+				Name:    name,
+				IsAlive: is_alive,
+			}
+
+			//close the database connection
+			db.Close()
+
+			//set the json response
+			json.NewEncoder(w).Encode(oneCategory)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
 		}
-
-		//close the database connection
-		db.Close()
-
-		//set the json response
-		json.NewEncoder(w).Encode(oneCategory)
 	}
 }

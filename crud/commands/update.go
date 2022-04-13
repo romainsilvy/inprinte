@@ -13,27 +13,32 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "PUT" {
-		// parse json from put Request
-		var oneCommand structures.GetCommand
 
-		//parse the body
-		err := json.NewDecoder(r.Body).Decode(&oneCommand)
-		utils.CheckErr(err)
+		if utils.Securized(w, r) {
+			// parse json from put Request
+			var oneCommand structures.GetCommand
 
-		// connect the database
-		db := utils.DbConnect()
+			//parse the body
+			err := json.NewDecoder(r.Body).Decode(&oneCommand)
+			utils.CheckErr(err)
 
-		// create the sql query
-		sqlQuery := ("UPDATE command SET state = '" + oneCommand.Status + "' WHERE id = " + strconv.Itoa(oneCommand.Id) + ";")
+			// connect the database
+			db := utils.DbConnect()
 
-		// execute the sql query
-		_, err = db.Exec(sqlQuery)
-		utils.CheckErr(err)
+			// create the sql query
+			sqlQuery := ("UPDATE command SET state = '" + oneCommand.Status + "' WHERE id = " + strconv.Itoa(oneCommand.Id) + ";")
 
-		// close the database connection
-		db.Close()
+			// execute the sql query
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
 
-		// create the json response
-		json.NewEncoder(w).Encode(oneCommand)
+			// close the database connection
+			db.Close()
+
+			// create the json response
+			json.NewEncoder(w).Encode(oneCommand)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+		}
 	}
 }

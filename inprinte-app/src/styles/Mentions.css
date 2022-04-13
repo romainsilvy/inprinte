@@ -3,7 +3,7 @@
     grid-template-columns: repeat(5, 1fr);
 }
 
-.faqs {
+.mentions {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -12,14 +12,14 @@
     ;
 }
 
-.faqs .faq {
+.mentions .mention {
     margin: 15px;
     padding: 15px;
     border-radius: 8px;
     cursor: pointer;
 }
 
-.faqs .faq .faq-question {
+.mentions .mention .mention-question {
     position: relative;
     font-size: 20px;
     padding-right: 80px;
@@ -27,7 +27,7 @@
     transition: all 0.4s ease;
 }
 
-.faqs .faq .faq-question::after {
+.mentions .mention .mention-question::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -44,22 +44,22 @@
     transition: all 0.4s ease-out;
 }
 
-.faqs .faq .faq-answer {
+.mentions .mention .mention-answer {
     opacity: 0;
     max-height: 0;
     overflow-y: hidden;
     transition: all 0.4s ease-out;
 }
 
-.faqs .faq.open .faq-question {
+.mentions .mention.open .mention-question {
     margin-bottom: 15px;
 }
 
-.faqs .faq.open .faq-question::after {
+.mentions .mention.open .mention-question::after {
     transform: translateY(-50%) rotate(180deg);
 }
 
-.faqs .faq.open .faq-answer {
+.mentions .mention.open .mention-answer {
     max-height: 1000px;
     opacity: 1;
 }

@@ -17,7 +17,7 @@ const httpClient = (url, options = {}) => {
   }
   const token = localStorage.getItem('auth');
   options.headers.set('Access-Control-Allow-Headers' , '*');
-  options.headers.set('Authorization', `Bearer ${token}`);
+  options.headers.set('Authorization', token);
   return fetchUtils.fetchJson(url, options);
 }
 const dataProvider = jsonServerProvider('http://localhost:8080/api', httpClient);

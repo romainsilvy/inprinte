@@ -1,54 +1,26 @@
 import {List, Datagrid, TextField, EmailField, Edit, SimpleForm, TextInput, Create, EditButton, DeleteButton, BooleanInput, SelectInput } from 'react-admin';
 import React from 'react';
-import { httpClient } from '../../Auth';
 
-
-const myHeaders = new Headers({
-  "Content-Type": "text/plain",
-  "Content-Length": 1,
-  "X-Custom-Header": "ProcessThisImmediately",
-  "Authorization": "Bearer :" + localStorage.getItem('auth')
-});
-
-export class UserList extends React.Component {
-  constructor(props) {
-      super(props);
-      this.state = {
-          items: [],
-          Choices: [],
-          DataisLoaded: false
-      };
-  }
-  componentDidMount() {
-    const token = localStorage.getItem('token');
-    console.log(token);
-  }
-  render() {
-    new Headers({
-      "Content-Type": "text/plain",
-    });
-      return (
-        <List {...this.props}>
-        <Datagrid rowClick="edit">
-          <TextField source="id" label="Id"/>
-          <TextField source="firstname" label="Prénom"/>
-          <TextField source="lastname" label="Nom"/>
-          <TextField source="role" label="Role"/>
-          <EmailField source="email" label="Mail"/>
-          <TextField source="phone" label="Téléphone"/>
-          <TextField source="is_alive" label="Actif"/>
-          <TextField source="address.street" label="Rue" />
-          <TextField source="address.city" label="Ville" />
-          <TextField source="address.state" label="Région" />
-          <TextField source="address.country" label="Pays" />
-          <TextField source="address.zipCode" label="Code Postal" />
-          <EditButton />
-          <DeleteButton />
-        </Datagrid>
-      </List>
-      )
-  }
-}
+  export const UserList = props => (
+    <List {...props}>
+      <Datagrid rowClick="edit">
+        <TextField source="id" label="Id"/>
+        <TextField source="firstname" label="Prénom"/>
+        <TextField source="lastname" label="Nom"/>
+        <TextField source="role" label="Role"/>
+        <EmailField source="email" label="Mail"/>
+        <TextField source="phone" label="Téléphone"/>
+        <TextField source="is_alive" label="Actif"/>
+        <TextField source="address.street" label="Rue" />
+        <TextField source="address.city" label="Ville" />
+        <TextField source="address.state" label="Région" />
+        <TextField source="address.country" label="Pays" />
+        <TextField source="address.zipCode" label="Code Postal" />
+        <EditButton />
+        <DeleteButton />
+      </Datagrid>
+    </List>
+  );
 
   export class UserEdit extends React.Component {
     constructor(props) {

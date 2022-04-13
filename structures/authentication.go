@@ -11,3 +11,7 @@ type Claims struct {
 	Id_user int `json:"id_user"`
 	jwt.StandardClaims
 }
+
+type Token struct {
+	Auth string `json:"auth"`
+}

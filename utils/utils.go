@@ -137,3 +137,12 @@ func HashPassword(password string) string {
 	CheckErr(err)
 	return string(bytes)
 }
+
+func CheckPassword(password, hashedPassword string) bool {
+	err := bcrypt.CompareHashAndPassword([]byte(hashedPassword), []byte(password))
+	if err != nil {
+		log.Println(err)
+		return false
+	}
+	return true
+}

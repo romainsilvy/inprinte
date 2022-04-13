@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 8ec0fa2b01d8d0ebcf210787581a75c36eea0d6f
 # Inprinte backoffice frontend
 
 This is the frontend part of the backoffice of the project Inprinte

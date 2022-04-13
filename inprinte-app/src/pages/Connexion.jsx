@@ -6,13 +6,13 @@ const Connexion = () => {
 
         <div className="">
             <div className="connexion">
-                <form className="form">
+                <form className="form-connexion">
                     <h2>Connexion</h2>
                     <div className="form-group">
-                        <input type="text" placeholder="Pseudo" />
+                        <input type="email" placeholder="Adresse mail" />
                     </div>
                     <div className="form-group">
-                        <input type="text" placeholder="Mot de passe" />
+                        <input type="password" placeholder="Mot de passe" />
                     </div>
                     <div className="form-group">
                         <input type="submit" value="Se connecter" />

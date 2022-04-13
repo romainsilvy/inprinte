@@ -9,13 +9,19 @@ export default function Inscription() {
                 <form className="form">
                     <h2>Inscription</h2>
                     <div className="form-group">
-                        <input type="text" placeholder="Pseudo" require/>
+                        <input type="text" placeholder="Prénom" require/>
                     </div>
                     <div className="form-group">
-                        <input type="text" placeholder="Adresse mail" require/>
+                        <input type="text" placeholder="Nom" require/>
                     </div>
                     <div className="form-group">
-                        <input type="text" placeholder="Mot de passe" require/>
+                        <input type="email" placeholder="Adresse mail" require/>
+                    </div>
+                    <div className="form-group">
+                        <input type="password" placeholder="Mot de passe" require/>
+                    </div>
+                    <div className="form-group">
+                        <input type="tel" placeholder="Téléphone" require/>
                     </div>
                     <div className="form-group">
                         <Link to="/connexion"><input type="submit" value="S'inscrire" /></Link>

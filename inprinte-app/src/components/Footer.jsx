@@ -1,6 +1,6 @@
 import React from 'react';
 import InprinteLogo from '../images/logo.svg'
-import FooterStyle from "../styles/FooterStyle.css";
+import "../styles/Footer.css";
 import { Link } from "react-router-dom";
 import bar from '../images/bar.svg'
 import facebook from '../images/facebook.svg'

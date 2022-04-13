@@ -11,6 +11,7 @@ import Contact from "./pages/Contact";
 import Panier from "./pages/Panier";
 import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
+import Profil from "./pages/Profil";
 
 function App() {
   return (

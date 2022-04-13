@@ -14,27 +14,32 @@ func Delete(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "DELETE" {
-		//connect the database
-		db := utils.DbConnect()
 
-		//get url values
-		vars := mux.Vars(r)
-		id_role := vars["id_role"]
+		if utils.Securized(w, r) {
+			//connect the database
+			db := utils.DbConnect()
 
-		//create the sql query
-		sqlQuery := ("DELETE FROM role WHERE id = " + id_role + ";")
+			//get url values
+			vars := mux.Vars(r)
+			id_role := vars["id_role"]
 
-		//execute the sql query
-		_, err := db.Exec(sqlQuery)
-		utils.CheckErr(err)
+			//create the sql query
+			sqlQuery := ("DELETE FROM role WHERE id = " + id_role + ";")
 
-		//close the database connection
-		db.Close()
+			//execute the sql query
+			_, err := db.Exec(sqlQuery)
+			utils.CheckErr(err)
 
-		//create the json response
-		json.NewEncoder(w).Encode(structures.JsonResponseRole{
-			Type:    "success",
-			Message: "Role deleted",
-		})
+			//close the database connection
+			db.Close()
+
+			//create the json response
+			json.NewEncoder(w).Encode(structures.JsonResponseRole{
+				Type:    "success",
+				Message: "Role deleted",
+			})
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+		}
 	}
 }

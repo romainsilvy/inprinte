@@ -14,41 +14,46 @@ func GetRate(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		//global vars
-		var rate structures.GetRates
-		var firstname, lastname, name string
-		var id, id_product, id_user, stars_number int
 
-		vars := mux.Vars(r)
-		id_rate := vars["id_rate"]
+		if utils.Securized(w, r) {
+			//global vars
+			var rate structures.GetRates
+			var firstname, lastname, name string
+			var id, id_product, id_user, stars_number int
 
-		//connect the database
-		db := utils.DbConnect()
-		sqlQuery := "select rate.id, product.id, product.name, user.id AS id_user, user.first_name, user.last_name, rate.stars_number FROM rate INNER JOIN product ON product.id = rate.id_product INNER JOIN user ON user.id = rate.id_user WHERE rate.id = " + id_rate + ";"
+			vars := mux.Vars(r)
+			id_rate := vars["id_rate"]
 
-		//execute the sql query and check errors
-		row := db.QueryRow(sqlQuery)
+			//connect the database
+			db := utils.DbConnect()
+			sqlQuery := "select rate.id, product.id, product.name, user.id AS id_user, user.first_name, user.last_name, rate.stars_number FROM rate INNER JOIN product ON product.id = rate.id_product INNER JOIN user ON user.id = rate.id_user WHERE rate.id = " + id_rate + ";"
 
-		//parse the query
-		err := row.Scan(&id, &id_product, &name, &id_user, &firstname, &lastname, &stars_number)
-		utils.CheckErr(err)
+			//execute the sql query and check errors
+			row := db.QueryRow(sqlQuery)
 
-		//add the values to the response
-		rate = structures.GetRates{
-			Id:           id,
-			Id_product:   id_product,
-			Name:         name,
-			Id_user:      id_user,
-			Firstname:    firstname,
-			Lastname:     lastname,
-			Stars_number: stars_number,
+			//parse the query
+			err := row.Scan(&id, &id_product, &name, &id_user, &firstname, &lastname, &stars_number)
+			utils.CheckErr(err)
+
+			//add the values to the response
+			rate = structures.GetRates{
+				Id:           id,
+				Id_product:   id_product,
+				Name:         name,
+				Id_user:      id_user,
+				Firstname:    firstname,
+				Lastname:     lastname,
+				Stars_number: stars_number,
+			}
+
+			//close the database connection
+			db.Close()
+
+			//create the json response
+			utils.SetXTotalCountHeader(&w, 1)
+			json.NewEncoder(w).Encode(rate)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
 		}
-
-		//close the database connection
-		db.Close()
-
-		//create the json response
-		utils.SetXTotalCountHeader(&w, 1)
-		json.NewEncoder(w).Encode(rate)
 	}
 }

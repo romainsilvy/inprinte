@@ -19,7 +19,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 
 	if r.Method == "POST" {
 		if CheckLogin(auth.Email, auth.Password) {
-			token := CreateToken(auth.Email)
+			token := utils.CreateToken(auth.Email)
 			json.NewEncoder(w).Encode(token)
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)

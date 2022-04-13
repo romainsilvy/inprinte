@@ -1,9 +1,8 @@
-package cookie
+package utils
 
 import (
 	"errors"
 	"inprinteBackoffice/structures"
-	"inprinteBackoffice/utils"
 	"net/http"
 	"strings"
 	"time"
@@ -14,6 +13,7 @@ import (
 // Create the JWT key used to create the signature
 var jwtKey = []byte("zebouloux")
 
+// Create the Signin handler
 func CreateToken(email string) structures.Token {
 	// Create the token
 	tokenJson := jwt.New(jwt.SigningMethodHS256)
@@ -28,9 +28,10 @@ func CreateToken(email string) structures.Token {
 	return tokJson
 }
 
+// Decode the token
 func decodeToken(w http.ResponseWriter, r *http.Request) jwt.MapClaims {
 	//create cors header
-	utils.SetCorsHeaders(&w)
+	SetCorsHeaders(&w)
 
 	// get header values
 	token := r.Header.Get("Authorization")
@@ -46,7 +47,7 @@ func decodeToken(w http.ResponseWriter, r *http.Request) jwt.MapClaims {
 		}
 		return jwtKey, nil
 	})
-	utils.CheckErr(err)
+	CheckErr(err)
 
 	// get claims
 	claims, ok := tokenDecoded.Claims.(jwt.MapClaims)
@@ -57,13 +58,15 @@ func decodeToken(w http.ResponseWriter, r *http.Request) jwt.MapClaims {
 	}
 }
 
+// Check if the token exist
 func tokenExist(w http.ResponseWriter, r *http.Request) bool {
 	return (len(r.Header.Values("Authorization")) > 0)
 }
 
+// Check if the token is valid
 func validToken(w http.ResponseWriter, r *http.Request) (bool, jwt.MapClaims) {
 	//create cors header
-	utils.SetCorsHeaders(&w)
+	SetCorsHeaders(&w)
 
 	if (r.Header.Values("Authorization")[0]) != "" {
 		return true, decodeToken(w, r)
@@ -72,6 +75,7 @@ func validToken(w http.ResponseWriter, r *http.Request) (bool, jwt.MapClaims) {
 	}
 }
 
+// Check if the token is admin
 func isAdminToken(token jwt.MapClaims) bool {
 	if token["admin"] == true {
 		return true
@@ -80,6 +84,7 @@ func isAdminToken(token jwt.MapClaims) bool {
 	}
 }
 
+// Check if the user is logged and admin
 func Securized(w http.ResponseWriter, r *http.Request) bool {
 	if tokenExist(w, r) {
 		ok, claims := validToken(w, r)

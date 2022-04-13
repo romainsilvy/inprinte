@@ -2,7 +2,6 @@ package crud
 
 import (
 	"encoding/json"
-	"inprinteBackoffice/cookie"
 	structures "inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 	"net/http"
@@ -13,7 +12,7 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		if cookie.Securized(w, r) {
+		if utils.Securized(w, r) {
 			//global vars
 			var users []structures.GetUsers
 			//connect the database
@@ -65,7 +64,6 @@ func GetUsers(w http.ResponseWriter, r *http.Request) {
 			//create the json response
 			utils.SetXTotalCountHeader(&w, len(users))
 			json.NewEncoder(w).Encode(users)
-
 		} else {
 			w.WriteHeader(http.StatusUnauthorized)
 		}

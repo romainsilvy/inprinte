@@ -6,5 +6,5 @@ type GetAuthData struct {
 }
 
 type Token struct {
-	Auth string `json:"auth"`
+	Token string `json:"token"`
 }

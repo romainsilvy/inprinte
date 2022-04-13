@@ -8,13 +8,10 @@ import (
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gorilla/sessions"
 )
 
 // Create the JWT key used to create the signature
 var jwtKey = []byte("zebouloux")
-
-var store = sessions.NewCookieStore(jwtKey)
 
 // Create the Signin handler
 func Signin(w http.ResponseWriter, r *http.Request) {
@@ -29,7 +26,7 @@ func Signin(w http.ResponseWriter, r *http.Request) {
 		claimsJson["exp"] = time.Now().Add(time.Hour * 72).Unix()
 		tokenStringJson, _ := tokenJson.SignedString(jwtKey)
 		tokJson := structures.Token{
-			Auth: tokenStringJson,
+			Token: tokenStringJson,
 		}
 		json.NewEncoder(w).Encode(tokJson)
 	}

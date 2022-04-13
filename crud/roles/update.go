@@ -13,25 +13,30 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "PUT" {
-		// parse json from put Request
-		var oneRole structures.GetRole
-		err := json.NewDecoder(r.Body).Decode(&oneRole)
-		utils.CheckErr(err)
 
-		// connect the database
-		db := utils.DbConnect()
+		if utils.Securized(w, r) {
+			// parse json from put Request
+			var oneRole structures.GetRole
+			err := json.NewDecoder(r.Body).Decode(&oneRole)
+			utils.CheckErr(err)
 
-		// create the sql query
-		sqlQuery := ("UPDATE role SET role = '" + oneRole.Role + "' WHERE id = " + strconv.Itoa(oneRole.Id) + ";")
+			// connect the database
+			db := utils.DbConnect()
 
-		// execute the sql query
-		_, err = db.Exec(sqlQuery)
-		utils.CheckErr(err)
+			// create the sql query
+			sqlQuery := ("UPDATE role SET role = '" + oneRole.Role + "' WHERE id = " + strconv.Itoa(oneRole.Id) + ";")
 
-		// close the database connection
-		db.Close()
+			// execute the sql query
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
 
-		// create the json response
-		json.NewEncoder(w).Encode(oneRole)
+			// close the database connection
+			db.Close()
+
+			// create the json response
+			json.NewEncoder(w).Encode(oneRole)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+		}
 	}
 }

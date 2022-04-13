@@ -32,7 +32,7 @@ import React from 'react';
         };
     }
     componentDidMount() {
-        fetch("http://localhost:8080/rolesFetch")
+        fetch("http://localhost:8080/api/rolesFetch")
             .then((res) => res.json())
             .then((json) => {
               const Choices = [];
@@ -78,7 +78,7 @@ import React from 'react';
       };
   }
   componentDidMount() {
-    fetch("http://localhost:8080/rolesFetch")
+    fetch("http://localhost:8080/api/rolesFetch")
         .then((res) => res.json())
         .then((json) => {
           const Choices = [];
@@ -107,7 +107,7 @@ render() {
         <TextInput source="address.street" label="Rue" />
         <TextInput source="address.city" label="Ville" />
         <TextInput source="address.state" label="Région" />
-        <TextInput source="address.country" label="France" />
+        <TextInput source="address.country" label="Pays" />
         <TextInput source="address.zipCode" label="Code Postal" />
       </SimpleForm>
     </Create>

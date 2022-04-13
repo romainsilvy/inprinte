@@ -7,7 +7,6 @@ export const httpClient = () => {
   export const authProvider = {
     // authentication
     login: ({ username, password }) => {
-      console.log('token ', localStorage.getItem('auth'));
       const request = new Request(
         'http://localhost:8080/api/login',
         {

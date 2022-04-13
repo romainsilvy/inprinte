@@ -1,0 +1,41 @@
+.container-contact {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    padding: 0px 350px 50px 350px;
+}
+
+.contact2 {
+    width: 500px;
+}
+
+.maps {
+    width: 100%;
+}
+
+.map  {
+    background-color: #34333d;
+    width: 435px;
+    height: 435px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.contact2 textarea {
+    border: none;
+    resize: none;
+    background-color: #34333d;
+    margin: 30px;
+    border-radius: 15px;
+    width: 400px;
+    height: 65px;
+    color: #00D1D1;
+    padding: 6px;
+}
+
+
+.contact2 .message {
+    padding-top: 10px;
+    width: 400px;
+    height: 100px;
+}

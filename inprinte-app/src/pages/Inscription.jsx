@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import "../styles/Inscription.css"
 import { Link } from "react-router-dom";
+import { Navbar } from '../components/Navbar';
 
 
 export default function Inscription() {
@@ -56,6 +57,7 @@ export default function Inscription() {
 
     return (
         <>
+          <Navbar />
             <div className="inscription">
                 <form className="form" onSubmit={handleSubmit}>
                     <h2>Inscription</h2>

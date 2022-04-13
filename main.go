@@ -2,6 +2,7 @@ package main
 
 import (
 	paths "inprinteBackoffice/paths"
+
 	"net/http"
 
 	"github.com/gorilla/mux"
@@ -22,5 +23,7 @@ func main() {
 	paths.HandleAuth(router)
 	paths.HandleFetch(router)
 
-	http.ListenAndServe(":8080", router)
+	if err := http.ListenAndServe(":8080", router); err != nil {
+		log.Fatal(err)
+	}
 }

@@ -30,7 +30,7 @@ export const Navbar = () => {
                     </li>
                 </ul>
                 <div className="right">
-                    <Link to='/profil'><img className="con" src={ConnexionLogo} alt="Connexion Logo" /></Link>
+                    <Link to='/connexion'><img className="con" src={ConnexionLogo} alt="Connexion Logo" /></Link>
                     <Link to='/panier'><img className="cart" src={CartLogo} alt="Cart Logo" /></Link>
                 </div>
             </nav>

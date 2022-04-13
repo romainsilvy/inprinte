@@ -8,8 +8,9 @@ import Boutique from "./pages/Boutique";
 import Propositions from "./pages/Propositions";
 import Demande from "./pages/Demande";
 import Contact from "./pages/Contact";
-import Profil from "./pages/Profil";
 import Panier from "./pages/Panier";
+import Connexion from "./pages/Connexion";
+import Inscription from "./pages/Inscription";
 
 function App() {
   return (
@@ -23,6 +24,8 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/panier" element={<Panier />} />
+          <Route path="/connexion" element={<Connexion />} />
+          <Route path="/inscription" element={<Inscription />} />
         </Routes>
       </Router>
     </div>

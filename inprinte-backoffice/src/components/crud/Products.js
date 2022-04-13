@@ -32,7 +32,7 @@ import React from 'react'
         };
     }
     componentDidMount() {
-        fetch("http://localhost:8080/categoriesFetch")
+        fetch("http://localhost:8080/api/categoriesFetch")
             .then((res) => res.json())
             .then((json) => {
               const Choices = [];
@@ -52,7 +52,7 @@ import React from 'react'
         <Edit  {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
-      <BooleanInput source="pending_validation" label="En attente"/>
+      <BooleanInput source="pending_validation" label="En attente de validation"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>
         <TextInput source="price" label="Prix"/>
@@ -83,7 +83,7 @@ export class ProductsCreate extends React.Component {
       };
   }
   componentDidMount() {
-      fetch("http://localhost:8080/categoriesFetch")
+      fetch("http://localhost:8080/api/categoriesFetch")
           .then((res) => res.json())
           .then((json) => {
             const Choices = [];
@@ -103,7 +103,7 @@ export class ProductsCreate extends React.Component {
       <Create  {...this.props}>
       <SimpleForm>
       <BooleanInput source="is_alive" label="Actif"/>
-      <BooleanInput source="pending_validation" label="En attente"/>
+      <BooleanInput source="pending_validation" label="En attente de validation"/>
       <TextInput source="id_user" label="Id user"/>
         <TextInput source="name" label="Nom du produit"/>
         <TextInput source="description" label="Description"/>

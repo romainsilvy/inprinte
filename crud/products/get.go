@@ -15,51 +15,56 @@ func GetProduct(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		//global vars
-		var oneProduct structures.GetProduct
-		var name, description, category string
-		var id, price int
-		var pending_validation, is_alive bool
-		var product_file []string
-		var product_picture []string
 
-		vars := mux.Vars(r)
-		id_product := vars["id_product"]
+		if utils.Securized(w, r) {
+			//global vars
+			var oneProduct structures.GetProduct
+			var name, description, category string
+			var id, price int
+			var pending_validation, is_alive bool
+			var product_file []string
+			var product_picture []string
 
-		//connect the database
-		db := utils.DbConnect()
+			vars := mux.Vars(r)
+			id_product := vars["id_product"]
 
-		//create the sql query
-		product_file = getProductFile(db, id_product)
-		product_picture = getProductPicture(db, id_product)
-		sqlQuery := ("SELECT product.id, product.name, product.price, product.description, product.pending_validation, product.is_alive, category.name FROM product INNER JOIN category ON category.id = product.id_category WHERE product.id = " + id_product + ";")
+			//connect the database
+			db := utils.DbConnect()
 
-		//execute the sql query
-		row := db.QueryRow(sqlQuery)
+			//create the sql query
+			product_file = getProductFile(db, id_product)
+			product_picture = getProductPicture(db, id_product)
+			sqlQuery := ("SELECT product.id, product.name, product.price, product.description, product.pending_validation, product.is_alive, category.name FROM product INNER JOIN category ON category.id = product.id_category WHERE product.id = " + id_product + ";")
 
-		//parse the query
-		//retrieve the values and check errors
-		err := row.Scan(&id, &name, &price, &description, &pending_validation, &is_alive, &category)
-		utils.CheckErr(err)
+			//execute the sql query
+			row := db.QueryRow(sqlQuery)
 
-		oneProduct = structures.GetProduct{
-			Id:                 id,
-			Name:               name,
-			Price:              price,
-			Description:        description,
-			Pending_validation: pending_validation,
-			Is_alive:           is_alive,
-			Category:           category,
-			FileUrl:            product_file,
-			PictureUrl:         product_picture,
+			//parse the query
+			//retrieve the values and check errors
+			err := row.Scan(&id, &name, &price, &description, &pending_validation, &is_alive, &category)
+			utils.CheckErr(err)
+
+			oneProduct = structures.GetProduct{
+				Id:                 id,
+				Name:               name,
+				Price:              price,
+				Description:        description,
+				Pending_validation: pending_validation,
+				Is_alive:           is_alive,
+				Category:           category,
+				FileUrl:            product_file,
+				PictureUrl:         product_picture,
+			}
+
+			//close the database connection
+			db.Close()
+
+			//create the json response
+			utils.SetXTotalCountHeader(&w, 1)
+			json.NewEncoder(w).Encode(oneProduct)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
 		}
-
-		//close the database connection
-		db.Close()
-
-		//create the json response
-		utils.SetXTotalCountHeader(&w, 1)
-		json.NewEncoder(w).Encode(oneProduct)
 	}
 }
 

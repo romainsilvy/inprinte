@@ -8,7 +8,7 @@ type GetCommandLines struct {
 	Id_command int    `json:"id_command"`
 	Id_user    int    `json:"id_user"`
 	Quantity   int    `json:"quantity"`
-	Date       int    `json:"date"`
+	Date       string `json:"date"`
 	Price      int    `json:"price"`
 	State      string `json:"status"`
 	Name       string `json:"name"`

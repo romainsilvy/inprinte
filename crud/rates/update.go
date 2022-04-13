@@ -13,24 +13,29 @@ func Update(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "PUT" {
-		//parse json from put Request
-		var oneRate structures.GetRate
-		err := json.NewDecoder(r.Body).Decode(&oneRate)
-		utils.CheckErr(err)
 
-		//connect the database
-		db := utils.DbConnect()
+		if utils.Securized(w, r) {
+			//parse json from put Request
+			var oneRate structures.GetRate
+			err := json.NewDecoder(r.Body).Decode(&oneRate)
+			utils.CheckErr(err)
 
-		sqlQuery := ("UPDATE rate SET stars_number = " + strconv.Itoa(oneRate.Stars_number) + " WHERE rate.id = " + strconv.Itoa(oneRate.Id) + ";")
+			//connect the database
+			db := utils.DbConnect()
 
-		// execute the sql query
-		_, err = db.Exec(sqlQuery)
-		utils.CheckErr(err)
+			sqlQuery := ("UPDATE rate SET stars_number = " + strconv.Itoa(oneRate.Stars_number) + " WHERE rate.id = " + strconv.Itoa(oneRate.Id) + ";")
 
-		// close the database connection
-		db.Close()
+			// execute the sql query
+			_, err = db.Exec(sqlQuery)
+			utils.CheckErr(err)
 
-		//create the json response
-		json.NewEncoder(w).Encode(oneRate)
+			// close the database connection
+			db.Close()
+
+			//create the json response
+			json.NewEncoder(w).Encode(oneRate)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
+		}
 	}
 }

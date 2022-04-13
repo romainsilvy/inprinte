@@ -15,37 +15,42 @@ func GetCommandLine(w http.ResponseWriter, r *http.Request) {
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
-		//global vars
-		var state string
-		var id int
 
-		//get the id from the url
-		vars := mux.Vars(r)
-		id_commandLine := vars["id_commandLine"]
+		if utils.Securized(w, r) {
+			//global vars
+			var state string
+			var id int
 
-		//connect the database
-		db := utils.DbConnect()
+			//get the id from the url
+			vars := mux.Vars(r)
+			id_commandLine := vars["id_commandLine"]
 
-		//create the sql query
-		sqlQuery := ("SELECT command_line.id, command_line.state FROM command_line WHERE command_line.id = " + id_commandLine + ";")
+			//connect the database
+			db := utils.DbConnect()
 
-		//execute the sql query
-		row := db.QueryRow(sqlQuery)
+			//create the sql query
+			sqlQuery := ("SELECT command_line.id, command_line.state FROM command_line WHERE command_line.id = " + id_commandLine + ";")
 
-		//parse the query
-		err := row.Scan(&id, &state)
-		utils.CheckErr(err)
+			//execute the sql query
+			row := db.QueryRow(sqlQuery)
 
-		commandLine := structures.GetCommandLine{
-			Id:     id,
-			Status: state,
+			//parse the query
+			err := row.Scan(&id, &state)
+			utils.CheckErr(err)
+
+			commandLine := structures.GetCommandLine{
+				Id:     id,
+				Status: state,
+			}
+
+			//close the database connection
+			db.Close()
+
+			//create the json response
+			utils.SetXTotalCountHeader(&w, 1)
+			json.NewEncoder(w).Encode(commandLine)
+		} else {
+			w.WriteHeader(http.StatusUnauthorized)
 		}
-
-		//close the database connection
-		db.Close()
-
-		//create the json response
-		utils.SetXTotalCountHeader(&w, 1)
-		json.NewEncoder(w).Encode(commandLine)
 	}
 }

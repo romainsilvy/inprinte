@@ -3,25 +3,25 @@ package structures
 type GetCategories struct {
 	Id      int    `json:"id"`
 	Name    string `json:"name"`
-	IsAlive bool   `json:"is_alive,string"`
+	IsAlive bool   `json:"is_alive"`
 }
 
 type GetCategory struct {
 	Id      int    `json:"id"`
 	Name    string `json:"name"`
-	IsAlive bool   `json:"is_alive,string"`
+	IsAlive bool   `json:"is_alive"`
 }
 
 type UpdateCategory struct {
 	Id      int    `json:"id"`
 	Name    string `json:"name"`
-	IsAlive bool   `json:"is_alive,string"`
+	IsAlive bool   `json:"is_alive"`
 }
 
 type CreateCategory struct {
 	Id      int    `json:"id"`
 	Name    string `json:"name"`
-	IsAlive bool   `json:"is_alive,string"`
+	IsAlive bool   `json:"is_alive"`
 }
 
 type JsonResponseCategory struct {

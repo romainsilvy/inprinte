@@ -2,16 +2,64 @@ package crud
 
 import (
 	"encoding/json"
+	"errors"
+	"fmt"
 	structures "inprinteBackoffice/structures"
 	utils "inprinteBackoffice/utils"
 	"net/http"
+	"strings"
+
+	"github.com/dgrijalva/jwt-go"
 )
+
+var jwtKey = []byte("zebouloux")
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
 	//create cors header
 	utils.SetCorsHeaders(&w)
 
 	if r.Method == "GET" {
+
+		// get header values
+		token := r.Header.Get("Authorization")
+		fmt.Println(token)
+		fmt.Println(" ")
+
+		// split token
+		tokenSplit := strings.Split(token, "\"")
+		// for i := 0; i < len(tokenSplit); i++ {
+		// 	fmt.Println(tokenSplit[i])
+		// }
+		// decode token
+		tokenString := tokenSplit[3]
+		fmt.Println(tokenString)
+		// fmt.Println(" ")
+
+		tokenDecoded, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+				return nil, errors.New("unexpected signing method")
+			}
+			return jwtKey, nil
+		})
+		if err != nil {
+			fmt.Println(err)
+		}
+
+		// validate the essential claims
+		if !tokenDecoded.Valid {
+			fmt.Println("invalid token")
+		}
+		// fmt.Println(tokenDecoded.Claims)
+		// fmt.Println(" ")
+
+		// get claims
+		claims, ok := tokenDecoded.Claims.(jwt.MapClaims)
+		if ok && tokenDecoded.Valid {
+			fmt.Println("name : ", claims["name"])
+			fmt.Println("admin : ", claims["admin"])
+			fmt.Println("exp : ", claims["exp"])
+		}
+
 		//global vars
 		var users []structures.GetUsers
 

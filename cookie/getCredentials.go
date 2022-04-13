@@ -4,7 +4,7 @@ import (
 	"inprinteBackoffice/utils"
 )
 
-func GetCredentials(email, password string) (bool, int) {
+func GetCredentials(email, password string) bool {
 
 	var passwordDB string
 	var is_alive bool
@@ -28,7 +28,7 @@ func GetCredentials(email, password string) (bool, int) {
 	db.Close()
 
 	if passwordDB == password && is_alive && id_role == 1 {
-		return true, id_user
+		return true
 	}
-	return false, 0
+	return false
 }

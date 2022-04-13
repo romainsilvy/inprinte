@@ -15,7 +15,6 @@ func SetCorsHeaders(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE")
 	(*w).Header().Set("Access-Control-Allow-Headers", "*")
 	(*w).Header().Set("Access-Control-Max-Age", "86400")
-	(*w).Header().Set("Access-Control-Max-Age", "86400")
 }
 
 func SetCorsHeadersJsonError(w *http.ResponseWriter) {

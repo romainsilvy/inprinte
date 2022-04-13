@@ -1,8 +1,6 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { Navbar } from "./components/Navbar";
-import { Footer } from "./components/Footer";
 import Accueil from "./pages/Accueil.jsx";
 import Boutique from "./pages/Boutique";
 import Propositions from "./pages/Propositions";
@@ -11,6 +9,8 @@ import Contact from "./pages/Contact";
 import Panier from "./pages/Panier";
 import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
+import Profil from "./pages/Profil";
+import Accordion from "./pages/Accordion";
 
 function App() {
   return (
@@ -22,6 +22,7 @@ function App() {
           <Route path="/propositions" element={<Propositions />} />
           <Route path="/demande" element={<Demande />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<Accordion />} />
           <Route path="/profil" element={<Profil />} />
           <Route path="/panier" element={<Panier />} />
           <Route path="/connexion" element={<Connexion />} />

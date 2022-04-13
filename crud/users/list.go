@@ -8,7 +8,6 @@ import (
 )
 
 func GetUsers(w http.ResponseWriter, r *http.Request) {
-
 	//create cors header
 	utils.SetCorsHeaders(&w)
 

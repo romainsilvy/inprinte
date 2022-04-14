@@ -1,5 +1,5 @@
 import {appendScript} from '../utils/appendScript'
-import {addToCart, clearCart} from '../scripts/test'
+import {addToCart, clearCart, removeOneItemCart, updateCart} from '../scripts/test'
 
 import React from 'react';
 
@@ -11,7 +11,8 @@ export class ShopProduct extends React.Component {
     }
 
     componentDidMount () {
-        clearCart()
+        updateCart(3, 10   )
+
     }
 
     render() {

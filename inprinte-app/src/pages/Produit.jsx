@@ -7,15 +7,17 @@ import random from '../images/random.jpg'
 import btn_add from '../images/btn_add.svg'
 import like from '../images/like.svg'
 import bar2 from '../images/bar2.svg'
+import {useParams} from 'react-router-dom';
 
 function Produit() {
-
+    const { id } = useParams();
+    console.log(id)
     const [state, setState] = useState([])
-    useEffect(() => {
-        fetch("http://localhost:8080/produit").then(
+    useEffect(() => {     
+        fetch("http://localhost:8080/produit/" + id).then(
             res => setState(res.data)
         )
-    })
+    });
 
     const { DataisLoaded, items } = state;
     if (!DataisLoaded) return (<Navbar />)

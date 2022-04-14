@@ -1,0 +1,267 @@
+.donut {
+    position: absolute;
+    top: 60%;
+    left: 5%;
+}
+
+.contentOne {
+    display: grid;
+    grid-template-rows: 2;
+    grid-template-columns: repeat(10, 1fr);
+}
+
+.blur {
+    margin-top: 50px;
+    margin-left: 50px;
+    width: 150%;
+    height: auto;
+    z-index: 1;
+    display: grid;
+    grid-row: 1;
+    grid-column: 2/8;
+    border-width: 2px 1px 1px 2px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 15px 15px rgba(0, 0, 0, 0.23);
+    position: relative;
+    background: rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+}
+
+.loading {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-around;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 800px;
+}
+
+.glass-panel {
+    margin-top: 50px;
+    margin-left: 50px;
+    width: 900px;
+    height: 435px;
+    position: relative;
+    z-index: -1;
+    display: grid;
+    grid-row: 1;
+    grid-column: 2/8;
+    padding: 20px 40px;
+    content: "";
+}
+
+.btn1 {
+    display: grid;
+    grid-row: 2;
+    grid-column: 9/12;
+}
+
+.imageIso {
+    display: grid;
+    grid-row: 1;
+    grid-column: 11;
+    width: 500px;
+}
+
+.btnPropositions {
+    padding-top: 3%;
+}
+
+/*------- PART2 ------*/
+
+.losange {
+    position: absolute;
+    top: 80rem;
+    left: 20%;
+}
+
+.boule {
+    position: absolute;
+    left: 85%;
+    top: 115%;
+}
+
+.contentTwo {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+.cardTop2 {
+    width: 381px;
+    height: 500px;
+    position: relative;
+    padding: 20px;
+    background: #34333D;
+    display: grid;
+    grid-column: 2;
+    margin-top: 50px;
+}
+
+.cardTop2 h1 {
+    margin-left: 95px;
+    /* text-align: center; */
+}
+
+.cardTop2 .infos p {
+    margin-left: 135px;
+}
+
+.cardTop3 h1 {
+    margin-left: 15px;
+    /* text-align: center; */
+}
+
+.cardTop3 .infos p {
+    margin-left: 30px;
+}
+
+.cardTop1 {
+    width: 481px;
+    height: 602px;
+    background: #34333D;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 15px 15px rgba(0, 0, 0, 0.23);
+    position: relative;
+    padding: 20px;
+    display: grid;
+    z-index: 1;
+    grid-column: 3;
+    text-align: center;
+    padding-bottom: 50px;
+    margin-left: -50px;
+    margin-right: -50px;
+}
+
+.cardTop3 {
+    width: 381px;
+    height: 500px;
+    background: #34333D;
+    position: relative;
+    padding: 20px;
+    margin-top: 50px;
+    display: grid;
+    grid-column: 4;
+    text-align: center;
+}
+
+.btn2 {
+    display: grid;
+    grid-row: 6;
+    grid-column: 4;
+}
+
+.btn3 {
+    display: grid;
+    grid-row: 6;
+    grid-column: 4;
+}
+
+.pink {
+    color: #ff50d6;
+    font-weight: bolder;
+}
+
+.purple {
+    color: #b289ff;
+}
+
+.green {
+    color: #00d1d1;
+}
+
+/*------- PART3 ------*/
+.serp {
+    position: absolute;
+    left: 5%;
+    top: 255%;
+}
+
+.contentTree {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    padding-bottom: 150px;
+}
+
+.titleCat {
+    display: grid;
+    grid-column: 3;
+    padding-bottom: 50px;
+    text-align: center;
+}
+
+.pictureCardTop1 {
+    margin-left: auto;
+    margin-right: auto;
+    width: 82%;
+}
+
+.pictureCardTop2 {
+    margin-left: 20px;
+    width: 80%;
+}
+
+.pictureCardTop3 {
+    margin-left: 50px;
+    width: 80%;
+}
+
+.pictureCart {
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+}
+
+.infos {
+    width: 100%;
+    max-width: 1200px;
+    margin-bottom: 20px;
+}
+
+.cart1 {
+    width: 381px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    padding: 20px;
+    display: grid;
+    grid-row: 2;
+    grid-column: 2;
+    text-align: center;
+}
+
+.cart2 {
+    width: 381px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    padding: 20px;
+    display: grid;
+    grid-row: 2;
+    grid-column: 3;
+    text-align: center;
+    margin: 20px;
+    margin-top: 100px;
+}
+
+.cart3 {
+    width: 381px;
+    height: 500px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+    padding: 20px;
+    display: grid;
+    grid-row: 2;
+    grid-column: 4;
+    text-align: center;
+}
+
+.btnBoutique {
+    display: grid;
+    grid-row: 3;
+    grid-column: 4;
+    padding: 0;
+    margin: 0;
+    margin-left: auto;
+}

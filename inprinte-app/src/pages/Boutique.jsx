@@ -61,13 +61,13 @@ class Boutique extends React.Component {
                             <p className="B-price">{items.BoutiqueNews[1].Price}€</p>
                         </div>
                     </div>
-                    {/* <div className="B-cart3">
+                    <div className="B-cart3">
                         <h2 className="blue">{items.BoutiqueNews[2].Name}</h2>
                         <img className="B-pictureCart" src={items.BoutiqueNews[2].Picture} alt="image" />
                         <div className="B-infos">
                             <p className="B-price">{items.BoutiqueNews[2].Price}€</p>
                         </div>
-                        </div> */}
+                        </div>
                     </div>
                 <div className="B-contentTwo">
                 <div className="B-titleCat">
@@ -81,7 +81,7 @@ class Boutique extends React.Component {
                             <p className="B-price">{items.BoutiqueMostWanted[0].Price}€</p>
                         </div>
                     </div>
-                    {/* <div className="B-cart2">
+                    <div className="B-cart2">
                         <h2 className="purple">{items.BoutiqueMostWanted[1].Name}</h2>
                         <img className="B-pictureCart" src={items.BoutiqueMostWanted[1].Picture} alt="image" />
                         <div className="B-infos">
@@ -94,7 +94,7 @@ class Boutique extends React.Component {
                         <div className="B-infos">
                             <p className="B-price">{items.BoutiqueMostWanted[2].Price}€</p>
                         </div>
-                    </div> */}
+                    </div>
                 </div>
                 <h1 className="B-shopTitle">
                     Shoppez par catégories

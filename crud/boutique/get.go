@@ -15,26 +15,26 @@ func getNewProducts(db *sql.DB) []structures.NewProduct {
 	var newProducts []structures.NewProduct
 
 	//execute the sql query and check errors
-	rows, err := db.Query("SELECT product.id, name, price, url FROM product INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE product.pending_validation = false AND product.is_alive = true ORDER BY product.id DESC LIMIT 3")
+	rows, err := db.Query("SELECT product.id, name, price FROM product WHERE product.pending_validation = false AND product.is_alive = true ORDER BY product.id DESC LIMIT 3")
 	utils.CheckErr(err)
 
 	//parse the query
 	for rows.Next() {
 		//global vars
-		var name, picture string
+		var name string
 		var price float64
 		var id int
-
 		//retrieve the values and check errors
-		err = rows.Scan(&id, &name, &price, &picture)
+		err = rows.Scan(&id, &name, &price)
 		utils.CheckErr(err)
+		product_picture := getProductPicture(db, strconv.Itoa(id))
 
 		//add the values to the response
 		newProducts = append(newProducts, structures.NewProduct{
 			Id_product: id,
 			Name:       name,
 			Price:      price,
-			Picture:    picture,
+			Picture:    product_picture[0],
 		})
 	}
 	//close the rows
@@ -43,34 +43,35 @@ func getNewProducts(db *sql.DB) []structures.NewProduct {
 	return newProducts
 }
 
-func getMostSales(db *sql.DB) []structures.MostWantedProduct {
+func getMostSales(db *sql.DB) []structures.MostSales {
 	//global vars
-	var mostSales []structures.MostWantedProduct
+	var mostSales []structures.MostSales
+	var product_picture []string
 
 	//execute the sql query and check errors
-	rows, err := db.Query("SELECT product.id, COUNT(command_line.id) AS nbrOrder, name, price, url FROM product INNER JOIN command_line ON product.id = command_line.id INNER JOIN product_picture ON product.id = product_picture.id_picture INNER JOIN picture ON product_picture.id_picture = picture.id WHERE product.is_alive = true AND product.pending_validation = false GROUP BY command_line.id ORDER BY nbrOrder DESC LIMIT 3")
+	rows, err := db.Query("SELECT COUNT(command_line.id_product) AS nbrOrder, command_line.id_product, product.name, product.price FROM command_line INNER JOIN product ON command_line.id_product = product.id WHERE pending_validation = false AND product.is_alive = true GROUP BY command_line.id_product ORDER BY nbrOrder DESC LIMIT 3")
 	utils.CheckErr(err)
 
 	//parse the query
 	for rows.Next() {
 		//global vars
-		var name, picture string
-		var price float64
+		var name string
 		var id, nbrOrder int
+		var price float64
 
 		//retrieve the values and check errors
-		err = rows.Scan(&id, &nbrOrder, &name, &price, &picture)
+		err = rows.Scan(&nbrOrder, &id, &name, &price)
 		utils.CheckErr(err)
 
+		product_picture = getProductPicture(db, strconv.Itoa(id))
 		//add the values to the response
-		mostSales = append(mostSales, structures.MostWantedProduct{
+		mostSales = append(mostSales, structures.MostSales{
 			Id_product: id,
 			Name:       name,
 			Price:      price,
-			Picture:    picture,
+			Picture:    product_picture[0],
 		})
 	}
-	//close the rows
 
 	//create the json response
 	return mostSales

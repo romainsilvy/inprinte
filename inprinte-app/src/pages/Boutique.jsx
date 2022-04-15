@@ -1,11 +1,10 @@
-
 import React from 'react';
 import '../styles/Boutique.css'
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { ShopProduct } from '../components/ShopProduct';
 import loading from '../images/loading.svg'
-
+import bar2 from '../images/bar2.svg'
 
 
 
@@ -36,153 +35,98 @@ class Boutique extends React.Component {
         if (!DataisLoaded) return (
             <div className="Boutique">
                 <Navbar />
-                <h1 className="shopTitle">
-                    Shoppez par catégories
-                </h1>
-                <div className="allCategories">
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                </div>
-                <div className="allShopProducts">
-                    <img className="loading" src={loading} alt="loading" />
-                </div>
-                <Footer />
-            </div>  
-            )
-            
+                <img className="loading" src={loading} alt="loading" />
+            </div>
+        )
 
         return (
             <div className="Boutique">
                 <Navbar />
+                <div className="firstcontent">
+                    <div className="titleCat">
+                        <h1>Nouveauté</h1>
+                        <img className="bar2" src={bar2} alt="bar" />
+                    </div>
+                    <div className="cartP1">
+                        <h2>{items.BoutiqueNews[0].Name}</h2>
+                        <img className="pictureCart" src={items.BoutiqueNews[0].Picture} alt="image" />
+                        <div className="infos">
+                            <p clasName="price">{items.BoutiqueNews[0].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="cartP2">
+                        <h2>{items.BoutiqueNews[1].Name}</h2>
+                        <img className="pictureCart" src={items.BoutiqueNews[1].Picture} alt="image" />
+                        <div className="infos">
+                            <p clasName="price">{items.BoutiqueNews[1].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="cartP3">
+                        <h2>Name</h2>
+                        <img className="pictureCart" src="" alt="image" />
+                        <div className="infos">
+                            <p clasName="price">25€</p>
+                        </div>
+                    </div>
+                    <div className="cartP4">
+                        <h2>Name</h2>
+                        <img className="pictureCart" src="" alt="image" />
+                        <div className="infos">
+                            <p clasName="price">25€</p>
+                        </div>
+                    </div>
+                </div>
+                <div className="contentTwo">
+                    <div className="titleCat2">
+                        <h1>Les plus demandés</h1>
+                        <img className="bar2" src={bar2} alt="bar" />
+                    </div>
+                    <div className="cardTop2">
+                        <h2>{items.BoutiqueMostWanted[0].Name}</h2>
+                        <img className="pictureCardTop2" src={items.BoutiqueMostWanted[0].Picture} alt="image" />
+                        <div className="infos">
+                            <p clasName="price">{items.BoutiqueMostWanted[0].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="cardTop1">
+                    <h2>Name</h2>
+                        <img className="pictureCardTop1" src="" alt="image" />
+                        <div className="infos">
+                            <p clasName="price">25€</p>
+                        </div>
+                    </div>
+                    <div className="cardTop3">
+                    <h2>Name</h2>
+                        <img className="pictureCardTop3" src="" alt="image" />
+                        <div className="infos">
+                            <p clasName="price">25€</p>
+                        </div>
+                    </div>
+                </div>
                 <h1 className="shopTitle">
                     Shoppez par catégories
                 </h1>
                 <div className="allCategories">
-                {
-                    items.Categories.map((item) => (
-                        <p className="category" onClick={() => {
-                            console.log(item)
-                        }}>{item}</p>
-                    ))
-                }
+                    {
+                        items.Categories.map((item) => (
+                            <p className="category" onClick={() => {
+                                console.log(item)
+                            }}>{item}</p>
+                        ))
+                    }
                 </div>
                 <div className="allShopProducts">
-                {
-                    items.AllProducts.map((item) => (
-                        <ShopProduct product={item}/>
-                    ))
-                }
+                    {
+                        items.AllProducts.map((item) => (
+                            <ShopProduct product={item} />
+                        ))
+                    }
                 </div>
                 <Footer />
-            </div> 
-            
+            </div>
+
         )
     }
 }
 
-{/* <div className = "Boutique">
-                <h1> Fetch data from an api in react </h1>  {
-                    items.BoutiqueNews.map((item) => (
-                        <ShopProduct product={item}/>
-                    ))
-                }
-            </div> */}
-
-
-
-
-
-
-{/* <div className="Boutique">
-                <Navbar />
-                <h1 className="shopTitle">
-                    Shoppez par catégories
-                </h1>
-                <div className="allCategories">
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                </div>
-                <div className="allShopProducts">
-
-                items.map((item) => ( 
-                <ol key = { item.id } >
-                    User_Name: { item.username }, 
-                    Full_Name: { item.name }, 
-                    User_Email: { item.email } 
-                    </ol>
-                ))
-                    <ShopProduct product={product}/>
-                    <ShopProduct/>
-                    <ShopProduct/>
-                    <ShopProduct/>
-                </div>
-                <Footer />
-            </div> */}
-
-
 export default Boutique;
-//     let allProducts = fetch('http://localhost:8080/boutique')
-//     .then((response) => {
-//         return response.json()
-//     })
-//     .then((result) => {
-//         allProducts = result.AllProducts
-//         return allProducts
-//     })
-
-
-//     allProducts.then((a) => {
-//         a.map(product => (
-//             console.log(product.Name)
-//         ))
-//     })
-
-//     return (
-//         <div className="">
-//             <Navbar />
-//             <h1 className="shopTitle">
-//                 Shoppez par catégories
-//             </h1>
-//             <div className="allCategories">
-//                 <p className="category">cat1</p>
-//                 <p className="category">cat1</p>
-//                 <p className="category">cat1</p>
-//                 <p className="category">cat1</p>
-//             </div>
-//             <div className="allShopProducts">
-
-//                 {}
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-
-//             </div>
-//             <Footer />
-//         </div>
-//     );
-// }

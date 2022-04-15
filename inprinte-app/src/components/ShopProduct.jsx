@@ -1,31 +1,13 @@
-import {appendScript} from '../utils/appendScript'
-import {addToCart, clearCart, removeOneItemCart, updateCart} from '../scripts/test'
-
-import React from 'react';
-
-
-export class ShopProduct extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
-
-    componentDidMount () {
-        updateCart(3, 10   )
-
-    }
-
-    render() {
-
-    console.log(this.props)
-    let url = "/produit/" + this.props.product.Id_product
+export const ShopProduct = (props) => {
+    let url = "/produit/" + props.product.Id_product
     return (
         <>
-             <a className="shopProduct">
-                <img className="productPicture" src="https://picsum.photos/400/400" alt="product image" />
+            <a href={url} className="shopProduct">
+
+                <img className="productPicture" src={props.product.Picture} alt="product image" />
                 <div className="productInfos">
-                    <p className="productName">{this.props.product.Name}</p>
-                    <p className="productPrice">{this.props.product.Price} €</p>
+                    <p className="productName">{props.product.name}</p>
+                    <p className="productPrice">{props.product.price} €</p>
                 </div>
                 <p className="productDescription">
                     {this.props.product.Description}

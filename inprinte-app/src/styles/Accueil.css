@@ -48,7 +48,31 @@
     grid-row: 1;
     grid-column: 2/8;
     padding: 20px 40px;
-    content: "";
+}
+
+.glass-panel span {
+    color: #00d1d1;
+}
+
+.glass-panel span2 {
+    color: #ff50d6;
+}
+
+.glass-panel span3 {
+    color: #b289ff;
+}
+
+.titleglass {
+    font-size: x-large;
+    font-size: 50px;
+}
+
+.subtitle {
+    font-size: 30px;
+}
+
+.desc {
+    font-size: 20px;
 }
 
 .btn1 {
@@ -100,10 +124,7 @@
     margin-top: 50px;
 }
 
-.cardTop2 h1 {
-    margin-left: 95px;
-    /* text-align: center; */
-}
+
 
 .cardTop2 .infos p {
     margin-left: 135px;
@@ -175,7 +196,7 @@
 .serp {
     position: absolute;
     left: 5%;
-    top: 255%;
+    top: 225%;
 }
 
 .contentTree {

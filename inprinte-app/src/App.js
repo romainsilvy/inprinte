@@ -10,7 +10,9 @@ import Panier from "./pages/Panier";
 import Connexion from "./pages/Connexion";
 import Inscription from "./pages/Inscription";
 import Profil from "./pages/Profil";
+import Produit from "./pages/Produit";
 import Accordion from "./pages/Accordion";
+import Mentions from "./pages/Mentions"
 
 function App() {
   return (
@@ -23,7 +25,9 @@ function App() {
           <Route path="/demande" element={<Demande />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Accordion />} />
+          <Route path="/mentions-legales" element={<Mentions />} />
           <Route path="/profil" element={<Profil />} />
+          <Route path="/produit/:id" element={<Produit />} />
           <Route path="/panier" element={<Panier />} />
           <Route path="/connexion" element={<Connexion />} />
           <Route path="/inscription" element={<Inscription />} />

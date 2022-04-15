@@ -14,10 +14,8 @@ import serp from '../icon/serp.svg'
 import loading from '../images/loading.svg'
 
 
-// fix les boutons boutiques 
 class Accueil extends React.Component {
 
-    // Constructor 
     constructor(props) {
         super(props);
 
@@ -27,8 +25,7 @@ class Accueil extends React.Component {
         };
     }
 
-    // ComponentDidMount is used to
-    // execute the code 
+    // ComponentDidMount is used to execute the code 
     componentDidMount() {
         fetch("http://localhost:8080/")
             .then((res) => res.json())
@@ -51,9 +48,11 @@ class Accueil extends React.Component {
                     <img className="donut" src={donut} alt="icon" />
                     <div className="blur">
                         <div className="glass-panel">
-                            <h1>Title</h1>
-                            <h2>SubTitle</h2>
-                            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptates, dolores.</p>
+                            <p className="titleglass">Bienvenue <span> !</span></p>
+                            <p className="subtitle">Voici le <span2>meilleur site </span2>d'impression et de livraison de <span>modèles 3D.</span></p>
+                            <p className="desc">Nous sommes une jeune entreprise <span3>dynamique </span3> à votre disposition ! Nous vous proposons tout
+                                un <span2>catalogue </span2> de modèles 3D à imprimer et à vous <span>faire livrer.</span> N'hésitez pas à découvrir également
+                                le top des articles de la semaine ou des plus vendus. <span3>Qu'attendez vous ?!</span3></p>
                         </div>
                     </div>
                     <div className="btn1">

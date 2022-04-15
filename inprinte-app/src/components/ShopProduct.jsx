@@ -16,7 +16,6 @@ export const ShopProduct = (props) => {
             </a>
         </>
     );
-    }
 }
 
 

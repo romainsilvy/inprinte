@@ -10,13 +10,12 @@ export const ShopProduct = (props) => {
                     <p className="productPrice">{props.product.price} €</p>
                 </div>
                 <p className="productDescription">
-                    {this.props.product.Description}
+                    {props.product.Description}
                 </p>
-                <p className="addToCart">add to cart</p>
             </a>
+
         </>
     );
-}
-
+};
 
 export default ShopProduct;

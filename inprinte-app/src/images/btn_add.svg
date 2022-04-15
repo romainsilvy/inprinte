@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="276" height="47.73" viewBox="0 0 276 64.73">
+  <defs>
+    <linearGradient id="linear-gradient" x1="1" x2="-0.042" y2="0.835" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#d54dc5"/>
+      <stop offset="0.526" stop-color="#662d8b"/>
+      <stop offset="1" stop-color="#3035a0"/>
+    </linearGradient>
+  </defs>
+  <path id="Tracé_303" data-name="Tracé 303" d="M31.962,0H244.038A32.165,32.165,0,0,1,276,32.365,32.165,32.165,0,0,1,244.038,64.73H31.962A32.165,32.165,0,0,1,0,32.365,32.165,32.165,0,0,1,31.962,0Z" fill="url(#linear-gradient)"/>
+  <text id="Ajouter_au_panier" data-name="Ajouter au panier" transform="translate(25.117 38.365)" fill="#fff" font-size="24" font-family="Helvetica"><tspan x="0" y="0">ajouter au panier</tspan></text>
+  <path id="Icon_awesome-shopping-basket" data-name="Icon awesome-shopping-basket" d="M25.222,10.307v.7a1.051,1.051,0,0,1-1.051,1.051h-.35l-1.143,8a2.1,2.1,0,0,1-2.081,1.8H4.625a2.1,2.1,0,0,1-2.081-1.8l-1.143-8h-.35A1.051,1.051,0,0,1,0,11.008v-.7A1.051,1.051,0,0,1,1.051,9.256H4L8.675,2.827a1.4,1.4,0,1,1,2.266,1.648L7.465,9.256H17.757L14.28,4.475a1.4,1.4,0,0,1,2.266-1.648l4.676,6.429h2.949A1.051,1.051,0,0,1,25.222,10.307Zm-11.56,7.707v-4.9a1.051,1.051,0,0,0-2.1,0v4.9a1.051,1.051,0,1,0,2.1,0Zm4.9,0v-4.9a1.051,1.051,0,0,0-2.1,0v4.9a1.051,1.051,0,1,0,2.1,0Zm-9.809,0v-4.9a1.051,1.051,0,0,0-2.1,0v4.9a1.051,1.051,0,1,0,2.1,0Z" transform="translate(222.629 18.115)" fill="#def5ff"/>
+</svg>

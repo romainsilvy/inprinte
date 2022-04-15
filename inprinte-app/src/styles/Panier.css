@@ -1,0 +1,92 @@
+.panier {
+    width: 100%;
+}
+
+.bar2 {
+    width: 30%;
+}
+
+.titleCat1Cart {
+    margin : 30px;
+    text-align: center;
+}
+
+.allCartProducts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+
+
+.article {
+    background-color: #34333d;
+    width: 80%;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    height: 150px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.article img {
+    height: 100%;
+    object-fit: cover;
+}
+
+.infoArticle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 40px;
+}
+
+.status .color {
+    color: #ff50d6;
+}
+
+.status {
+    float: right;
+}
+
+.picture {
+    float: left;
+    width: 25%;
+}
+
+.total {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoTotal {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.total2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 30px;
+    font-size: 20px;
+    margin-left: 60px;
+    margin-right: 90px;
+}
+
+.bar_panier {
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 40px 0px 0px 400px;
+}
+
+.add_panier {
+    width: 20%;
+    margin: 40px 90px 70px auto;
+}

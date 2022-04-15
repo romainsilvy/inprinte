@@ -1,11 +1,10 @@
-
 import React from 'react';
 import '../styles/Boutique.css'
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
 import { ShopProduct } from '../components/ShopProduct';
 import loading from '../images/loading.svg'
-
+import bar2 from '../images/bar2.svg'
 
 
 
@@ -34,155 +33,93 @@ class Boutique extends React.Component {
     render() {
         const { DataisLoaded, items } = this.state;
         if (!DataisLoaded) return (
-            <div className="Boutique">
+            <div className="B-Boutique">
                 <Navbar />
-                <h1 className="shopTitle">
-                    Shoppez par catégories
-                </h1>
-                <div className="allCategories">
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                </div>
-                <div className="allShopProducts">
-                    <img className="loading" src={loading} alt="loading" />
-                </div>
-                <Footer />
-            </div>  
-            )
-            
+                <img className="B-loading" src={loading} alt="loading" />
+            </div>
+        )
 
         return (
-            <div className="Boutique">
+            <div className="B-Boutique">
                 <Navbar />
-                <h1 className="shopTitle">
+                <div className="B-contentTree">
+                    <div className="B-titleCat">
+                        <h1>Les nouveautés</h1>
+                        <img className="B-bar2" src={bar2} alt="bar" />
+                    </div>
+                    <div className="B-cart1">
+                        <h2 className="pink">{items.BoutiqueNews[0].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[0].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueNews[0].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="B-cart2">
+                        <h2 className="purple">{items.BoutiqueNews[1].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[1].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueNews[1].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="B-cart3">
+                        <h2 className="blue">{items.BoutiqueNews[2].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[2].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueNews[2].Price}€</p>
+                        </div>
+                        </div>
+                    </div>
+                <div className="B-contentTwo">
+                <div className="B-titleCat">
+                        <h1>Les nouveautés</h1>
+                        <img className="B-bar2" src={bar2} alt="bar" />
+                    </div>
+                    <div className="B-cart1">
+                        <h2 className="pink">{items.BoutiqueMostWanted[0].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueMostWanted[0].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueMostWanted[0].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="B-cart2">
+                        <h2 className="purple">{items.BoutiqueMostWanted[1].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueMostWanted[1].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueMostWanted[1].Price}€</p>
+                        </div>
+                    </div>
+                    <div className="B-cart3">
+                        <h2 className="blue">{items.BoutiqueMostWanted[2].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[2].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueMostWanted[2].Price}€</p>
+                        </div>
+                    </div>
+                </div>
+                <h1 className="B-shopTitle">
                     Shoppez par catégories
                 </h1>
-                <div className="allCategories">
-                {
-                    items.Categories.map((item) => (
-                        <p className="category" onClick={() => {
-                            console.log(item)
-                        }}>{item}</p>
-                    ))
-                }
+                <div className="B-allCategories">
+                    {
+                        items.Categories.map((item) => (
+                            <p className="B-category" onClick={() => {
+                                console.log(item)
+                            }}>{item}</p>
+                        ))
+                    }
                 </div>
-                <div className="allShopProducts">
-                {
-                    items.AllProducts.map((item) => (
-                        <ShopProduct product={item}/>
-                    ))
-                }
+                <div className="B-allShopProducts">
+                    {
+                        items.AllProducts.map((item) => (
+                            <ShopProduct product={item} />
+                        ))
+                    }
                 </div>
                 <Footer />
-            </div> 
-            
+            </div>
+
         )
     }
 }
 
-{/* <div className = "Boutique">
-                <h1> Fetch data from an api in react </h1>  {
-                    items.BoutiqueNews.map((item) => (
-                        <ShopProduct product={item}/>
-                    ))
-                }
-            </div> */}
-
-
-
-
-
-
-{/* <div className="Boutique">
-                <Navbar />
-                <h1 className="shopTitle">
-                    Shoppez par catégories
-                </h1>
-                <div className="allCategories">
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                    <p className="category">cat1</p>
-                </div>
-                <div className="allShopProducts">
-
-                items.map((item) => ( 
-                <ol key = { item.id } >
-                    User_Name: { item.username }, 
-                    Full_Name: { item.name }, 
-                    User_Email: { item.email } 
-                    </ol>
-                ))
-                    <ShopProduct product={product}/>
-                    <ShopProduct/>
-                    <ShopProduct/>
-                    <ShopProduct/>
-                </div>
-                <Footer />
-            </div> */}
-
-
 export default Boutique;
-//     let allProducts = fetch('http://localhost:8080/boutique')
-//     .then((response) => {
-//         return response.json()
-//     })
-//     .then((result) => {
-//         allProducts = result.AllProducts
-//         return allProducts
-//     })
-
-
-//     allProducts.then((a) => {
-//         a.map(product => (
-//             console.log(product.Name)
-//         ))
-//     })
-
-//     return (
-//         <div className="">
-//             <Navbar />
-//             <h1 className="shopTitle">
-//                 Shoppez par catégories
-//             </h1>
-//             <div className="allCategories">
-//                 <p className="category">cat1</p>
-//                 <p className="category">cat1</p>
-//                 <p className="category">cat1</p>
-//                 <p className="category">cat1</p>
-//             </div>
-//             <div className="allShopProducts">
-
-//                 {}
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-//                 <ShopProduct/>
-
-//             </div>
-//             <Footer />
-//         </div>
-//     );
-// }

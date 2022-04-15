@@ -1,5 +1,5 @@
 
-# Inprinte Backoffice-backend 🧙‍♂️
+# Inprinte Backoffice-backend
 
 This is the backend part of the backoffice part
 

@@ -9,6 +9,7 @@ import random from '../images/random.jpg'
 import btn_add from '../images/btn_add.svg'
 import like from '../images/like.svg'
 import bar2 from '../images/bar2.svg'
+import { addToCart } from '../scripts/test';
 import {useParams} from 'react-router-dom';
 
 function Produit() {

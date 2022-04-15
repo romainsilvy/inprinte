@@ -11,16 +11,24 @@ import {useParams} from 'react-router-dom';
 
 function Produit() {
     const { id } = useParams();
-    console.log(id)
-    const [state, setState] = useState([])
-    useEffect(() => {     
-        fetch("http://localhost:8080/produit/" + id).then(
-            res => setState(res.data)
-        )
-    });
+    // console.log(id)
+    const [state, setState] = useState({
+        items: [],
+        DataisLoaded: false
+    })
 
-    const { DataisLoaded, items } = state;
-    if (!DataisLoaded) return (<Navbar />)
+    useEffect(() => {     
+        fetch("http://localhost:8080/produit/"+id)
+            .then((res) => res.json())
+            .then((json) => {
+                setState({
+                    items: json,
+                    DataisLoaded: true
+                });
+            })
+
+    }, [state.DataisLoaded]);
+    if (!state.DataisLoaded) return (<Navbar />)
     return (
         <>
             <Navbar />
@@ -44,7 +52,7 @@ function Produit() {
                 </div>
                 <div className="allShopProducts">
                     {
-                        items.related.map((item) => (
+                        state.items.related.map((item) => (
                             <ShopProduct product={item} />
                         ))
                     }

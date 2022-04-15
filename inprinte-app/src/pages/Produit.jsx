@@ -47,7 +47,7 @@ function Produit() {
                     <img className="P-bar2" src={bar2} alt="bar" />
                     <p>{state.items.product_data.description}</p>
                     <p>{state.items.product_data.price}€</p>
-                    <img className="P-btn_add" src={btn_add} alt="btn" />
+                    <img className="btn_add" src={btn_add} alt="btn" onClick={() => addToCart(id, 1)} />
                     <img className="P-like" src={like} alt="btn" />
                 </div>
             </div>

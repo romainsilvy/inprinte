@@ -33,31 +33,31 @@ function Produit() {
     if (!state.DataisLoaded) return (
         <>
             <Navbar />
-            <img className="loading" src={loading} alt="loading" />
+            <img className="P-loading" src={loading} alt="loading" />
         </>
     )
     return (
         <>
             <Navbar />
-            <div className="containerProduit">
-                <img className="produitPicture" src={state.items.product_data.picture} alt="image" />
-                <div className="infosProduit">
+            <div className="P-containerProduit">
+                <img className="P-produitPicture" src={state.items.product_data.picture} alt="image" />
+                <div className="P-infosProduit">
                     <h1>{state.items.product_data.name}</h1>
-                    <img className="bar2" src={bar2} alt="bar" />
+                    <img className="P-bar2" src={bar2} alt="bar" />
                     <p>{state.items.product_data.description}</p>
                     <p>{state.items.product_data.price}€</p>
-                    <img className="btn_add" src={btn_add} alt="btn" />
-                    <img className="like" src={like} alt="btn" />
+                    <img className="P-btn_add" src={btn_add} alt="btn" />
+                    <img className="P-like" src={like} alt="btn" />
                 </div>
             </div>
-            <div className="containerProduit2">
-                <div className="produit">
-                    <div className="titleProduit">
+            <div className="P-containerProduit2">
+                <div className="P-produit">
+                    <div className="P-titleProduit">
                         <h1>D'autres ont également achetés</h1>
-                        <img className="bar2" src={bar2} alt="bar" />
+                        <img className="P-bar2" src={bar2} alt="bar" />
                     </div>
                 </div>
-                <div className="allShopProducts">
+                <div className="P-allShopProducts">
                     {
                         state.items.related.map((item) => (
                             <ShopProduct product={item} />

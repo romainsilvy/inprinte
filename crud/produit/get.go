@@ -43,14 +43,14 @@ func getAllPictures(db *sql.DB, id_product string) []string {
 func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structures.ProductData {
 	//global vars
 	var id int
-	var name, description, product_file string
+	var name, description string
 	var price float64
 
 	//execute the sql query and check errors
-	row := db.QueryRow(`SELECT product.id, name, description, price, product_file.url FROM product INNER JOIN rate ON rate.id = product.id INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id INNER JOIN product_file ON product_file.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true GROUP BY product.id`, id_product)
-	err := row.Scan(&id, &name, &description, &price, &product_file)
+	row := db.QueryRow(`SELECT product.id, name, description, price FROM product INNER JOIN rate ON rate.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true;`, id_product)
+	err := row.Scan(&id, &name, &description, &price)
 	if err == sql.ErrNoRows {
-		w.WriteHeader(404)
+		// w.WriteHeader(404)
 	} else {
 		utils.CheckErr(err)
 	}
@@ -60,12 +60,11 @@ func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structu
 
 	//create the json response
 	return structures.ProductData{
-		Id_product:   id,
-		Name:         name,
-		Description:  description,
-		Price:        price,
-		Pictures:     allPictures,
-		Product_file: product_file,
+		Id_product:  id,
+		Name:        name,
+		Description: description,
+		Price:       price,
+		Pictures:    allPictures,
 	}
 }
 

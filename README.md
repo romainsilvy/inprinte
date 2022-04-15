@@ -55,7 +55,7 @@ docker build --tag inprinte-backend .
 Run the docker image specifying the port 
 
 ```bash
-sudo docker run -d -p 8081:8080 inprinte-backend
+sudo docker run -d -p 8080:8080 inprinte-backend
 ```
 
 

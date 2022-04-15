@@ -65,10 +65,6 @@ Run the docker image specifying the port
 sudo docker run -d -p 80:3000 inprinte-frontend
 ```
 
-## Demo
-
-Insert gif or link to demo
-
 ## Authors
 
 - [@romainsilvy](https://github.com/romainsilvy)

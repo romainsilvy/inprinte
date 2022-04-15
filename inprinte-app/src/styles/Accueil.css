@@ -1,16 +1,29 @@
-.donut {
+.Accueilpink {
+    color: #ff50d6;
+}
+
+.Accueilpurple {
+    color: #b289ff;
+}
+
+.Accueilblue {
+    color: #00d1d1;
+}
+
+
+.Accueildonut {
     position: absolute;
     top: 60%;
     left: 5%;
 }
 
-.contentOne {
+.AccueilcontentOne {
     display: grid;
     grid-template-rows: 2;
     grid-template-columns: repeat(10, 1fr);
 }
 
-.blur {
+.Accueilblur {
     margin-top: 50px;
     margin-left: 50px;
     width: 150%;
@@ -26,7 +39,7 @@
     overflow: hidden;
 }
 
-.loading {
+.Accueilloading {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -37,7 +50,7 @@
     max-width: 800px;
 }
 
-.glass-panel {
+.Accueilglass-panel {
     margin-top: 50px;
     margin-left: 50px;
     width: 900px;
@@ -50,96 +63,73 @@
     padding: 20px 40px;
 }
 
-.glass-panel span {
-    color: #00d1d1;
-}
-
-.glass-panel span2 {
-    color: #ff50d6;
-}
-
-.glass-panel span3 {
-    color: #b289ff;
-}
-
-.titleglass {
+.Accueiltitleglass {
     font-size: x-large;
     font-size: 50px;
 }
 
-.subtitle {
+.Accueilsubtitle {
     font-size: 30px;
 }
 
-.desc {
+.Accueildesc {
     font-size: 20px;
 }
 
-.btn1 {
+.Accueilbtn1 {
     display: grid;
     grid-row: 2;
     grid-column: 9/12;
 }
 
-.imageIso {
+.AccueilimageIso {
     display: grid;
     grid-row: 1;
     grid-column: 11;
     width: 500px;
 }
 
-.btnPropositions {
+.AccueilbtnPropositions {
     padding-top: 3%;
 }
 
 /*------- PART2 ------*/
 
-.losange {
+.Accueillosange {
     position: absolute;
     top: 80rem;
     left: 20%;
 }
 
-.boule {
+.Accueilboule {
     position: absolute;
     left: 85%;
     top: 115%;
 }
 
-.contentTwo {
+.AccueilcontentTwo {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     padding-top: 50px;
     padding-bottom: 50px;
+    font-weight: bold;
+    font-size: large;
 }
 
-.cardTop2 {
-    width: 381px;
-    height: 500px;
-    position: relative;
-    padding: 20px;
-    background: #34333D;
-    display: grid;
-    grid-column: 2;
-    margin-top: 50px;
+.AccueilcardTop2 .Accueilinfos {
+    margin-right: 80px;
 }
 
-
-
-.cardTop2 .infos p {
-    margin-left: 135px;
-}
-
-.cardTop3 h1 {
+.AccueilcardTop3 h1 {
     margin-left: 15px;
     /* text-align: center; */
 }
 
-.cardTop3 .infos p {
+.AccueilcardTop3 .Accueilinfos p {
     margin-left: 30px;
 }
 
-.cardTop1 {
+.AccueilcardTop1 {
     width: 481px;
     height: 602px;
     background: #34333D;
@@ -155,7 +145,20 @@
     margin-right: -50px;
 }
 
-.cardTop3 {
+.AccueilcardTop2 {
+    width: 381px;
+    height: 500px;
+    position: relative;
+    padding: 20px;
+    background: #34333D;
+    display: grid;
+    grid-column: 2;
+    margin-top: 50px;
+    text-align: center;
+}
+
+
+.AccueilcardTop3 {
     width: 381px;
     height: 500px;
     background: #34333D;
@@ -167,80 +170,67 @@
     text-align: center;
 }
 
-.btn2 {
+.Accueilbtn2 {
     display: grid;
     grid-row: 6;
     grid-column: 4;
 }
 
-.btn3 {
+.Accueilbtn3 {
     display: grid;
     grid-row: 6;
     grid-column: 4;
-}
-
-.pink {
-    color: #ff50d6;
-    font-weight: bolder;
-}
-
-.purple {
-    color: #b289ff;
-}
-
-.green {
-    color: #00d1d1;
 }
 
 /*------- PART3 ------*/
-.serp {
+.Accueilserp {
     position: absolute;
     left: 5%;
     top: 225%;
 }
 
-.contentTree {
+.AccueilcontentTree {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     padding-bottom: 150px;
 }
 
-.titleCat {
+.AccueiltitleCat {
     display: grid;
     grid-column: 3;
     padding-bottom: 50px;
     text-align: center;
 }
 
-.pictureCardTop1 {
+.AccueilpictureCardTop1 {
     margin-left: auto;
     margin-right: auto;
     width: 82%;
 }
 
-.pictureCardTop2 {
+.AccueilpictureCardTop2 {
     margin-left: 20px;
     width: 80%;
 }
 
-.pictureCardTop3 {
+.AccueilpictureCardTop3 {
     margin-left: 50px;
     width: 80%;
 }
 
-.pictureCart {
+.AccueilpictureCart {
     margin-left: auto;
     margin-right: auto;
     width: 90%;
 }
 
-.infos {
+.Accueilinfos {
     width: 100%;
     max-width: 1200px;
     margin-bottom: 20px;
 }
 
-.cart1 {
+.Accueilcart1 {
     width: 381px;
     height: 500px;
     background: rgba(255, 255, 255, 0.1);
@@ -252,7 +242,7 @@
     text-align: center;
 }
 
-.cart2 {
+.Accueilcart2 {
     width: 381px;
     height: 500px;
     background: rgba(255, 255, 255, 0.1);
@@ -266,7 +256,7 @@
     margin-top: 100px;
 }
 
-.cart3 {
+.Accueilcart3 {
     width: 381px;
     height: 500px;
     background: rgba(255, 255, 255, 0.1);
@@ -278,7 +268,7 @@
     text-align: center;
 }
 
-.btnBoutique {
+.AccueilbtnBoutique {
     display: grid;
     grid-row: 3;
     grid-column: 4;

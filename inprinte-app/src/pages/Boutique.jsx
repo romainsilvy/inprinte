@@ -33,89 +33,82 @@ class Boutique extends React.Component {
     render() {
         const { DataisLoaded, items } = this.state;
         if (!DataisLoaded) return (
-            <div className="Boutique">
+            <div className="B-Boutique">
                 <Navbar />
-                <img className="loading" src={loading} alt="loading" />
+                <img className="B-loading" src={loading} alt="loading" />
             </div>
         )
 
         return (
-            <div className="Boutique">
+            <div className="B-Boutique">
                 <Navbar />
-                <div className="firstcontent">
-                    <div className="titleCat">
-                        <h1>Nouveauté</h1>
-                        <img className="bar2" src={bar2} alt="bar" />
+                <div className="B-contentTree">
+                    <div className="B-titleCat">
+                        <h1>Les nouveautés</h1>
+                        <img className="B-bar2" src={bar2} alt="bar" />
                     </div>
-                    <div className="cartP1">
-                        <h2>{items.BoutiqueNews[0].Name}</h2>
-                        <img className="pictureCart" src={items.BoutiqueNews[0].Picture} alt="image" />
-                        <div className="infos">
-                            <p clasName="price">{items.BoutiqueNews[0].Price}€</p>
+                    <div className="B-cart1">
+                        <h2 className="pink">{items.BoutiqueNews[0].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[0].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueNews[0].Price}€</p>
                         </div>
                     </div>
-                    <div className="cartP2">
-                        <h2>{items.BoutiqueNews[1].Name}</h2>
-                        <img className="pictureCart" src={items.BoutiqueNews[1].Picture} alt="image" />
-                        <div className="infos">
-                            <p clasName="price">{items.BoutiqueNews[1].Price}€</p>
+                    <div className="B-cart2">
+                        <h2 className="purple">{items.BoutiqueNews[1].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[1].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueNews[1].Price}€</p>
                         </div>
                     </div>
-                    <div className="cartP3">
-                        <h2>Name</h2>
-                        <img className="pictureCart" src="" alt="image" />
-                        <div className="infos">
-                            <p clasName="price">25€</p>
+                    {/* <div className="B-cart3">
+                        <h2 className="blue">{items.BoutiqueNews[2].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[2].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueNews[2].Price}€</p>
+                        </div>
+                        </div> */}
+                    </div>
+                <div className="B-contentTwo">
+                <div className="B-titleCat">
+                        <h1>Les nouveautés</h1>
+                        <img className="B-bar2" src={bar2} alt="bar" />
+                    </div>
+                    <div className="B-cart1">
+                        <h2 className="pink">{items.BoutiqueMostWanted[0].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueMostWanted[0].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueMostWanted[0].Price}€</p>
                         </div>
                     </div>
-                    <div className="cartP4">
-                        <h2>Name</h2>
-                        <img className="pictureCart" src="" alt="image" />
-                        <div className="infos">
-                            <p clasName="price">25€</p>
+                    {/* <div className="B-cart2">
+                        <h2 className="purple">{items.BoutiqueMostWanted[1].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueMostWanted[1].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueMostWanted[1].Price}€</p>
                         </div>
                     </div>
+                    <div className="B-cart3">
+                        <h2 className="blue">{items.BoutiqueMostWanted[2].Name}</h2>
+                        <img className="B-pictureCart" src={items.BoutiqueNews[2].Picture} alt="image" />
+                        <div className="B-infos">
+                            <p className="B-price">{items.BoutiqueMostWanted[2].Price}€</p>
+                        </div>
+                    </div> */}
                 </div>
-                <div className="contentTwo">
-                    <div className="titleCat2">
-                        <h1>Les plus demandés</h1>
-                        <img className="bar2" src={bar2} alt="bar" />
-                    </div>
-                    <div className="cardTop2">
-                        <h2>{items.BoutiqueMostWanted[0].Name}</h2>
-                        <img className="pictureCardTop2" src={items.BoutiqueMostWanted[0].Picture} alt="image" />
-                        <div className="infos">
-                            <p clasName="price">{items.BoutiqueMostWanted[0].Price}€</p>
-                        </div>
-                    </div>
-                    <div className="cardTop1">
-                    <h2>Name</h2>
-                        <img className="pictureCardTop1" src="" alt="image" />
-                        <div className="infos">
-                            <p clasName="price">25€</p>
-                        </div>
-                    </div>
-                    <div className="cardTop3">
-                    <h2>Name</h2>
-                        <img className="pictureCardTop3" src="" alt="image" />
-                        <div className="infos">
-                            <p clasName="price">25€</p>
-                        </div>
-                    </div>
-                </div>
-                <h1 className="shopTitle">
+                <h1 className="B-shopTitle">
                     Shoppez par catégories
                 </h1>
-                <div className="allCategories">
+                <div className="B-allCategories">
                     {
                         items.Categories.map((item) => (
-                            <p className="category" onClick={() => {
+                            <p className="B-category" onClick={() => {
                                 console.log(item)
                             }}>{item}</p>
                         ))
                     }
                 </div>
-                <div className="allShopProducts">
+                <div className="B-allShopProducts">
                     {
                         items.AllProducts.map((item) => (
                             <ShopProduct product={item} />

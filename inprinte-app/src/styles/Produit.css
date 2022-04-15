@@ -1,10 +1,10 @@
-.containerProduit {
+.P-containerProduit {
     display: flex;
     align-items: center;
     justify-content: space-around;
 }
 
-.produitPicture {
+.P-produitPicture {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -12,23 +12,23 @@
     padding: 50px 0px 0px 50px
 }
 
-.infosProduit {
+.P-infosProduit {
     width: 50%;
     padding-right: 30px;
 }
 
-.infosProduit p {
+.P-infosProduit p {
     padding: 15px;
 }
 
-.infosProduit img {
+.P-infosProduit img {
     padding-top: 20px;
 }
 
-.productPicture {
+.P-productPicture {
     width: 100%;
 }
-.commandline1 {
+.P-commandline1 {
     background-color: #34333d;
     grid-row: 2;
     grid-column: 2/12;
@@ -38,18 +38,18 @@
     display: flex;
 }
 
-.produit {
+.P-produit {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
 }
 
-.titleProduit {
+.P-titleProduit {
     display: grid;
     grid-column: 5/10;
     padding-bottom: 30px;
     padding-top: 30px;
 }
-.shopProduct {
+.P-shopProduct {
     background: rgba( 255, 255, 255, 0.10 );    
     padding: 20px;
     margin: 1px;

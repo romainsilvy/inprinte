@@ -54,25 +54,27 @@ class Panier extends React.Component {
         <>
             <Navbar />
             <div className="panier">
-                <div className="titleCat1">
+                <div className="titleCat1Cart">
                     <h1>Panier</h1>
                     <img className="bar2" src={bar2} alt="bar" />
                 </div>
-                {
-                        items.allItems.map((item) => (
-                            <a href={"produit/" + item.id} className="article1">
-                                <img className="picture" src={item.picture} alt="image" />
-                                <div className="infoArticle">
-                                    <h2>{item.name}</h2>
-                                    <p>{item.description}</p>
-                                </div>
-                                <div className="status">
-                                    <p className="color">Quantité {item.quantity}</p>
-                                    <p>{item.price * item.quantity}€</p>
-                                </div>
-                            </a>
-                        ))
-                    }
+                <div className="allCartProducts">
+                    {
+                            items.allItems.map((item) => (
+                                <a href={"produit/" + item.id} className="article">
+                                    <img className="picture" src={item.picture} alt="image" />
+                                    <div className="infoArticle">
+                                        <h2>{item.name}</h2>
+                                        <p>{item.description}</p>
+                                    </div>
+                                    <div className="status">
+                                        <p className="color">Quantité {item.quantity}</p>
+                                        <p>{item.price * item.quantity}€</p>
+                                    </div>
+                                </a>
+                            ))
+                        }
+                </div>
 
                 {/* <div className="article2">
                     <img className="picture" src={random} alt="image" />

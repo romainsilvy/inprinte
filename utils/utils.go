@@ -1,3 +1,4 @@
+//package utils provides usefull methods
 package utils
 
 import (
@@ -9,10 +10,10 @@ import (
 	"math/rand"
 	"net/http"
 
-	"github.com/fatih/color"
 	"golang.org/x/crypto/bcrypt"
 )
 
+//setCorsHeaders set the CORS headers
 func SetCorsHeaders(w *http.ResponseWriter) {
 
 	(*w).Header().Set("Content-Type", "application/json")
@@ -22,16 +23,19 @@ func SetCorsHeaders(w *http.ResponseWriter) {
 	(*w).Header().Set("Access-Control-Max-Age", "86400")
 }
 
+//CheckErr check if there is an error, if so panic the err
 func CheckErr(err error) {
 	if err != nil {
 		panic(err)
 	}
 }
 
+//Random returns a random number between min and max
 func Random(min, max int) int {
 	return rand.Intn(max-min) + min
 }
 
+//InprinteAdcii print ascii art inprinte in console
 func InprinteAscii() {
 	fmt.Println("  ___ _  _ ___ ___ ___ _  _ _____ ___")
 	fmt.Println(" |_ _| \\| | _ \\ _ \\_ _| \\| |_   _| __|")
@@ -48,6 +52,7 @@ func PrettyEncode(data interface{}, out io.Writer) error {
 	return nil
 }
 
+//DbConnect returns a connection to the database
 func DbConnect() (db *sql.DB) {
 	dbDriver := "mysql"
 	dbUser := "inprinteAdmin"
@@ -56,14 +61,12 @@ func DbConnect() (db *sql.DB) {
 	dbIp := "178.170.14.134"
 	dbPort := "3306"
 	dbName := "inprinte"
-	color.Green("Connecting database ...")
 
 	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@"+dbProtocol+"("+dbIp+":"+dbPort+")/"+dbName)
 	if err != nil {
 		panic(err.Error())
-	} else {
-		color.Cyan("Database connected !\n")
 	}
+
 	return db
 }
 

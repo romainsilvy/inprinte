@@ -4,7 +4,7 @@ export const ShopProduct = (props) => {
     return (
         <>
             <a href={url} className="shopProduct">
-                <img className="productPicture" src="https://picsum.photos/400/400" alt="product image" />
+                <img className="productPicture" src={props.product.Picture} alt="product image" />
                 <div className="productInfos">
                     <p className="productName">{props.product.Name}</p>
                     <p className="productPrice">{props.product.Price} €</p>

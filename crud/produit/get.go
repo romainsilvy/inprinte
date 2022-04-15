@@ -1,3 +1,4 @@
+//package crud is the package that contains all the functions to interact with the database
 package crud
 
 import (
@@ -12,6 +13,7 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//getAllPictures retrieve all the pictures of a product
 func getAllPictures(db *sql.DB, id_product string) []string {
 
 	//global vars
@@ -40,6 +42,7 @@ func getAllPictures(db *sql.DB, id_product string) []string {
 
 }
 
+//getOneProduct retrieve all the data of a product
 func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structures.ProductData {
 	//global vars
 	var id int
@@ -50,7 +53,7 @@ func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structu
 	row := db.QueryRow(`SELECT product.id, name, description, price FROM product INNER JOIN rate ON rate.id = product.id WHERE product.id = ? AND pending_validation = false AND product.is_alive = true;`, id_product)
 	err := row.Scan(&id, &name, &description, &price)
 	if err == sql.ErrNoRows {
-		// w.WriteHeader(404)
+		w.WriteHeader(404)
 	} else {
 		utils.CheckErr(err)
 	}
@@ -68,6 +71,7 @@ func getOneProduct(w http.ResponseWriter, db *sql.DB, id_product string) structu
 	}
 }
 
+//getRelatedProduct retrieve all the related products of a product
 func getRelatedProduct(r *http.Request, db *sql.DB, id_product string) []structures.ProductRelated {
 	//global vars
 	var productRelated []structures.ProductRelated
@@ -105,39 +109,39 @@ func getRelatedProduct(r *http.Request, db *sql.DB, id_product string) []structu
 	return productRelated
 }
 
+//getProductPicture retrieve the first picture of a product
 func getProductPicture(db *sql.DB, id_product string) string {
 	//global vars
-	// var product_picture []string
 	var url string
+
 	//create the sql query
 	sqlQuery := ("SELECT picture.url FROM picture INNER JOIN product_picture ON product_picture.id_picture = picture.id INNER JOIN product ON product.id = product_picture.id_product WHERE product.id = " + id_product + " LIMIT 1;")
 
+	//execute the sql query and check errors
 	err := db.QueryRow(sqlQuery).Scan(&url)
-	// rows, err := db.Query(sqlQuery)
 	utils.CheckErr(err)
 
-	// for rows.Next() {
-	// 	//retrieve the values and check errors
-	// 	err = rows.Scan(&url)
-	// 	utils.CheckErr(err)
-
-	// 	//add the values to the response
-	// 	product_picture = append(product_picture, url)
-	// }
-
+	//return the picture
 	return url
 }
 
+//Get retrieve all the usefull informations for the product page
 func Get(w http.ResponseWriter, r *http.Request) {
+	//set the header
 	utils.SetCorsHeaders(&w)
+
+	//get the url parameters
 	vars := mux.Vars(r)
 	id_product := vars["id_product"]
 
+	//connect to the database
 	db := utils.DbConnect()
 
+	//retrieve the data
 	productData := getOneProduct(w, db, id_product)
 	productRelated := getRelatedProduct(r, db, id_product)
 
+	//create the json response
 	w.Header().Set("Content-Type", "application/json")
 	json.NewEncoder(w).Encode(structures.Product{
 		ProductData:    productData,

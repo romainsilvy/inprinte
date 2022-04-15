@@ -1,3 +1,4 @@
+//package crud is the package that contains all the functions to interact with the database
 package CRUD
 
 import (
@@ -10,16 +11,19 @@ import (
 	"github.com/gorilla/mux"
 )
 
+//Get returns all the needed data to display the user page
 func Get(w http.ResponseWriter, r *http.Request) {
+	//set cors headers
 	utils.SetCorsHeaders(&w)
-	//global vars
+
+	//retrieve url parameters
 	vars := mux.Vars(r)
 	id_user := vars["id_user"]
 
 	//get the db connection
 	db := utils.DbConnect()
 
-	//get all user data
+	//get informations related to the user
 	userData := getUserData(w, db, id_user)
 	userFavorite := getUserFavorite(db, id_user)
 	userCommandHistory := getCommandHistory(db, id_user)
@@ -33,6 +37,7 @@ func Get(w http.ResponseWriter, r *http.Request) {
 	})
 }
 
+//getUserData retrieve the user credentials
 func getUserData(w http.ResponseWriter, db *sql.DB, id_user string) structures.UserData {
 	//global vars
 	var id int
@@ -65,6 +70,7 @@ func getUserData(w http.ResponseWriter, db *sql.DB, id_user string) structures.U
 	}
 }
 
+//getUserFavorite retrieve the user favorite products
 func getUserFavorite(db *sql.DB, id_user string) []structures.UserFavoriteProducts {
 	//global vars
 	var productFavorite []structures.UserFavoriteProducts
@@ -98,6 +104,7 @@ func getUserFavorite(db *sql.DB, id_user string) []structures.UserFavoriteProduc
 	return productFavorite
 }
 
+//getCommandHistory retrieve the user command history
 func getCommandHistory(db *sql.DB, id_user string) []structures.UserCommandHistory {
 	//global vars
 	var productHistory []structures.UserCommandHistory

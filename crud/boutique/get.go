@@ -1,3 +1,4 @@
+//package crud is the package that contains all the functions to interact with the database
 package crud
 
 import (
@@ -10,6 +11,31 @@ import (
 	"net/http"
 )
 
+//Get returns all the informations for the boutique page
+func Get(w http.ResponseWriter, r *http.Request) {
+	//set the cors headers
+	utils.SetCorsHeaders(&w)
+
+	//connect to the database
+	db := utils.DbConnect()
+
+	//get all the informations
+	newProducts := getNewProducts(db)
+	mostSales := getMostSales(db)
+	allProducts := getAllProducts(r, db)
+	categories := getCategories(db)
+
+	//add the values to the response
+	w.Header().Set("Content-Type", "application/json")
+	json.NewEncoder(w).Encode(structures.Boutique{
+		NewProducts: newProducts,
+		MostSales:   mostSales,
+		AllProducts: allProducts,
+		Categories:  categories,
+	})
+}
+
+//getNewProducts returns the three last products added
 func getNewProducts(db *sql.DB) []structures.NewProduct {
 	//global vars
 	var newProducts []structures.NewProduct
@@ -77,6 +103,7 @@ func getMostSales(db *sql.DB) []structures.MostSales {
 	return mostSales
 }
 
+//getAllProducts returns all the products
 func getAllProducts(r *http.Request, db *sql.DB) []structures.BoutiqueProduct {
 	//global vars
 	var allProducts []structures.BoutiqueProduct
@@ -114,6 +141,7 @@ func getAllProducts(r *http.Request, db *sql.DB) []structures.BoutiqueProduct {
 	return allProducts
 }
 
+//getCategories returns all the categories
 func getCategories(db *sql.DB) []string {
 	//global vars
 	var allCategories []string
@@ -140,26 +168,7 @@ func getCategories(db *sql.DB) []string {
 	return allCategories
 }
 
-func Get(w http.ResponseWriter, r *http.Request) {
-	utils.SetCorsHeaders(&w)
-	//connect to the database
-	db := utils.DbConnect()
-
-	//get informations
-	newProducts := getNewProducts(db)
-	mostSales := getMostSales(db)
-	allProducts := getAllProducts(r, db)
-	categories := getCategories(db)
-
-	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(structures.Boutique{
-		NewProducts: newProducts,
-		MostSales:   mostSales,
-		AllProducts: allProducts,
-		Categories:  categories,
-	})
-}
-
+//getProductPicture returns all the pictures for a product
 func getProductPicture(db *sql.DB, id_product string) []string {
 	//global vars
 	var product_picture []string
@@ -178,6 +187,8 @@ func getProductPicture(db *sql.DB, id_product string) []string {
 		//add the values to the response
 		product_picture = append(product_picture, url)
 	}
+	//close the rows
 
+	//create the json response
 	return product_picture
 }

@@ -1,42 +1,97 @@
 package crud
 
 import (
+	"database/sql"
 	"encoding/json"
-	structures "inprinte/backend/structures"
 	utils "inprinte/backend/utils"
+	"log"
 
 	"net/http"
 )
 
+type ItemCart struct {
+	Id       string `json:"id"`
+	Quantity int    `json:"quantity"`
+}
+
+type ReturnItemCart struct {
+	Id          string  `json:"id"`
+	Name        string  `json:"name"`
+	Description string  `json:"description"`
+	Price       float64 `json:"price"`
+	Picture     string  `json:"picture"`
+	Quantity    int     `json:"quantity"`
+}
+
+type AllReturnCart struct {
+	AllItems   []ReturnItemCart `json:"allItems"`
+	TotalPrice float64          `json:"totalPrice"`
+}
+
+func getProductPicture(db *sql.DB, id_product string) string {
+	//global vars
+	var url string
+
+	//create the sql query
+	sqlQuery := ("SELECT picture.url FROM picture INNER JOIN product_picture ON product_picture.id_picture = picture.id INNER JOIN product ON product.id = product_picture.id_product WHERE product.id = " + id_product + ";")
+
+	err := db.QueryRow(sqlQuery).Scan(&url)
+	utils.CheckErr(err)
+
+	return url
+}
+
 //Get returns informations of the given product
 func Get(w http.ResponseWriter, r *http.Request) {
+	//retrieve the request url parameters
+	cart := r.URL.Query()["cart"]
+	allCart := []ItemCart{}
+	err := json.Unmarshal([]byte(cart[0]), &allCart)
+
+	if err != nil {
+		log.Println(err)
+	}
+
 	//set the cors headers
 	utils.SetCorsHeaders(&w)
-	db := utils.DbConnect()
 
+	db := utils.DbConnect()
 	//global vars
-	var name, picture, description string
+	var name, description string
+	var picture string
 	var id int
 	var price float64
+	var allItemCart []ReturnItemCart
+	var totalPrice float64
 
-	//execute the sql query and check errors
-	row := db.QueryRow("SELECT product.id, product.name, product.price, product.description, picture.url FROM product INNER JOIN product_picture ON product_picture.id = product.id INNER JOIN picture ON picture.id = product_picture.id WHERE product.is_alive = true AND product.pending_validation = false AND product.id = ? LIMIT 1", 1)
+	for _, item := range allCart {
+		//execute the sql query and check errors
+		err := db.QueryRow("SELECT product.id, name, price, description FROM product WHERE product.id = ?", item.Id).Scan(&id, &name, &price, &description)
+		if err != nil {
+			if err == sql.ErrNoRows {
+				log.Println("No rows were returned!")
+			} else {
+				log.Println(err)
+			}
+		}
 
-	//retrieve the values and check errors
-	err := row.Scan(&id, &name, &price, &description, &picture)
-	utils.CheckErr(err)
+		picture = getProductPicture(db, item.Id)
+
+		allItemCart = append(allItemCart, ReturnItemCart{
+			Id:          item.Id,
+			Name:        name,
+			Picture:     picture,
+			Description: description,
+			Price:       price,
+			Quantity:    item.Quantity,
+		})
+		totalPrice += price * float64(item.Quantity)
+	}
 
 	//create the json response
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(structures.Cart{
-		AllItems: []structures.CartItem{
-			{
-				Id_product:  id,
-				Name:        name,
-				Price:       price,
-				Description: description,
-				Picture:     picture,
-			},
-		},
+	json.NewEncoder(w).Encode(AllReturnCart{
+		AllItems:   allItemCart,
+		TotalPrice: totalPrice,
 	})
 }

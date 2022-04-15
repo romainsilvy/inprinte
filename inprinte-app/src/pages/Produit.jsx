@@ -9,6 +9,7 @@ import random from '../images/random.jpg'
 import btn_add from '../images/btn_add.svg'
 import like from '../images/like.svg'
 import bar2 from '../images/bar2.svg'
+import { addToCart } from '../scripts/test';
 import {useParams} from 'react-router-dom';
 
 function Produit() {
@@ -46,7 +47,7 @@ function Produit() {
                     <img className="bar2" src={bar2} alt="bar" />
                     <p>{state.items.product_data.description}</p>
                     <p>{state.items.product_data.price}€</p>
-                    <img className="btn_add" src={btn_add} alt="btn" />
+                    <img className="btn_add" src={btn_add} alt="btn" onClick={() => addToCart(id, 1)} />
                     <img className="like" src={like} alt="btn" />
                 </div>
             </div>

@@ -8,7 +8,6 @@ require (
 	github.com/fatih/color v1.13.0
 	github.com/go-sql-driver/mysql v1.6.0
 	github.com/gorilla/mux v1.8.0
-	github.com/gorilla/websocket v1.5.0
 	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
 )
 

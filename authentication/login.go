@@ -1,74 +1,103 @@
+//package authentication provides all the functionality needed to authenticate users
 package authentication
 
 import (
-	"database/sql"
 	"encoding/json"
-	authentication "inprinte/backend/structures"
+	"inprinte/backend/structures"
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-var jwtKey = []byte("my_secret_key")
-
+//Login is the function that handles the login request
 func Login(w http.ResponseWriter, r *http.Request) {
+	//set the cors headers
 	utils.SetCorsHeaders(&w)
 
-	var creds authentication.Credentials
+	if r.Method == "POST" {
+		//retrieve email and password
+		email, password := getCredentials(r)
+
+		//check the credentials
+		ok, id := checkCredentials(r, w, email, password)
+		if ok {
+			//create the token and send it to the client
+			tokJson := createToken(strconv.Itoa(id))
+			json.NewEncoder(w).Encode(tokJson)
+		} else {
+			//set the StatusUnauthorized header
+			w.WriteHeader(http.StatusUnauthorized)
+		}
+	}
+}
+
+//the secret key used to encrypt passwords
+var jwtKey = []byte(os.Getenv("JWT_KEY"))
+
+//getCredentials retrieve the user credentials passed in the request
+func getCredentials(r *http.Request) (string, string) {
+	//global vars
+	var creds structures.Credentials
+
 	// Get the JSON body and decode into credentials
 	err := json.NewDecoder(r.Body).Decode(&creds)
-	if err != nil {
-		// If the structure of the body is wrong, return an HTTP error
-		w.WriteHeader(http.StatusBadRequest)
-		return
-	}
+
+	//check error
+	utils.CheckErr(err)
+
+	//return the credentials
+	return creds.Email, creds.Password
+}
+
+//checkCredentials check if the user credentials are correct
+func checkCredentials(r *http.Request, w http.ResponseWriter, email, password string) (bool, int) {
+	//global vars
+	var id int
+	var hashedPassword string
 
 	//open the database connection
 	db := utils.DbConnect()
 
-	//global vars
-	var id int
-
-	//check if the user exists in the database and if the password is correct, if so return true
-	sqlQuerry := "SELECT id FROM user WHERE email = \"" + creds.Email + "\" AND password = \"" + utils.HashPassword(creds.Password) + "\";"
-	err = db.QueryRow(sqlQuerry).Scan(&id)
-	if err == sql.ErrNoRows {
-		w.WriteHeader(http.StatusUnauthorized)
-		return
-	} else if err != nil {
-		log.Fatal(err)
-	}
-
-	// Declare the expiration time of the token
-	// here, we have kept it as 5 minutes
-	expirationTime := time.Now().AddDate(0, 1, 0)
-	// Create the JWT claims, which includes the username and expiry time
-	claims := &authentication.Claims{
-		Id_user: id,
-		StandardClaims: jwt.StandardClaims{
-			// In JWT, the expiry time is expressed as unix milliseconds
-			ExpiresAt: expirationTime.Unix(),
-		},
-	}
-
-	// Declare the token with the algorithm used for signing, and the claims
-	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	// Create the JWT string
-	tokenString, err := token.SignedString(jwtKey)
+	//check if the user exists in the database and retrieve the hashed password
+	sqlQuerry := "SELECT id, password FROM user WHERE email = \"" + email + "\";"
+	err := db.QueryRow(sqlQuerry).Scan(&id, &hashedPassword)
 	if err != nil {
-		// If there is an error in creating the JWT return an internal server error
-		w.WriteHeader(http.StatusInternalServerError)
-		return
+		log.Fatal(err)
+		return false, 0
 	}
 
-	// Finally, we set the client cookie for "token" as the JWT we just generated
-	// we also set an expiry time which is the same as the token itself
-	http.SetCookie(w, &http.Cookie{
-		Name:    "token",
-		Value:   tokenString,
-		Expires: expirationTime,
-	})
+	//compare the hashed password with the password passed in the request
+	if utils.CheckPassword(password, hashedPassword) {
+		return true, id
+	} else {
+		return false, 0
+	}
+
+}
+
+//createToken creates a new jwt token and send it to the client
+func createToken(id_user string) structures.Token {
+	//create the token
+	tokenJson := jwt.New(jwt.SigningMethodHS256)
+	claimsJson := tokenJson.Claims.(jwt.MapClaims)
+
+	//set the token claims
+	claimsJson["id_user"] = id_user
+	claimsJson["exp"] = time.Now().Add(time.Hour * 72).Unix()
+
+	//sign the token
+	tokenStringJson, _ := tokenJson.SignedString(jwtKey)
+
+	//create the token object
+	tokJson := structures.Token{
+		Auth: tokenStringJson,
+	}
+
+	//return the token
+	return tokJson
 }

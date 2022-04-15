@@ -67,19 +67,11 @@ sudo docker run -d -p 8081:8080 inprinte-backend
 GET /
 ```
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `api_key` | `string` | **Required**. Your API key |
-
 #### Get shop informations
 
 ```http
 GET /boutique
 ```
-
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `string` | **Required**. Id of item to fetch |
 
 #### Get product informations
 

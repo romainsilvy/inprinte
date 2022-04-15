@@ -1,0 +1,92 @@
+.panier {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+}
+
+.titleCat1 {
+    display: grid;
+    grid-column: 5/9;
+    padding-bottom: 30px;
+    padding-top: 30px;
+    text-align: center;
+}
+
+.article1 {
+    background-color: #34333d;
+    grid-row: 2;
+    grid-column: 3/10;
+    margin-bottom: 20px;
+    border-radius: 20px;
+    height: 150px;
+    display: flex;
+}
+
+.infoArticle {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    margin-left: 40px;
+}
+
+.status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 400px;
+    padding-top: 60px;
+}
+
+.status .color {
+    color: #ff50d6;
+}
+
+.article2 {
+    background-color: #34333d;
+    display: grid;
+    grid-row: 3;
+    grid-column: 3/10;
+    border-radius: 20px;
+    height: 150px;
+    display: flex;
+}
+
+.picture {
+    float: left;
+    width: 25%;
+}
+
+.total {
+    display: flex;
+    flex-direction: column;
+}
+
+.infoTotal {
+    display: flex;
+    flex-direction: row;
+
+}
+
+.total2 {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    padding-top: 30px;
+    font-size: 20px;
+    margin-left: 60px;
+    margin-right: 90px;
+}
+
+.bar_panier {
+    width: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    margin: 40px 0px 0px 400px;
+}
+
+.add_panier {
+    width: 20%;
+    margin: 40px 90px 70px auto;
+}

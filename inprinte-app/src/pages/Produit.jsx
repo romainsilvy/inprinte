@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { Navbar } from '../components/Navbar';
 import { Footer } from '../components/Footer';
+import loading from '../images/loading.svg';
+
 import { ShopProduct } from '../components/ShopProduct';
 import "../styles/Produit.css"
 import random from '../images/random.jpg'
@@ -28,17 +30,22 @@ function Produit() {
             })
 
     }, [state.DataisLoaded]);
-    if (!state.DataisLoaded) return (<Navbar />)
+    if (!state.DataisLoaded) return (
+        <>
+            <Navbar />
+            <img className="loading" src={loading} alt="loading" />
+        </>
+    )
     return (
         <>
             <Navbar />
             <div className="containerProduit">
-                <img className="produitPicture" src={random} alt="image" />
+                <img className="produitPicture" src={state.items.product_data.picture} alt="image" />
                 <div className="infosProduit">
-                    <h1>Titre du produit</h1>
+                    <h1>{state.items.product_data.name}</h1>
                     <img className="bar2" src={bar2} alt="bar" />
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Iure magnam perferendis accusamus illo voluptatibus commodi quod quis nulla voluptates nisi? Saepe atque eum doloribus non ipsa maxime fugit culpa itaque.</p>
-                    <p>25,99€</p>
+                    <p>{state.items.product_data.description}</p>
+                    <p>{state.items.product_data.price}€</p>
                     <img className="btn_add" src={btn_add} alt="btn" />
                     <img className="like" src={like} alt="btn" />
                 </div>

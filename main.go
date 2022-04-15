@@ -15,6 +15,7 @@ import (
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/gorilla/mux"
+	"github.com/joho/godotenv"
 )
 
 //handleAccueil is the handle function for the accueil page
@@ -52,6 +53,12 @@ func handleAuthentication(router *mux.Router) {
 func main() {
 	//print the inprinte logo
 	utils.InprinteAscii()
+
+	//load the .env file
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
 
 	//create a new mux router
 	router := mux.NewRouter()

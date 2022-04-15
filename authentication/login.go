@@ -7,6 +7,7 @@ import (
 	"inprinte/backend/utils"
 	"log"
 	"net/http"
+	"os"
 	"strconv"
 	"time"
 
@@ -36,7 +37,7 @@ func Login(w http.ResponseWriter, r *http.Request) {
 }
 
 //the secret key used to encrypt passwords
-var jwtKey = []byte("my_secret_key")
+var jwtKey = []byte(os.Getenv("JWT_KEY"))
 
 //getCredentials retrieve the user credentials passed in the request
 func getCredentials(r *http.Request) (string, string) {

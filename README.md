@@ -61,7 +61,7 @@ docker build --tag inprinte-backoffice-frontend .
 Run the docker image specifying the port 
 
 ```bash
-sudo docker run -d -p 3001:3000 inprinte-backoffice-frontend
+sudo docker run -d -p 80:3000 inprinte-backoffice-frontend
 ```
 
 

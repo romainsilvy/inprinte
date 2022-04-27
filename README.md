@@ -39,6 +39,7 @@ Here are the related repositories
 
 ## Authors
 
+This project was realised thanks to
 - [@romainsilvy](https://github.com/romainsilvy)
 - [@Ayatooo](https://github.com/Ayatooo)
 - [@matteodinville](https://github.com/matteodinville)

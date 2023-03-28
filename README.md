@@ -32,7 +32,7 @@ You can access the website right [here](http://inprinte.fr)
 
 ## Demo
 
-You can see the website [here](http://inprinte.fr) and a demo of the the back-office [here](https://youtu.be/jXaH2UOTRHo)
+You can see the demo of the the back-office [here](https://youtu.be/jXaH2UOTRHo). You can run the project localy if you want to browse all the website
 
 
 ## Roadmap
